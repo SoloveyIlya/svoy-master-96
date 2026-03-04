@@ -2,7 +2,7 @@
 <header class="w-full bg-white border-b border-gray-100 hidden lg:block">
     <div class="max-w-[1400px] mx-auto px-4 py-3 flex items-center justify-between">
         <!-- Logo Placeholder -->
-        <a href="/" class="block">
+        <a href="{{ route('home') }}" class="block">
             <img src="{{ asset('images/logo.png') }}" alt="Свой Мастер" class="w-[187px] h-[72px] w-auto object-contain">
         </a>
 
