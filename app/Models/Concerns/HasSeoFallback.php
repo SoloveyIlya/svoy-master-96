@@ -65,7 +65,7 @@ trait HasSeoFallback
 
     public function resolvedPriceFrom(): ?string
     {
-        if (property_exists($this, 'price_from') || $this->getAttributes()['price_from'] ?? null) {
+        if (array_key_exists('price_from', $this->getAttributes())) {
             return $this->price_from ?? $this->service?->price_from;
         }
 

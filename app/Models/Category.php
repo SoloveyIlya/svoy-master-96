@@ -12,6 +12,11 @@ class Category extends Model
 
     protected $guarded = [];
 
+    protected $attributes = [
+        'status' => 'active',
+        'noindex' => false,
+    ];
+
     protected function casts(): array
     {
         return [

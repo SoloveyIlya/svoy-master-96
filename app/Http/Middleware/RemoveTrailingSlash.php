@@ -10,10 +10,12 @@ class RemoveTrailingSlash
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $uri = $request->getRequestUri();
+        $path = $request->getPathInfo();
 
-        if ($uri !== '/' && str_ends_with($uri, '/')) {
-            $cleanUri = rtrim($uri, '/');
+        if ($path !== '/' && str_ends_with($path, '/')) {
+            $cleanPath = rtrim($path, '/');
+            $query = $request->getQueryString();
+            $cleanUri = $query ? $cleanPath . '?' . $query : $cleanPath;
 
             return redirect($cleanUri, 301);
         }

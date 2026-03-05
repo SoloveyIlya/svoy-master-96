@@ -3,7 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\LeadCreated;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -22,24 +21,43 @@ class SendTelegramNotification
 
         $lead = $event->lead;
 
+        $name = $this->escape($lead->name ?: '—');
+        $phone = $lead->phone;
+        $comment = $this->escape($lead->comment ?: '—');
+        $pageUrl = $this->escape($lead->page_url);
+        $date = $lead->created_at->format('d.m.Y H:i');
+
         $lines = [
-            "📞 *Новая заявка!*",
+            "📞 *Новая заявка\\!*",
             "",
-            "Имя: " . ($lead->name ?: '—'),
-            "Телефон: `{$lead->phone}`",
-            "Комментарий: " . ($lead->comment ?: '—'),
-            "Страница: {$lead->page_url}",
-            "Дата: {$lead->created_at->format('d.m.Y H:i')}",
+            "Имя: {$name}",
+            "Телефон: `{$phone}`",
+            "Комментарий: {$comment}",
+            "Страница: {$pageUrl}",
+            "Дата: {$date}",
         ];
 
         try {
-            Http::post("https://api.telegram.org/bot{$token}/sendMessage", [
+            $response = Http::post("https://api.telegram.org/bot{$token}/sendMessage", [
                 'chat_id' => $chatId,
                 'text' => implode("\n", $lines),
-                'parse_mode' => 'Markdown',
+                'parse_mode' => 'MarkdownV2',
             ]);
+
+            if ($response->failed()) {
+                Log::error('Telegram notification failed: ' . $response->body());
+            }
         } catch (\Throwable $e) {
-            Log::error('Telegram notification failed: ' . $e->getMessage());
+            Log::error('Telegram notification exception: ' . $e->getMessage());
         }
+    }
+
+    private function escape(string $text): string
+    {
+        return str_replace(
+            ['_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'],
+            ['\\_', '\\*', '\\[', '\\]', '\\(', '\\)', '\\~', '\\`', '\\>', '\\#', '\\+', '\\-', '\\=', '\\|', '\\{', '\\}', '\\.', '\\!'],
+            $text,
+        );
     }
 }

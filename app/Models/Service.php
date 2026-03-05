@@ -12,6 +12,10 @@ class Service extends Model
 
     protected $guarded = [];
 
+    protected $attributes = [
+        'status' => 'active',
+    ];
+
     protected function casts(): array
     {
         return [

@@ -13,6 +13,14 @@ Route::post('/leads', [LeadController::class, 'store'])
     ->middleware('throttle:leads');
 
 Route::prefix('services')->group(function () {
+    // Specific routes with literal "service" segment FIRST
+    Route::get('/{category:slug}/service/{service:slug}', [CatalogController::class, 'categoryService'])
+        ->name('catalog.category-service');
+
+    Route::get('/{category:slug}/{brand:slug}/service/{service:slug}', [CatalogController::class, 'brandService'])
+        ->name('catalog.brand-service');
+
+    // Generic parameter routes AFTER
     Route::get('/{category:slug}', [CatalogController::class, 'category'])
         ->name('catalog.category');
 
@@ -20,14 +28,7 @@ Route::prefix('services')->group(function () {
         ->name('catalog.brand');
 
     Route::get('/{category:slug}/{brand:slug}/{model:slug}', [CatalogController::class, 'model'])
-        ->name('catalog.model')
-        ->where('model', '[a-z0-9\-]+');
-
-    Route::get('/{category:slug}/service/{service:slug}', [CatalogController::class, 'categoryService'])
-        ->name('catalog.category-service');
-
-    Route::get('/{category:slug}/{brand:slug}/service/{service:slug}', [CatalogController::class, 'brandService'])
-        ->name('catalog.brand-service');
+        ->name('catalog.model');
 
     Route::get('/{category:slug}/{brand:slug}/{model:slug}/{service:slug}', [CatalogController::class, 'landing'])
         ->name('catalog.landing');

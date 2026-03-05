@@ -12,6 +12,10 @@ class Lead extends Model
 
     protected $guarded = [];
 
+    protected $attributes = [
+        'status' => 'new',
+    ];
+
     public function landingPage(): BelongsTo
     {
         return $this->belongsTo(LandingPage::class);

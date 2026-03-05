@@ -13,12 +13,11 @@ class CatalogController extends Controller
 {
     public function category(Category $category)
     {
-        $brands = $category->deviceModels()
-            ->with('brand')
-            ->get()
-            ->pluck('brand')
-            ->unique('id')
-            ->values();
+        abort_unless($category->status === 'active', 404);
+
+        $brands = Brand::whereHas('deviceModels', function ($q) use ($category) {
+            $q->where('category_id', $category->id)->where('status', 'active');
+        })->where('status', 'active')->get();
 
         $services = ServiceScope::forCategory($category->id)
             ->where('status', 'active')
@@ -32,6 +31,15 @@ class CatalogController extends Controller
 
     public function brand(Category $category, Brand $brand)
     {
+        abort_unless($category->status === 'active' && $brand->status === 'active', 404);
+
+        $hasModelsInCategory = DeviceModel::where('category_id', $category->id)
+            ->where('brand_id', $brand->id)
+            ->where('status', 'active')
+            ->exists();
+
+        abort_unless($hasModelsInCategory, 404);
+
         $models = DeviceModel::where('category_id', $category->id)
             ->where('brand_id', $brand->id)
             ->where('status', 'active')
@@ -49,6 +57,12 @@ class CatalogController extends Controller
 
     public function model(Category $category, Brand $brand, DeviceModel $model)
     {
+        abort_unless(
+            $model->category_id === $category->id && $model->brand_id === $brand->id,
+            404,
+        );
+        abort_unless($model->status === 'active', 404);
+
         $landingPages = LandingPage::where('model_id', $model->id)
             ->where('status', 'active')
             ->with('service')
@@ -61,6 +75,7 @@ class CatalogController extends Controller
     {
         $scope = ServiceScope::forCategory($category->id)
             ->where('service_id', $service->id)
+            ->where('status', 'active')
             ->firstOrFail();
 
         $seo = $scope->getSeoData();
@@ -70,8 +85,16 @@ class CatalogController extends Controller
 
     public function brandService(Category $category, Brand $brand, Service $service)
     {
+        abort_unless(
+            DeviceModel::where('category_id', $category->id)
+                ->where('brand_id', $brand->id)
+                ->exists(),
+            404,
+        );
+
         $scope = ServiceScope::forBrand($brand->id)
             ->where('service_id', $service->id)
+            ->where('status', 'active')
             ->firstOrFail();
 
         $seo = $scope->getSeoData();
@@ -81,6 +104,11 @@ class CatalogController extends Controller
 
     public function landing(Category $category, Brand $brand, DeviceModel $model, Service $service)
     {
+        abort_unless(
+            $model->category_id === $category->id && $model->brand_id === $brand->id,
+            404,
+        );
+
         $landing = LandingPage::where('model_id', $model->id)
             ->where('service_id', $service->id)
             ->where('status', 'active')
