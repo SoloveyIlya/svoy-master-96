@@ -1,9 +1,9 @@
 <!-- HEADER (Top Info Bar) -->
 <header class="w-full bg-white border-b border-gray-100 hidden lg:block">
-    <div class="max-w-[1400px] mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="max-w-[87.5rem] mx-auto px-4 py-3 flex items-center justify-between">
         <!-- Logo Placeholder -->
         <a href="{{ route('home') }}" class="block">
-            <img src="{{ asset('images/logo.png') }}" alt="Свой Мастер" class="w-[187px] h-[72px] w-auto object-contain">
+            <img src="{{ asset('images/logo.png') }}" alt="Свой Мастер" class="w-[11.6875rem] h-[4.5rem] w-auto object-contain">
         </a>
 
         <!-- Info Blocks -->

@@ -16,16 +16,8 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700" rel="stylesheet" />
 
-    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @else
-        <script src="https://cdn.tailwindcss.com"></script>
-    @endif
-
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        @stack('styles')
-    </style>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('styles')
 </head>
 <body class="bg-white text-gray-800 antialiased overflow-x-hidden">
 
@@ -33,21 +25,21 @@
 
     {{-- NAVIGATION MENU --}}
     <nav class="w-full bg-[#0678A8] text-white shadow-md relative z-20">
-        <div class="max-w-[1400px] mx-auto px-4 flex items-center justify-between lg:justify-start lg:gap-12 py-3.5 text-[15px] font-medium">
-            <a href="/services/remont-apple" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
-                Ремонт Apple <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </a>
-            <a href="/services/remont-telefonov" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
+        <div class="max-w-[87.5rem] mx-auto px-4 flex items-center justify-between lg:justify-start lg:gap-12 py-3.5 text-[0.9375rem] font-medium">
+            <a href="/services/phones" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
                 Ремонт телефонов <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </a>
-            <a href="/services/remont-noutbukov" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
+            <a href="/services/phones/apple" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
+                Ремонт Apple <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </a>
+            <a href="/services/phones/samsung" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
+                Ремонт Samsung <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </a>
+            <a href="/services/laptops" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
                 Ремонт ноутбуков <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </a>
-            <a href="/services/remont-planshetov" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
-                Ремонт планшетов <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </a>
-            <a href="/services/remont-drugikh-ustroystv" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
-                Ремонт других устройств <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            <a href="/services/phones/xiaomi" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
+                Ремонт Xiaomi <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </a>
         </div>
     </nav>

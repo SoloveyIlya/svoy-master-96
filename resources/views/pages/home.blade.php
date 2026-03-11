@@ -2,25 +2,13 @@
 
 @section('title', 'Свой Мастер - Ремонт цифровой техники')
 
-@push('styles')
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    .slider-item {
-        transform: scale(0.95);
-        opacity: 0.5;
-    }
-    .slider-item.active {
-        transform: scale(1);
-        opacity: 1;
-    }
-@endpush
 
 @section('content')
 
     {{-- HERO SECTION --}}
-    <section class="max-w-[1400px] mx-auto px-4 pt-16 pb-20 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative overflow-hidden">
+    <section class="max-w-[87.5rem] mx-auto px-4 pt-16 pb-20 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative overflow-hidden">
         <div class="relative z-10">
-            <h1 class="text-4xl lg:text-[46px] font-bold leading-[1.2] mb-10 text-[#1A1A1A]">
+            <h1 class="text-4xl lg:text-[2.875rem] font-bold leading-[1.2] mb-10 text-[#1A1A1A]">
                 <span class="text-[#2AC0D5]">Профессиональный ремонт</span><br>
                 техники - в Екатеринбурге от 450 рублей
             </h1>
@@ -75,12 +63,12 @@
 
         <div class="relative z-0 flex justify-center lg:justify-end">
             <div class="absolute inset-0 bg-gradient-to-r from-white to-cyan-50 opacity-50 blur-3xl z-0"></div>
-            <img src="{{ asset('images/iphonelogo.svg') }}" alt="Phone Render" class="relative z-10 max-h-[600px] object-contain drop-shadow-2xl rounded-3xl mix-blend-multiply" />
+            <img src="{{ asset('images/iphonelogo.svg') }}" alt="Phone Render" class="relative z-10 max-h-[37.5rem] object-contain drop-shadow-2xl rounded-3xl mix-blend-multiply" />
         </div>
     </section>
 
     {{-- 4 BENEFITS SECTION --}}
-    <section class="max-w-[1400px] mx-auto px-4 py-16 border-t border-gray-100">
+    <section class="max-w-[87.5rem] mx-auto px-4 py-16 border-t border-gray-100">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-center">
             <div class="flex flex-col items-center">
                 <svg class="w-12 h-12 text-[#0678A8] mb-4" fill="currentColor" viewBox="0 0 60 60">
@@ -113,7 +101,7 @@
             <div id="slider-track" class="flex gap-4 md:gap-6 will-change-transform">
 
                 {{-- SLIDE 1 --}}
-                <div class="slider-item w-[85%] md:w-[70%] lg:w-[60%] flex-shrink-0 relative rounded-[32px] overflow-hidden h-[300px] md:h-[340px] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] flex items-center shadow-lg">
+                <div class="slider-item w-[85%] md:w-[70%] lg:w-[60%] flex-shrink-0 relative rounded-[2rem] overflow-hidden h-[18.75rem] md:h-[21.25rem] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] flex items-center shadow-lg">
                     <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
                     <div class="relative z-10 w-full flex flex-col md:flex-row items-center justify-between px-6 md:px-12 h-full">
                         <div class="md:w-3/5 flex flex-col justify-center items-start h-full py-8">
@@ -129,7 +117,7 @@
                 </div>
 
                 {{-- SLIDE 2 --}}
-                <div class="slider-item w-[85%] md:w-[70%] lg:w-[60%] flex-shrink-0 relative rounded-[32px] overflow-hidden h-[300px] md:h-[340px] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] flex items-center shadow-lg">
+                <div class="slider-item w-[85%] md:w-[70%] lg:w-[60%] flex-shrink-0 relative rounded-[2rem] overflow-hidden h-[18.75rem] md:h-[21.25rem] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] flex items-center shadow-lg">
                     <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
                     <div class="relative z-10 w-full flex flex-col md:flex-row items-center justify-between px-6 md:px-12 h-full">
                         <div class="md:w-3/5 flex flex-col justify-center items-start h-full py-8">
@@ -145,7 +133,7 @@
                 </div>
 
                 {{-- SLIDE 3 --}}
-                <div class="slider-item w-[85%] md:w-[70%] lg:w-[60%] flex-shrink-0 relative rounded-[32px] overflow-hidden h-[300px] md:h-[340px] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] flex items-center shadow-lg">
+                <div class="slider-item w-[85%] md:w-[70%] lg:w-[60%] flex-shrink-0 relative rounded-[2rem] overflow-hidden h-[18.75rem] md:h-[21.25rem] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] flex items-center shadow-lg">
                     <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
                     <div class="relative z-10 w-full flex flex-col md:flex-row items-center justify-between px-6 md:px-12 h-full">
                         <div class="md:w-3/5 flex flex-col justify-center items-start h-full py-8">
@@ -171,47 +159,47 @@
     </section>
 
     {{-- CATEGORIES GRID SECTION --}}
-    <section class="max-w-[1400px] mx-auto px-4 py-16">
+    <section class="max-w-[87.5rem] mx-auto px-4 py-16">
         <h2 class="text-3xl lg:text-4xl font-bold text-center mb-12 text-[#1A1A1A]">
             Узнайте цену на ремонт, выбрав<br>Ваше устройство
         </h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <a href="/services/remont-apple" class="block relative h-[320px] rounded-[32px] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
+            <a href="/services/phones/apple" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт Apple</span>
                 <img src="{{ asset('images/iphone.svg') }}" alt="Apple" class="absolute bottom-[-8%] right-[0%] w-[90%] object-contain group-hover:scale-110 transition duration-500" />
             </a>
 
-            <a href="/services/remont-telefonov" class="block relative h-[320px] rounded-[32px] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
-                <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт телефонов</span>
-                <img src="{{ asset('images/android.svg') }}" alt="Phones" class="absolute bottom-[-7%] right-[0%] w-[90%] object-contain group-hover:scale-110 transition duration-500" />
+            <a href="/services/phones/samsung" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
+                <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт Samsung</span>
+                <img src="{{ asset('images/android.svg') }}" alt="Samsung" class="absolute bottom-[-7%] right-[0%] w-[90%] object-contain group-hover:scale-110 transition duration-500" />
             </a>
 
-            <a href="/services/remont-noutbukov" class="block relative h-[320px] rounded-[32px] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
+            <a href="/services/laptops" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт ноутбуков</span>
                 <img src="{{ asset('images/laptop.svg') }}" alt="Laptops" class="absolute bottom-[0%] right-[-1%] w-[95%] object-contain group-hover:scale-110 transition duration-500" />
             </a>
 
-            <a href="/services/remont-planshetov" class="block relative h-[320px] rounded-[32px] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
-                <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт планшетов</span>
-                <img src="{{ asset('images/tablet.svg') }}" alt="Tablets" class="absolute bottom-[-10%] left-[0%] w-[110%] object-contain group-hover:scale-110 transition duration-500" />
+            <a href="/services/phones/xiaomi" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
+                <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт Xiaomi</span>
+                <img src="{{ asset('images/tablet.svg') }}" alt="Xiaomi" class="absolute bottom-[-10%] left-[0%] w-[110%] object-contain group-hover:scale-110 transition duration-500" />
             </a>
 
-            <a href="/services/remont-smart-chasov" class="block relative h-[320px] rounded-[32px] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
-                <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт смарт часов</span>
-                <img src="{{ asset('images/watch.svg') }}" alt="Watches" class="absolute bottom-0 right-[-0%] w-[90%] object-contain group-hover:scale-110 transition duration-500" />
+            <a href="/services/phones" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
+                <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Все телефоны</span>
+                <img src="{{ asset('images/watch.svg') }}" alt="Phones" class="absolute bottom-0 right-[-0%] w-[90%] object-contain group-hover:scale-110 transition duration-500" />
             </a>
 
-            <a href="/services/remont-drugikh-ustroystv" class="flex items-center justify-center relative h-[320px] rounded-[32px] border-2 border-[#2AC0D5] bg-white group shadow-sm hover:bg-cyan-50 transition duration-300">
-                <span class="text-[#0678A8] font-bold text-2xl text-center px-8">Смотреть все<br>категории</span>
+            <a href="/services/laptops/apple" class="flex items-center justify-center relative h-[20rem] rounded-[2rem] border-2 border-[#2AC0D5] bg-white group shadow-sm hover:bg-cyan-50 transition duration-300">
+                <span class="text-[#0678A8] font-bold text-2xl text-center px-8">Ремонт<br>Apple MacBook</span>
             </a>
 
         </div>
     </section>
 
     {{-- FREE CONSULTATION CALLOUT --}}
-    <section class="max-w-[1400px] mx-auto px-4 py-12 text-center">
+    <section class="max-w-[87.5rem] mx-auto px-4 py-12 text-center">
         <h2 class="text-3xl font-bold text-[#1A1A1A]">
             Бесплатная консультация <span class="text-[#0678A8]">за 1 минуту</span>
         </h2>
