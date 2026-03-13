@@ -5,14 +5,14 @@
 @section('content')
 
     {{-- HERO SECTION --}}
-    <section class="max-w-[87.5rem] mx-auto px-4 pt-10 pb-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative overflow-hidden">
+    <section class="max-w-[87.5rem] mx-auto px-4 pt-8 sm:pt-10 pb-12 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative overflow-hidden">
         <div class="relative z-10">
-            <h1 class="text-4xl lg:text-[2.875rem] font-bold leading-[1.2] mb-10 text-[#1A1A1A]">
+            <h1 class="text-3xl sm:text-4xl lg:text-[2.875rem] font-bold leading-[1.2] mb-8 sm:mb-10 text-[#1A1A1A]">
                 <span class="text-[#2AC0D5]">Профессиональный ремонт</span><br>
                 техники - в Екатеринбурге от 450 рублей
             </h1>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-8 gap-x-4 mb-12">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-6 sm:gap-y-8 gap-x-4 mb-10 sm:mb-12">
                 <div class="flex items-start gap-4">
                     <svg class="w-8 h-8 text-[#0678A8] flex-shrink-0" fill="currentColor" viewBox="0 0 60 60">
                         <path d="M31.25 17.25C35.7 17.25 37.35 19.375 37.5 22.5H43.025C42.85 18.2 40.225 14.25 35 12.975V7.5H27.5V12.9C26.525 13.1 25.625 13.425 24.75 13.8L28.525 17.575C29.325 17.375 30.25 17.25 31.25 17.25ZM13.675 9.8L10.15 13.325L18.75 21.925C18.75 27.125 22.65 29.975 28.525 31.7L37.3 40.475C36.45 41.7 34.675 42.75 31.25 42.75C26.1 42.75 24.075 40.45 23.8 37.5H18.3C18.6 42.975 22.7 46.05 27.5 47.075V52.5H35V47.125C37.4 46.675 39.575 45.75 41.15 44.325L46.7 49.875L50.225 46.35L13.675 9.8Z"/>
@@ -47,11 +47,11 @@
                 </div>
             </div>
 
-            <div class="flex flex-wrap items-center gap-4">
-                <button class="bg-[#2AC0D5] hover:bg-[#0678A8] text-white font-medium py-3 px-8 rounded-[2rem] transition shadow-md">
+            <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+                <button class="w-full sm:w-auto bg-[#2AC0D5] hover:bg-[#0678A8] text-white font-medium py-3 px-6 sm:px-8 rounded-[2rem] transition shadow-md">
                     Узнать цену ремонта бесплатно
                 </button>
-                <button class="border-2 border-[#2AC0D5] text-[#2AC0D5] hover:bg-[#2AC0D5] hover:text-white font-medium py-3 px-8 rounded-[2rem] transition">
+                <button class="w-full sm:w-auto border-2 border-[#2AC0D5] text-[#2AC0D5] hover:bg-[#2AC0D5] hover:text-white font-medium py-3 px-6 sm:px-8 rounded-[2rem] transition">
                     Вызвать курьера
                 </button>
             </div>
@@ -70,14 +70,14 @@
             <div id="slider-track" class="flex gap-4 md:gap-6 will-change-transform px-4 md:px-[10%]">
                 
                 {{-- SLIDE 1 --}}
-                <div class="slider-item w-[90%] md:w-[85%] lg:w-[60rem] flex-shrink-0 relative rounded-[2rem] overflow-hidden h-[18rem] md:h-[22rem] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] shadow-lg flex">
+                <div class="slider-item w-[92%] sm:w-[88%] md:w-[85%] lg:w-[60rem] flex-shrink-0 relative rounded-[2rem] overflow-hidden h-[16.5rem] sm:h-[18rem] md:h-[22rem] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] shadow-lg flex">
                     
                     {{-- Паттерн фона --}}
                     <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay pointer-events-none z-0"></div>
                     
                     {{-- ЛЕВАЯ КОЛОНКА: Текст (занимает 60% ширины) --}}
-                    <div class="relative z-10 w-[60%] h-full flex flex-col justify-center items-start pl-8 md:pl-16">
-                        <h2 class="text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight mb-6 tracking-tight">
+                    <div class="relative z-10 w-full md:w-[60%] h-full flex flex-col justify-center items-start px-6 sm:px-8 md:pl-16">
+                        <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight mb-6 tracking-tight">
                             <span class="text-[#FFD12A]">-10%</span> на работу мастера<br>
                             Каждому клиенту за отзыв<br>
                             промо код "Спасибо Мастер"
@@ -96,11 +96,11 @@
                 </div>
 
                 {{-- SLIDE 2 --}}
-                <div class="slider-item w-[90%] md:w-[85%] lg:w-[60rem] flex-shrink-0 relative rounded-[2rem] overflow-hidden h-[18rem] md:h-[22rem] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] shadow-lg flex">
+                <div class="slider-item w-[92%] sm:w-[88%] md:w-[85%] lg:w-[60rem] flex-shrink-0 relative rounded-[2rem] overflow-hidden h-[16.5rem] sm:h-[18rem] md:h-[22rem] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] shadow-lg flex">
                     <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay pointer-events-none z-0"></div>
                     
-                    <div class="relative z-10 w-[60%] h-full flex flex-col justify-center items-start pl-8 md:pl-16">
-                        <h2 class="text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight mb-6 tracking-tight">
+                    <div class="relative z-10 w-full md:w-[60%] h-full flex flex-col justify-center items-start px-6 sm:px-8 md:pl-16">
+                        <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight mb-6 tracking-tight">
                             <span class="text-[#FFD12A]">-15%</span> при заказе ремонта<br>
                             двух устройств сразу
                         </h2>
@@ -115,11 +115,11 @@
                 </div>
 
                 {{-- SLIDE 3 --}}
-                <div class="slider-item w-[90%] md:w-[85%] lg:w-[60rem] flex-shrink-0 relative rounded-[2rem] overflow-hidden h-[18rem] md:h-[22rem] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] shadow-lg flex">
+                <div class="slider-item w-[92%] sm:w-[88%] md:w-[85%] lg:w-[60rem] flex-shrink-0 relative rounded-[2rem] overflow-hidden h-[16.5rem] sm:h-[18rem] md:h-[22rem] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] shadow-lg flex">
                     <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay pointer-events-none z-0"></div>
                     
-                    <div class="relative z-10 w-[60%] h-full flex flex-col justify-center items-start pl-8 md:pl-16">
-                        <h2 class="text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight mb-6 tracking-tight">
+                    <div class="relative z-10 w-full md:w-[60%] h-full flex flex-col justify-center items-start px-6 sm:px-8 md:pl-16">
+                        <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight mb-6 tracking-tight">
                             <span class="text-[#FFD12A]">Бесплатное</span> защитное<br>
                             стекло при замене дисплея
                         </h2>
@@ -146,7 +146,7 @@
     {{-- ТРОУБЛШУТИНГ (ЧТО СЛУЧИЛОСЬ?) --}}
     <section class="max-w-[87.5rem] mx-auto px-4 py-16">
         <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold mb-3 text-[#1A1A1A]">Что случилось?</h2>
+            <h2 class="text-2xl sm:text-3xl font-bold mb-3 text-[#1A1A1A]">Что случилось?</h2>
             <p class="text-gray-500">Выберите проблему — подскажем решение и примерную стоимость</p>
         </div>
 
@@ -165,7 +165,7 @@
             @endphp
 
             @foreach($issues as $issue)
-            <div class="border border-gray-200 rounded-[1rem] p-6 hover:shadow-lg hover:border-[#2AC0D5] transition cursor-pointer bg-white">
+            <div class="border border-gray-200 rounded-[1rem] p-4 sm:p-6 hover:shadow-lg hover:border-[#2AC0D5] transition cursor-pointer bg-white">
                 <h3 class="font-bold text-[#1A1A1A] mb-1">{{ $issue['title'] }}</h3>
                 <p class="text-sm text-gray-500">{{ $issue['desc'] }}</p>
             </div>
@@ -197,7 +197,7 @@
 
                 <!-- 3. Блок текста: ему нужно вернуть нижний отступ, иначе он упадет на пол -->
                 <div class="relative z-10 md:w-2/3 md:pl-16 text-white py-12 self-center">
-                <h2 class="text-3xl lg:text-4xl font-bold mb-4">Замена стекла</h2>
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">Замена стекла</h2>
                 <p class="text-white/80 mb-8 max-w-2xl leading-relaxed">
                     Если изображение и сенсор работают — часто можно заменить только стекло, без замены всего дисплейного модуля. Это выгоднее и аккуратнее для устройства.
                 </p>
@@ -239,33 +239,33 @@
 
     {{-- КАТЕГОРИИ РЕМОНТА (Без выделения Apple) --}}
     <section class="max-w-[87.5rem] mx-auto px-4 py-16">
-        <h2 class="text-3xl lg:text-4xl font-bold text-center mb-12 text-[#1A1A1A]">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-10 sm:mb-12 text-[#1A1A1A]">
             Узнайте цену на ремонт, выбрав<br>Ваше устройство
         </h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
-                <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт телефонов</span>
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
+                <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт телефонов</span>
                 <img src="{{ asset('images/android.svg') }}" alt="Телефоны" class="absolute bottom-[-5%] right-[0%] w-[80%] object-contain group-hover:scale-105 transition duration-500" />
             </a>
 
-            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-noutbukov']) }}" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
-                <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт ноутбуков</span>
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-noutbukov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
+                <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт ноутбуков</span>
                 <img src="{{ asset('images/laptop.svg') }}" alt="Ноутбуки" class="absolute bottom-[2%] right-[-5%] w-[90%] object-contain group-hover:scale-105 transition duration-500" />
             </a>
 
-            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-planshetov']) }}" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
-                <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт планшетов</span>
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-planshetov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
+                <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт планшетов</span>
                 <img src="{{ asset('images/tablet.svg') }}" alt="Планшеты" class="absolute bottom-[-5%] left-[10%] w-[90%] object-contain group-hover:scale-105 transition duration-500" />
             </a>
 
-            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-smart-chasov']) }}" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
-                <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт смарт-часов</span>
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-smart-chasov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
+                <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт смарт-часов</span>
                 <img src="{{ asset('images/watch.svg') }}" alt="Смарт-часы" class="absolute bottom-0 right-0 w-[85%] object-contain group-hover:scale-105 transition duration-500" />
             </a>
 
-            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="flex items-center justify-center relative h-[20rem] rounded-[2rem] border-2 border-[#2AC0D5] bg-white group shadow-sm hover:bg-cyan-50 transition duration-300">
-                <span class="text-[#0678A8] font-bold text-2xl text-center px-8 group-hover:scale-105 transition duration-300">Смотреть все<br>категории</span>
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="flex items-center justify-center relative h-[16rem] sm:h-[20rem] rounded-[2rem] border-2 border-[#2AC0D5] bg-white group shadow-sm hover:bg-cyan-50 transition duration-300">
+                <span class="text-[#0678A8] font-bold text-xl sm:text-2xl text-center px-6 sm:px-8 group-hover:scale-105 transition duration-300">Смотреть все<br>категории</span>
             </a>
         </div>
     </section>
@@ -287,7 +287,7 @@
 
     {{-- ПОЧЕМУ ВЫБИРАЮТ НАС --}}
     <section class="max-w-[87.5rem] mx-auto px-4 py-16 border-t border-gray-100">
-        <h2 class="text-3xl lg:text-4xl font-bold mb-12 text-[#1A1A1A]">Почему выбирают нас</h2>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-10 sm:mb-12 text-[#1A1A1A]">Почему выбирают нас</h2>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
@@ -325,7 +325,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 {{-- О компании --}}
                 <div>
-                    <h2 class="text-3xl font-bold mb-6 text-[#1A1A1A]">Информация о компании</h2>
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-[#1A1A1A]">Информация о компании</h2>
                     <p class="text-gray-600 mb-4 leading-relaxed">
                         Сервисный центр «Свой Мастер» специализируется на компонентном и модульном ремонте цифровой техники любой сложности. Мы ответственно подходим к каждому заказу, обеспечивая надежный результат.
                     </p>
@@ -336,8 +336,8 @@
 
                 {{-- Сотрудники --}}
                 <div>
-                    <h2 class="text-3xl font-bold mb-6 text-[#1A1A1A]">Наши специалисты</h2>
-                    <div class="grid grid-cols-2 gap-6">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-[#1A1A1A]">Наши специалисты</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div class="bg-white p-4 rounded-[1rem] shadow-sm text-center">
                             <img src="{{ asset('images/man.png') }}" alt="Мастер Иван" class="w-24 h-24 rounded-full mx-auto mb-3 object-cover bg-gray-200">
                             <h4 class="font-bold text-[#1A1A1A]">Иван С.</h4>
@@ -356,7 +356,7 @@
 
     {{-- ЭТАПЫ РАБОТ --}}
     <section class="max-w-[87.5rem] mx-auto px-4 py-16">
-        <h2 class="text-3xl font-bold text-center mb-12 text-[#1A1A1A]">Алгоритм работы</h2>
+        <h2 class="text-2xl sm:text-3xl font-bold text-center mb-10 sm:mb-12 text-[#1A1A1A]">Алгоритм работы</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center relative">
             <div class="hidden lg:block absolute top-[2.5rem] left-[10%] w-[80%] h-[2px] bg-gray-200 -z-10"></div>
             
@@ -385,7 +385,7 @@
 
     {{-- ОТЗЫВЫ (Слайдер из БД) --}}
     <section class="max-w-[87.5rem] mx-auto px-4 py-16 bg-gray-50 rounded-[2rem] mb-16">
-        <h2 class="text-3xl lg:text-4xl font-bold text-center mb-10 text-[#1A1A1A]">Отзывы наших клиентов</h2>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-10 text-[#1A1A1A]">Отзывы наших клиентов</h2>
         
         <div class="relative overflow-hidden" id="reviews-slider">
             <div class="flex transition-transform duration-500 ease-in-out" id="reviews-track">
@@ -433,14 +433,14 @@
             </div>
             
             {{-- Кнопки управления отзывами --}}
-            <button onclick="prevReview()" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full w-10 h-10 flex items-center justify-center text-[#0678A8] hover:bg-[#2AC0D5] hover:text-white transition">←</button>
-            <button onclick="nextReview()" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full w-10 h-10 flex items-center justify-center text-[#0678A8] hover:bg-[#2AC0D5] hover:text-white transition">→</button>
+            <button onclick="prevReview()" class="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full w-10 h-10 items-center justify-center text-[#0678A8] hover:bg-[#2AC0D5] hover:text-white transition">←</button>
+            <button onclick="nextReview()" class="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full w-10 h-10 items-center justify-center text-[#0678A8] hover:bg-[#2AC0D5] hover:text-white transition">→</button>
         </div>
     </section>
 
     {{-- FAQ (Аккордеон) --}}
     <section class="max-w-3xl mx-auto px-4 pb-16">
-        <h2 class="text-3xl font-bold text-center mb-10 text-[#1A1A1A]">Часто задаваемые вопросы</h2>
+        <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-[#1A1A1A]">Часто задаваемые вопросы</h2>
         
         <div class="space-y-4">
             <div class="border border-gray-200 rounded-[1rem] overflow-hidden bg-white">
@@ -487,11 +487,11 @@
 
     {{-- КОНТАКТЫ (Блок с формой из макета) --}}
     <section class="max-w-[87.5rem] mx-auto px-4 pb-20">
-        <div class="bg-[#0678A8] rounded-[2rem] p-8 md:p-12 text-white grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative overflow-hidden">
+        <div class="bg-[#0678A8] rounded-[2rem] p-5 sm:p-8 md:p-12 text-white grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center relative overflow-hidden">
             <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay z-0"></div>
             
             <div class="relative z-10">
-                <h2 class="text-3xl font-bold mb-8">Контакты</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8">Контакты</h2>
                 <div class="space-y-4 mb-8">
                     <p class="flex items-center gap-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg> +7 (343) 226-46-22</p>
                     <p class="flex items-center gap-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> remont@svoymaster96.ru</p>
@@ -503,7 +503,7 @@
                 </div>
             </div>
 
-            <div class="relative z-10 bg-white/10 p-8 rounded-[1rem] backdrop-blur-sm">
+            <div class="relative z-10 bg-white/10 p-5 sm:p-8 rounded-[1rem] backdrop-blur-sm">
                 <h3 class="text-xl font-bold mb-6 text-center">Оставьте заявку на бесплатную диагностику</h3>
                 <form action="#" method="POST" class="space-y-4">
                     @csrf

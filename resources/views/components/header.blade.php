@@ -1,6 +1,15 @@
 <!-- HEADER (Top Info Bar) -->
-<header class="w-full bg-white border-b border-gray-100 hidden lg:block">
-    <div class="max-w-[87.5rem] mx-auto px-4 py-3 flex items-center justify-between">
+<header class="w-full bg-white border-b border-gray-100">
+    <div class="max-w-[87.5rem] mx-auto px-4 py-3 flex items-center justify-between lg:hidden">
+        <a href="{{ route('home') }}" class="block">
+            <img src="{{ asset('images/logo.png') }}" alt="Свой Мастер" class="h-12 w-auto object-contain">
+        </a>
+        <a href="tel:+73432264622" class="text-sm font-semibold text-[#0678A8]">
+            +7 (343) 226-46-22
+        </a>
+    </div>
+
+    <div class="max-w-[87.5rem] mx-auto px-4 py-3 hidden lg:flex items-center justify-between">
         <!-- Logo Placeholder -->
         <a href="{{ route('home') }}" class="block">
             <img src="{{ asset('images/logo.png') }}" alt="Свой Мастер" class="w-[11.6875rem] h-[4.5rem] w-auto object-contain">
