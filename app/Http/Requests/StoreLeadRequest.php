@@ -18,7 +18,7 @@ class StoreLeadRequest extends FormRequest
             'phone' => ['required', 'string', 'max:30'],
             'comment' => ['nullable', 'string', 'max:2000'],
             'landing_page_id' => ['nullable', 'integer', 'exists:landing_pages,id'],
-            'page_url' => ['nullable', 'string', 'max:500'],
+            'page_url' => ['nullable', 'string', 'max:255'],
             'agree' => ['accepted'],
             'utm_source' => ['nullable', 'string', 'max:255'],
             'utm_medium' => ['nullable', 'string', 'max:255'],

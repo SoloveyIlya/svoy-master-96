@@ -11,6 +11,7 @@ use App\Models\Review;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
@@ -188,7 +189,11 @@ class DatabaseSeeder extends Seeder
                                         'category_id' => $category->id,
                                         'brand_id' => $brand->id,
                                         // Избегаем коллизий для одинаковых slug моделей у разных брендов/категорий
-                                        'slug' => $svcObj->slug . '-' . $category->slug . '-' . $brand->slug . '-' . $model->slug,
+                                        'slug' => Str::limit(
+                                            $svcObj->slug . '-' . $category->slug . '-' . $brand->slug . '-' . $model->slug,
+                                            255,
+                                            ''
+                                        ),
                                         'status' => 'active',
                                     ]
                                 );

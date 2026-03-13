@@ -40,6 +40,7 @@ class UpsertCatalogJob implements ShouldQueue
             $brandName = $payload['brand'] ?? null;
             $modelName = $payload['model'] ?? null;
             $serviceName = $payload['service_name'] ?? null;
+            $fallbackSlug = 'item-' . $item->id;
 
             if (!$categoryName || !$brandName || !$modelName || !$serviceName) {
                 Log::warning("[Parser] UpsertCatalogJob: incomplete payload for item #{$item->id}");
@@ -48,17 +49,17 @@ class UpsertCatalogJob implements ShouldQueue
             }
 
             $category = Category::firstOrCreate(
-                ['slug' => Str::slug($categoryName)],
+                ['slug' => $this->normalizeSlug($categoryName, $fallbackSlug)],
                 ['name' => $categoryName, 'status' => 'active']
             );
 
             $brand = Brand::firstOrCreate(
-                ['slug' => Str::slug($brandName)],
+                ['slug' => $this->normalizeSlug($brandName, $fallbackSlug)],
                 ['name' => $brandName, 'status' => 'active']
             );
 
             $service = Service::firstOrCreate(
-                ['slug' => Str::slug($serviceName)],
+                ['slug' => $this->normalizeSlug($serviceName, $fallbackSlug)],
                 [
                     'name' => $serviceName,
                     'status' => 'active',
@@ -70,7 +71,7 @@ class UpsertCatalogJob implements ShouldQueue
 
             $deviceModel = DeviceModel::updateOrCreate(
                 [
-                    'slug' => Str::slug($modelName),
+                    'slug' => $this->normalizeSlug($modelName, $fallbackSlug),
                     'brand_id' => $brand->id,
                     'category_id' => $category->id,
                 ],
@@ -82,7 +83,10 @@ class UpsertCatalogJob implements ShouldQueue
             );
 
             // Формируем slug с category + brand + model, чтобы исключить конфликты.
-            $landingSlug = Str::slug($serviceName . ' ' . $categoryName . ' ' . $brandName . ' ' . $modelName);
+            $landingSlug = $this->normalizeSlug(
+                $serviceName . ' ' . $categoryName . ' ' . $brandName . ' ' . $modelName,
+                $fallbackSlug
+            );
 
             $landingPage = LandingPage::updateOrCreate(
                 [
@@ -112,5 +116,12 @@ class UpsertCatalogJob implements ShouldQueue
             Log::error("[Parser] UpsertCatalogJob failed for item #{$item->id}: {$e->getMessage()}");
             throw $e;
         }
+    }
+
+    private function normalizeSlug(string $value, string $fallback): string
+    {
+        $slug = Str::limit(Str::slug($value), 255, '');
+
+        return $slug !== '' ? $slug : $fallback;
     }
 }

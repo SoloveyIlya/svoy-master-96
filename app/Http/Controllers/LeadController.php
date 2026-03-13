@@ -19,7 +19,7 @@ class LeadController extends Controller
             'phone' => $request->input('phone'),
             'comment' => $request->input('comment'),
             'landing_page_id' => $request->input('landing_page_id'),
-            'page_url' => Str::limit($pageUrl, 497, ''),
+            'page_url' => Str::limit($pageUrl, 255, ''),
             'utm_source' => $request->input('utm_source', $request->session()->get('utm_source')),
             'utm_medium' => $request->input('utm_medium', $request->session()->get('utm_medium')),
             'utm_campaign' => $request->input('utm_campaign', $request->session()->get('utm_campaign')),
