@@ -11,111 +11,147 @@ use App\Models\ServiceScope;
 
 class CatalogController extends Controller
 {
-    public function category(Category $category)
+    public function category(string $categorySlug)
     {
-        abort_unless($category->status === 'active', 404);
+        $category = Category::where('slug', $categorySlug)
+            ->where('status', 'active')
+            ->firstOrFail();
 
         $brands = Brand::whereHas('deviceModels', function ($q) use ($category) {
-            $q->where('category_id', $category->id)->where('status', 'active');
-        })->where('status', 'active')->get();
-
-        $services = ServiceScope::forCategory($category->id)
+                $q->where('category_id', $category->id)
+                    ->where('status', 'active');
+            })
             ->where('status', 'active')
-            ->with('service')
-            ->get()
-            ->pluck('service')
-            ->filter();
+            ->orderBy('name')
+            ->get();
 
-        return view('catalog.category', compact('category', 'brands', 'services'));
+        return view('catalog.category', compact('category', 'brands'));
     }
 
-    public function brand(Category $category, Brand $brand)
+    public function brand(string $categorySlug, string $brandSlug)
     {
-        abort_unless($category->status === 'active' && $brand->status === 'active', 404);
-
-        $hasModelsInCategory = DeviceModel::where('category_id', $category->id)
-            ->where('brand_id', $brand->id)
+        $category = Category::where('slug', $categorySlug)
             ->where('status', 'active')
-            ->exists();
-
-        abort_unless($hasModelsInCategory, 404);
+            ->firstOrFail();
+        $brand = Brand::where('slug', $brandSlug)
+            ->where('status', 'active')
+            ->firstOrFail();
 
         $models = DeviceModel::where('category_id', $category->id)
             ->where('brand_id', $brand->id)
             ->where('status', 'active')
+            ->orderBy('name')
             ->get();
 
-        $services = ServiceScope::forBrand($brand->id)
-            ->where('status', 'active')
-            ->with('service')
-            ->get()
-            ->pluck('service')
-            ->filter();
+        abort_if($models->isEmpty(), 404);
 
-        return view('catalog.brand', compact('category', 'brand', 'models', 'services'));
+        return view('catalog.brand', compact('category', 'brand', 'models'));
     }
 
-    public function model(Category $category, Brand $brand, DeviceModel $model)
+    public function model(string $categorySlug, string $brandSlug, string $modelSlug)
     {
-        abort_unless(
-            $model->category_id === $category->id && $model->brand_id === $brand->id,
-            404,
-        );
-        abort_unless($model->status === 'active', 404);
+        $category = Category::where('slug', $categorySlug)
+            ->where('status', 'active')
+            ->firstOrFail();
+        $brand = Brand::where('slug', $brandSlug)
+            ->where('status', 'active')
+            ->firstOrFail();
+        $model = DeviceModel::where('slug', $modelSlug)
+            ->where('category_id', $category->id)
+            ->where('brand_id', $brand->id)
+            ->where('status', 'active')
+            ->firstOrFail();
 
         $landingPages = LandingPage::where('model_id', $model->id)
             ->where('status', 'active')
-            ->with('service')
+            ->whereHas('service', function ($q) {
+                $q->where('status', 'active');
+            })
+            ->with('service:id,name,slug')
+            ->orderBy('id')
             ->get();
 
         return view('catalog.model', compact('category', 'brand', 'model', 'landingPages'));
     }
 
-    public function categoryService(Category $category, Service $service)
+    public function landing(string $categorySlug, string $brandSlug, string $modelSlug, string $serviceSlug)
     {
-        $scope = ServiceScope::forCategory($category->id)
-            ->where('service_id', $service->id)
+        $category = Category::where('slug', $categorySlug)
             ->where('status', 'active')
             ->firstOrFail();
-
-        $seo = $scope->getSeoData();
-
-        return view('catalog.category-service', compact('category', 'service', 'scope', 'seo'));
-    }
-
-    public function brandService(Category $category, Brand $brand, Service $service)
-    {
-        abort_unless(
-            DeviceModel::where('category_id', $category->id)
-                ->where('brand_id', $brand->id)
-                ->exists(),
-            404,
-        );
-
-        $scope = ServiceScope::forBrand($brand->id)
-            ->where('service_id', $service->id)
+        $brand = Brand::where('slug', $brandSlug)
             ->where('status', 'active')
             ->firstOrFail();
-
-        $seo = $scope->getSeoData();
-
-        return view('catalog.brand-service', compact('category', 'brand', 'service', 'scope', 'seo'));
-    }
-
-    public function landing(Category $category, Brand $brand, DeviceModel $model, Service $service)
-    {
-        abort_unless(
-            $model->category_id === $category->id && $model->brand_id === $brand->id,
-            404,
-        );
+        $model = DeviceModel::where('slug', $modelSlug)
+            ->where('category_id', $category->id)
+            ->where('brand_id', $brand->id)
+            ->where('status', 'active')
+            ->firstOrFail();
+        $service = Service::where('slug', $serviceSlug)
+            ->where('status', 'active')
+            ->firstOrFail();
 
         $landing = LandingPage::where('model_id', $model->id)
             ->where('service_id', $service->id)
             ->where('status', 'active')
+            ->with('service')
             ->firstOrFail();
 
         $seo = $landing->getSeoData();
 
         return view('catalog.landing', compact('category', 'brand', 'model', 'service', 'landing', 'seo'));
+    }
+
+    public function serviceScopeCategory(string $categorySlug, string $serviceSlug)
+    {
+        $category = Category::where('slug', $categorySlug)
+            ->where('status', 'active')
+            ->firstOrFail();
+
+        $scope = ServiceScope::forCategory($category->id)
+            ->where('status', 'active')
+            ->whereHas('service', function ($q) use ($serviceSlug) {
+                $q->where('slug', $serviceSlug)
+                    ->where('status', 'active');
+            })
+            ->with('service')
+            ->firstOrFail();
+
+        $service = $scope->service;
+        $seo = $scope->getSeoData();
+
+        return view('catalog.category-service', compact('category', 'service', 'scope', 'seo'));
+    }
+
+    public function serviceScopeBrand(string $categorySlug, string $brandSlug, string $serviceSlug)
+    {
+        $category = Category::where('slug', $categorySlug)
+            ->where('status', 'active')
+            ->firstOrFail();
+        $brand = Brand::where('slug', $brandSlug)
+            ->where('status', 'active')
+            ->firstOrFail();
+
+        abort_unless(
+            DeviceModel::where('category_id', $category->id)
+                ->where('brand_id', $brand->id)
+                ->where('status', 'active')
+                ->exists(),
+            404,
+        );
+
+        $scope = ServiceScope::forBrand($brand->id)
+            ->where('status', 'active')
+            ->whereHas('service', function ($q) use ($serviceSlug) {
+                $q->where('slug', $serviceSlug)
+                    ->where('status', 'active');
+            })
+            ->with('service')
+            ->firstOrFail();
+
+        $service = $scope->service;
+        $seo = $scope->getSeoData();
+
+        return view('catalog.brand-service', compact('category', 'brand', 'service', 'scope', 'seo'));
     }
 }

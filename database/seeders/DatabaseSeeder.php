@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\DeviceModel;
 use App\Models\LandingPage;
 use App\Models\Lead;
+use App\Models\Review;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -226,6 +227,37 @@ class DatabaseSeeder extends Seeder
                 'page_url' => '/remont-telefonov/apple/iphone-17/zamena-stekla',
                 'utm_source' => 'yandex',
                 'status' => 'new',
+            ]
+        );
+
+        // ─── 6. Отзывы ───
+        Review::updateOrCreate(
+            ['client_name' => 'Александр Кузнецов', 'device_name' => 'Ремонт iPhone 13'],
+            [
+                'text' => 'Обратился с разбитым экраном iPhone 13. Все сделали за 40 минут, дисплей как новый, Face ID работает. Очень доволен сервисом и отношением мастера.',
+                'rating' => 5,
+                'is_published' => true,
+                'published_at' => now()->subDays(10)->toDateString(),
+            ]
+        );
+
+        Review::updateOrCreate(
+            ['client_name' => 'Марина Орлова', 'device_name' => 'Замена батареи Samsung Galaxy S23'],
+            [
+                'text' => 'Телефон стал быстро разряжаться, в сервисе сразу провели диагностику и предложили замену аккумулятора. Сделали в тот же день, теперь держит заряд отлично.',
+                'rating' => 5,
+                'is_published' => true,
+                'published_at' => now()->subDays(6)->toDateString(),
+            ]
+        );
+
+        Review::updateOrCreate(
+            ['client_name' => 'Дмитрий Соколов', 'device_name' => 'Ремонт MacBook Air M2'],
+            [
+                'text' => 'После попадания жидкости MacBook не включался. В другом сервисе сказали, что только замена платы, а здесь смогли восстановить и сохранить данные. Спасибо за профессионализм.',
+                'rating' => 5,
+                'is_published' => true,
+                'published_at' => now()->subDays(3)->toDateString(),
             ]
         );
     }

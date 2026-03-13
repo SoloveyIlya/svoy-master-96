@@ -38,10 +38,10 @@
 
         <!-- Actions (Socials + CTA) -->
         <div class="flex items-center gap-4">
-            <a href="#" class="w-10 h-10 rounded-full bg-gradient-to-r from-[#0678A8] to-[#029DBF] flex items-center justify-center hover:opacity-90 transition shadow-sm hover:shadow-md">
+            <a href="{{ route('contacts') }}" class="w-10 h-10 rounded-full bg-gradient-to-r from-[#0678A8] to-[#029DBF] flex items-center justify-center hover:opacity-90 transition shadow-sm hover:shadow-md">
                 <img src="{{ asset('images/TG.svg') }}" alt="Telegram" class="w-5 h-5 object-contain" />
             </a>
-            <a href="#" class="w-10 h-10 rounded-full bg-gradient-to-r from-[#0678A8] to-[#029DBF] flex items-center justify-center hover:opacity-90 transition shadow-sm hover:shadow-md">
+            <a href="{{ route('contacts') }}" class="w-10 h-10 rounded-full bg-gradient-to-r from-[#0678A8] to-[#029DBF] flex items-center justify-center hover:opacity-90 transition shadow-sm hover:shadow-md">
                 <img src="{{ asset('images/WA.svg') }}" alt="WhatsApp" class="w-5 h-5 object-contain" />
             </a>
             <button class="bg-gradient-to-r from-[#0678A8] to-[#029DBF] hover:opacity-90 text-white font-medium py-2.5 px-6 rounded-full transition shadow-md hover:shadow-lg">

@@ -6,9 +6,30 @@
 @section('content')
     <h1>{{ $model->seo_h1 ?? $model->name }}</h1>
 
-    <h2>Debug: Переменные</h2>
-    <pre>Category: {{ $category->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-    <pre>Brand: {{ $brand->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-    <pre>Model: {{ $model->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-    <pre>Landing Pages: {{ $landingPages->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
+    <p>
+        <a href="{{ route('catalog.brand', [$category->slug, $brand->slug]) }}">← Назад к бренду</a> |
+        <a href="{{ route('catalog.category', [$category->slug]) }}">К категории</a> |
+        <a href="{{ route('home') }}">На главную</a>
+    </p>
+
+    <p><strong>SEO title:</strong> {{ $model->seo_title ?? '-' }}</p>
+    <p><strong>SEO description:</strong> {{ $model->seo_description ?? '-' }}</p>
+    <p><strong>Категория / Бренд:</strong> {{ $category->name }} / {{ $brand->name }}</p>
+
+    <h2>Услуги</h2>
+    @if($landingPages->isEmpty())
+        <p>Услуги не найдены.</p>
+    @else
+        <ul>
+            @foreach($landingPages as $landingPage)
+                @if($landingPage->service)
+                    <li>
+                        <a href="{{ route('catalog.landing', [$category->slug, $brand->slug, $model->slug, $landingPage->service->slug]) }}">
+                            {{ $landingPage->service->name }}
+                        </a>
+                    </li>
+                @endif
+            @endforeach
+        </ul>
+    @endif
 @endsection

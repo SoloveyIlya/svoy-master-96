@@ -25,20 +25,20 @@
 
     {{-- NAVIGATION MENU --}}
     <nav class="w-full bg-[#0678A8] text-white shadow-md relative z-20">
-        <div class="max-w-[87.5rem] mx-auto px-4 flex items-center justify-between lg:justify-start lg:gap-12 py-3.5 text-[0.9375rem] font-medium">
-            <a href="/services/phones" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
+        <div class="w-full mx-auto px-4 flex flex-wrap items-center justify-evenly gap-x-6 gap-y-2 py-3.5 text-[0.9375rem] font-medium">
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
                 Ремонт телефонов <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </a>
-            <a href="/services/phones/apple" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
+            <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'apple']) }}" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
                 Ремонт Apple <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </a>
-            <a href="/services/phones/samsung" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
+            <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'samsung']) }}" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
                 Ремонт Samsung <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </a>
-            <a href="/services/laptops" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-noutbukov']) }}" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
                 Ремонт ноутбуков <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </a>
-            <a href="/services/phones/xiaomi" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
+            <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'xiaomi']) }}" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
                 Ремонт Xiaomi <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </a>
         </div>
@@ -47,6 +47,8 @@
     <main>
         @yield('content')
     </main>
+
+    <x-footer />
 
     @stack('scripts')
 </body>

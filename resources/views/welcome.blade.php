@@ -19,19 +19,19 @@
     <!-- NAVIGATION MENU -->
     <nav class="w-full bg-[#0678A8] text-white shadow-md relative z-20">
         <div class="max-w-[87.5rem] mx-auto px-4 flex items-center justify-between lg:justify-start lg:gap-12 py-3.5 text-[0.9375rem] font-medium">
-            <a href="#" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
+            <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'apple']) }}" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
                 Ремонт Apple <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </a>
-            <a href="#" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
                 Ремонт телефонов <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </a>
-            <a href="#" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-noutbukov']) }}" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
                 Ремонт ноутбуков <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </a>
-            <a href="#" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-planshetov']) }}" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
                 Ремонт планшетов <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </a>
-            <a href="#" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-smart-chasov']) }}" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
                 Ремонт других устройств <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </a>
         </div>
@@ -206,37 +206,37 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             
             <!-- Category Card 1 (Apple) -->
-            <a href="#" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
+            <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'apple']) }}" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт Apple</span>
                 <img src="{{ asset('images/iphone.svg') }}" alt="Apple" class="absolute bottom-[-8%] right-[0%] w-[90%] object-contain group-hover:scale-110 transition duration-500" />
             </a>
 
             <!-- Category Card 2 (Phones) -->
-            <a href="#" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт телефонов</span>
                 <img src="{{ asset('images/android.svg') }}" alt="Phones" class="absolute bottom-[-7%] right-[0%] w-[90%] object-contain group-hover:scale-110 transition duration-500" />
             </a>
 
             <!-- Category Card 3 (Laptops) -->
-            <a href="#" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-noutbukov']) }}" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт ноутбуков</span>
                 <img src="{{ asset('images/laptop.svg') }}" alt="Laptops" class="absolute bottom-[0%] right-[-1%] w-[95%] object-contain group-hover:scale-110 transition duration-500" />
             </a>
 
             <!-- Category Card 4 (Tablets) -->
-            <a href="#" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-planshetov']) }}" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт планшетов</span>
                 <img src="{{ asset('images/tablet.svg') }}" alt="Tablets" class="absolute bottom-[-10%] left-[0%] w-[110%] object-contain group-hover:scale-110 transition duration-500" />
             </a>
 
             <!-- Category Card 5 (Smartwatches) -->
-            <a href="#" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-smart-chasov']) }}" class="block relative h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-8 left-8 text-white font-semibold text-2xl z-10">Ремонт смарт часов</span>
                 <img src="{{ asset('images/watch.svg') }}" alt="Watches" class="absolute bottom-0 right-[-0%] w-[90%] object-contain group-hover:scale-110 transition duration-500" />
             </a>
 
             <!-- Category Card 6 (See All) -->
-            <a href="#" class="flex items-center justify-center relative h-[20rem] rounded-[2rem] border-2 border-[#2AC0D5] bg-white group shadow-sm hover:bg-cyan-50 transition duration-300">
+            <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="flex items-center justify-center relative h-[20rem] rounded-[2rem] border-2 border-[#2AC0D5] bg-white group shadow-sm hover:bg-cyan-50 transition duration-300">
                 <span class="text-[#0678A8] font-bold text-2xl text-center px-8">Смотреть все<br>категории</span>
             </a>
 

@@ -6,8 +6,24 @@
 @section('content')
     <h1>{{ $category->seo_h1 ?? $category->name }}</h1>
 
-    <h2>Debug: Переменные</h2>
-    <pre>Category: {{ $category->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-    <pre>Brands: {{ $brands->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-    <pre>Services: {{ $services->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
+    <p><a href="{{ route('home') }}">← Назад на главную</a></p>
+
+    <p><strong>SEO title:</strong> {{ $category->seo_title ?? '-' }}</p>
+    <p><strong>SEO description:</strong> {{ $category->seo_description ?? '-' }}</p>
+    <p><strong>Описание:</strong> {{ $category->seo_intro ?? '-' }}</p>
+
+    <h2>Бренды</h2>
+    @if($brands->isEmpty())
+        <p>Бренды не найдены.</p>
+    @else
+        <ul>
+            @foreach($brands as $brand)
+                <li>
+                    <a href="{{ route('catalog.brand', [$category->slug, $brand->slug]) }}">
+                        {{ $brand->name }}
+                    </a>
+                </li>
+            @endforeach
+        </ul>
+    @endif
 @endsection

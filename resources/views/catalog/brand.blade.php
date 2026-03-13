@@ -6,9 +6,27 @@
 @section('content')
     <h1>{{ $brand->seo_h1 ?? $brand->name }}</h1>
 
-    <h2>Debug: Переменные</h2>
-    <pre>Category: {{ $category->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-    <pre>Brand: {{ $brand->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-    <pre>Models: {{ $models->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-    <pre>Services: {{ $services->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
+    <p>
+        <a href="{{ route('catalog.category', [$category->slug]) }}">← Назад к категории</a> |
+        <a href="{{ route('home') }}">На главную</a>
+    </p>
+
+    <p><strong>SEO title:</strong> {{ $brand->seo_title ?? '-' }}</p>
+    <p><strong>SEO description:</strong> {{ $brand->seo_description ?? '-' }}</p>
+    <p><strong>Категория:</strong> {{ $category->name }}</p>
+
+    <h2>Модели</h2>
+    @if($models->isEmpty())
+        <p>Модели не найдены.</p>
+    @else
+        <ul>
+            @foreach($models as $deviceModel)
+                <li>
+                    <a href="{{ route('catalog.model', [$category->slug, $brand->slug, $deviceModel->slug]) }}">
+                        {{ $deviceModel->name }}
+                    </a>
+                </li>
+            @endforeach
+        </ul>
+    @endif
 @endsection

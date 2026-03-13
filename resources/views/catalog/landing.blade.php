@@ -14,6 +14,19 @@
 @section('content')
     <h1>{{ $seo['h1'] ?? $service->name . ' ' . $model->name }}</h1>
 
+    <p>
+        <a href="{{ route('catalog.model', [$category->slug, $brand->slug, $model->slug]) }}">← Назад к модели</a> |
+        <a href="{{ route('catalog.brand', [$category->slug, $brand->slug]) }}">К бренду</a> |
+        <a href="{{ route('catalog.category', [$category->slug]) }}">К категории</a> |
+        <a href="{{ route('home') }}">На главную</a>
+    </p>
+
+    <p><strong>Цена от:</strong> {{ $landing->resolvedPriceFrom() ?? '-' }}</p>
+    <p><strong>Срок ремонта:</strong> {{ $service->duration_text ?? '-' }}</p>
+    <p><strong>Гарантия:</strong> {{ $service->warranty_text ?? '-' }}</p>
+    <p><strong>SEO title:</strong> {{ $seo['title'] ?? '-' }}</p>
+    <p><strong>SEO description:</strong> {{ $seo['description'] ?? '-' }}</p>
+
     @if($seo['intro'])
         <div class="intro">{!! $seo['intro'] !!}</div>
     @endif
@@ -34,11 +47,46 @@
         </div>
     @endif
 
-    <h2>Debug: Переменные</h2>
-    <pre>Category: {{ $category->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-    <pre>Brand: {{ $brand->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-    <pre>Model: {{ $model->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-    <pre>Service: {{ $service->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-    <pre>Landing: {{ $landing->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-    <pre>SEO Data: {{ json_encode($seo, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
+    <h2>Оставить заявку</h2>
+    @if(session('success'))
+        <p>{{ session('success') }}</p>
+    @endif
+
+    <form action="{{ route('leads.store') }}" method="POST">
+        @csrf
+        <input type="hidden" name="landing_page_id" value="{{ $landing->id }}">
+        <input type="hidden" name="page_url" value="{{ request()->fullUrl() }}">
+
+        <p>
+            <label for="name">Имя</label><br>
+            <input id="name" type="text" name="name" value="{{ old('name') }}">
+        </p>
+
+        <p>
+            <label for="phone">Телефон *</label><br>
+            <input id="phone" type="text" name="phone" value="{{ old('phone') }}" required>
+            @error('phone')
+                <br><span>{{ $message }}</span>
+            @enderror
+        </p>
+
+        <p>
+            <label for="comment">Комментарий</label><br>
+            <textarea id="comment" name="comment">{{ old('comment') }}</textarea>
+        </p>
+
+        <p>
+            <label>
+                <input type="checkbox" name="agree" value="1" {{ old('agree') ? 'checked' : '' }}>
+                Согласен на обработку персональных данных
+            </label>
+            @error('agree')
+                <br><span>{{ $message }}</span>
+            @enderror
+        </p>
+
+        <p>
+            <button type="submit">Отправить заявку</button>
+        </p>
+    </form>
 @endsection

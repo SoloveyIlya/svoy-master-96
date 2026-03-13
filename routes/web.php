@@ -12,24 +12,21 @@ Route::post('/leads', [LeadController::class, 'store'])
     ->name('leads.store')
     ->middleware('throttle:leads');
 
-Route::prefix('services')->group(function () {
-    // Specific routes with literal "service" segment FIRST
-    Route::get('/{category:slug}/service/{service:slug}', [CatalogController::class, 'categoryService'])
-        ->name('catalog.category-service');
+// Маршруты со словом "/service/" размещены выше динамических брендов/моделей
+Route::get('/{categorySlug}/service/{serviceSlug}', [CatalogController::class, 'serviceScopeCategory'])
+    ->name('catalog.service-scope-category');
 
-    Route::get('/{category:slug}/{brand:slug}/service/{service:slug}', [CatalogController::class, 'brandService'])
-        ->name('catalog.brand-service');
+Route::get('/{categorySlug}/{brandSlug}/service/{serviceSlug}', [CatalogController::class, 'serviceScopeBrand'])
+    ->name('catalog.service-scope-brand');
 
-    // Generic parameter routes AFTER
-    Route::get('/{category:slug}', [CatalogController::class, 'category'])
-        ->name('catalog.category');
+Route::get('/{categorySlug}/{brandSlug}/{modelSlug}/{serviceSlug}', [CatalogController::class, 'landing'])
+    ->name('catalog.landing');
 
-    Route::get('/{category:slug}/{brand:slug}', [CatalogController::class, 'brand'])
-        ->name('catalog.brand');
+Route::get('/{categorySlug}/{brandSlug}/{modelSlug}', [CatalogController::class, 'model'])
+    ->name('catalog.model');
 
-    Route::get('/{category:slug}/{brand:slug}/{model:slug}', [CatalogController::class, 'model'])
-        ->name('catalog.model');
+Route::get('/{categorySlug}/{brandSlug}', [CatalogController::class, 'brand'])
+    ->name('catalog.brand');
 
-    Route::get('/{category:slug}/{brand:slug}/{model:slug}/{service:slug}', [CatalogController::class, 'landing'])
-        ->name('catalog.landing');
-});
+Route::get('/{categorySlug}', [CatalogController::class, 'category'])
+    ->name('catalog.category');

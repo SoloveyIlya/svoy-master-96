@@ -6,6 +6,11 @@
 @section('content')
     <h1>{{ $seo['h1'] ?? $service->name }}</h1>
 
+    <p>
+        <a href="{{ route('catalog.category', [$category->slug]) }}">← Назад к категории</a> |
+        <a href="{{ route('home') }}">На главную</a>
+    </p>
+
     @if($seo['intro'])
         <div class="intro">{!! $seo['intro'] !!}</div>
     @endif
