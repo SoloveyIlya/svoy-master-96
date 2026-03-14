@@ -208,31 +208,31 @@
             <!-- Category Card 1 (Apple) -->
             <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'apple']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт Apple</span>
-                <img src="{{ asset('images/iphone.svg') }}" alt="Apple" class="absolute bottom-[-8%] right-[0%] w-[90%] object-contain group-hover:scale-110 transition duration-500" />
+                <img src="{{ asset('images/iphone.svg') }}" alt="Apple" class="absolute bottom-[-8%] left-0 right-0 mx-auto sm:mx-0 w-[90%] sm:left-auto sm:right-[0%] object-contain group-hover:scale-110 transition duration-500" />
             </a>
 
             <!-- Category Card 2 (Phones) -->
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт телефонов</span>
-                <img src="{{ asset('images/android.svg') }}" alt="Phones" class="absolute bottom-[-7%] right-[0%] w-[90%] object-contain group-hover:scale-110 transition duration-500" />
+                <img src="{{ asset('images/android.svg') }}" alt="Phones" class="absolute bottom-[-7%] left-0 right-0 mx-auto sm:mx-0 w-[90%] sm:left-auto sm:right-[0%] object-contain group-hover:scale-110 transition duration-500" />
             </a>
 
             <!-- Category Card 3 (Laptops) -->
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-noutbukov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт ноутбуков</span>
-                <img src="{{ asset('images/laptop.svg') }}" alt="Laptops" class="absolute bottom-[0%] right-[-1%] w-[95%] object-contain group-hover:scale-110 transition duration-500" />
+                <img src="{{ asset('images/laptop.svg') }}" alt="Laptops" class="absolute bottom-[0%] left-0 right-0 mx-auto sm:mx-0 w-[95%] sm:left-auto sm:right-[-1%] object-contain group-hover:scale-110 transition duration-500" />
             </a>
 
             <!-- Category Card 4 (Tablets) -->
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-planshetov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт планшетов</span>
-                <img src="{{ asset('images/tablet.svg') }}" alt="Tablets" class="absolute bottom-[-10%] left-[0%] w-[110%] object-contain group-hover:scale-110 transition duration-500" />
+                <img src="{{ asset('images/tablet.svg') }}" alt="Tablets" class="absolute bottom-[-10%] left-0 right-0 mx-auto sm:mx-0 w-[110%] sm:left-[0%] sm:right-auto object-contain group-hover:scale-110 transition duration-500" />
             </a>
 
             <!-- Category Card 5 (Smartwatches) -->
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-smart-chasov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт смарт часов</span>
-                <img src="{{ asset('images/watch.svg') }}" alt="Watches" class="absolute bottom-0 right-[-0%] w-[90%] object-contain group-hover:scale-110 transition duration-500" />
+                <img src="{{ asset('images/watch.svg') }}" alt="Watches" class="absolute bottom-0 left-0 right-0 mx-auto sm:mx-0 w-[90%] sm:left-auto sm:right-[-0%] object-contain group-hover:scale-110 transition duration-500" />
             </a>
 
             <!-- Category Card 6 (See All) -->
