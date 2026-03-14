@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info('Создаем услуги (Services)...');
 
-        // ─── 2. Услуги (Все из раздела "Цены") ───
+        // ─── 2. Услуги (актуальный ликвидный список) ───
         $servicesData = [
             [
                 'name' => 'Замена стекла', 'slug' => 'zamena-stekla',
@@ -50,6 +50,34 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Ремонт после залития', 'slug' => 'remont-posle-zalitiya',
                 'price_from' => '2000', 'duration_text' => 'от 1 дня', 'warranty_text' => 'без гарантии (индивидуально)'
+            ],
+            [
+                'name' => 'Замена задней крышки', 'slug' => 'zamena-zadney-kryshki',
+                'price_from' => '1400', 'duration_text' => 'от 40 минут', 'warranty_text' => '6 месяцев'
+            ],
+            [
+                'name' => 'Замена микрофона (собеседник не слышит)', 'slug' => 'zamena-mikrofona',
+                'price_from' => '1300', 'duration_text' => 'от 40 минут', 'warranty_text' => '6 месяцев'
+            ],
+            [
+                'name' => 'Замена динамика', 'slug' => 'zamena-dinamika',
+                'price_from' => '1300', 'duration_text' => 'от 30 минут', 'warranty_text' => '6 месяцев'
+            ],
+            [
+                'name' => 'Смена ПО, прошивка', 'slug' => 'smena-po-proshivka',
+                'price_from' => '1000', 'duration_text' => 'от 1 часа', 'warranty_text' => '30 дней'
+            ],
+            [
+                'name' => 'Разблокировка', 'slug' => 'razblokirovka',
+                'price_from' => '1200', 'duration_text' => 'от 1 часа', 'warranty_text' => '30 дней'
+            ],
+            [
+                'name' => 'Замена камеры', 'slug' => 'zamena-kamery',
+                'price_from' => '1700', 'duration_text' => 'от 45 минут', 'warranty_text' => '6 месяцев'
+            ],
+            [
+                'name' => 'Замена стекла камеры', 'slug' => 'zamena-stekla-kamery',
+                'price_from' => '1100', 'duration_text' => 'от 30 минут', 'warranty_text' => '6 месяцев'
             ],
         ];
 
@@ -78,59 +106,174 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Телефоны',
                 'brands' => [
                     'apple' => ['name' => 'iPhone (Apple)', 'models' => [
-                        'iphone-6'=>'iPhone 6','iphone-6s'=>'iPhone 6s','iphone-6s-plus'=>'iPhone 6s Plus','iphone-7'=>'iPhone 7','iphone-7-plus'=>'iPhone 7 Plus','iphone-8'=>'iPhone 8','iphone-8-plus'=>'iPhone 8 Plus','iphone-x'=>'iPhone X','iphone-xr'=>'iPhone XR','iphone-xs'=>'iPhone XS','iphone-xs-max'=>'iPhone XS Max','iphone-11'=>'iPhone 11','iphone-11-pro'=>'iPhone 11 Pro','iphone-11-pro-max'=>'iPhone 11 Pro Max','iphone-12'=>'iPhone 12','iphone-12-mini'=>'iPhone 12 Mini','iphone-12-pro'=>'iPhone 12 Pro','iphone-12-pro-max'=>'iPhone 12 Pro Max','iphone-13'=>'iPhone 13','iphone-13-mini'=>'iPhone 13 Mini','iphone-13-pro'=>'iPhone 13 Pro','iphone-13-pro-max'=>'iPhone 13 Pro Max','iphone-14'=>'iPhone 14','iphone-14-plus'=>'iPhone 14 Plus','iphone-14-pro'=>'iPhone 14 Pro','iphone-14-pro-max'=>'iPhone 14 Pro Max','iphone-15'=>'iPhone 15','iphone-15-plus'=>'iPhone 15 Plus','iphone-15-pro'=>'iPhone 15 Pro','iphone-15-pro-max'=>'iPhone 15 Pro Max','iphone-16e'=>'iPhone 16e','iphone-17'=>'iPhone 17','iphone-17-plus'=>'iPhone 17 Plus','iphone-17-air'=>'iPhone 17 Air','iphone-17-pro'=>'iPhone 17 Pro','iphone-17-pro-max'=>'iPhone 17 Pro Max','iphone-17e'=>'iPhone 17e'
+                        'iphone-11' => 'iPhone 11',
+                        'iphone-11-pro' => 'iPhone 11 Pro',
+                        'iphone-11-pro-max' => 'iPhone 11 Pro Max',
+                        'iphone-12' => 'iPhone 12',
+                        'iphone-12-pro' => 'iPhone 12 Pro',
+                        'iphone-12-pro-max' => 'iPhone 12 Pro Max',
+                        'iphone-13' => 'iPhone 13',
+                        'iphone-13-pro' => 'iPhone 13 Pro',
+                        'iphone-13-pro-max' => 'iPhone 13 Pro Max',
+                        'iphone-14' => 'iPhone 14',
+                        'iphone-14-pro' => 'iPhone 14 Pro',
+                        'iphone-14-pro-max' => 'iPhone 14 Pro Max',
+                        'iphone-15' => 'iPhone 15',
+                        'iphone-15-pro' => 'iPhone 15 Pro',
+                        'iphone-15-pro-max' => 'iPhone 15 Pro Max',
+                        'iphone-16' => 'iPhone 16',
+                        'iphone-16-pro' => 'iPhone 16 Pro',
+                        'iphone-16-pro-max' => 'iPhone 16 Pro Max',
+                        'iphone-17' => 'iPhone 17',
+                        'iphone-17-pro' => 'iPhone 17 Pro',
+                        'iphone-17-pro-max' => 'iPhone 17 Pro Max',
+                        'iphone-air' => 'iPhone Air',
                     ]],
                     'samsung' => ['name' => 'Samsung', 'models' => [
-                        'a3-2016'=>'Samsung A3 2016','a3-2017'=>'Samsung A3 2017','a5-2016'=>'Samsung A5 2016','a5-2017'=>'Samsung A5 2017','a5-sm-a500'=>'Samsung A5 SM-A500','a7-sm-a700'=>'Samsung A7 SM-A700','a7-sm-a720'=>'Samsung A7 SM-A720','a7-2018-sm-a750'=>'Samsung A7 (2018) SM-A750','a8-2018'=>'Samsung A8 (2018)','j1-sm-j120'=>'Samsung J1 SM-J120','j2-2018-j250'=>'Samsung J2 (2018) J250','j3-2016-sm-j320'=>'Samsung J3 2016 SM-J320','j3-2017-sm-j330'=>'Samsung J3 2017 SM-J330','j4-2018-sm-j400'=>'Samsung J4 (2018) SM-J400','j4-plus-sm-j415'=>'Samsung J4 Plus SM-J415','j5-sm-j500'=>'Samsung J5 SM-J500','j5-sm-j510'=>'Samsung J5 SM-J510','j5-sm-j530'=>'Samsung J5 SM-J530','j6-sm-j600'=>'Samsung J6 SM-J600','j7-sm-j710'=>'Samsung J7 SM-J710','j7-sm-j730'=>'Samsung J7 SM-J730','s3'=>'Samsung S3','s4'=>'Samsung S4','s5'=>'Samsung S5','s6'=>'Samsung S6','s6-edge'=>'Samsung S6 Edge','s6-edge-plus'=>'Samsung S6 Edge Plus','s7'=>'Samsung S7','s7-edge'=>'Samsung S7 Edge','s8'=>'Samsung S8','s8-plus'=>'Samsung S8 Plus','s9'=>'Samsung S9','s10'=>'Samsung S10','s20'=>'Samsung S20','note-10'=>'Samsung Note 10','note-20'=>'Samsung Note 20'
+                        'galaxy-s22' => 'Galaxy S22',
+                        'galaxy-s22-plus' => 'Galaxy S22+',
+                        'galaxy-s22-ultra' => 'Galaxy S22 Ultra',
+                        'galaxy-s23' => 'Galaxy S23',
+                        'galaxy-s23-plus' => 'Galaxy S23+',
+                        'galaxy-s23-ultra' => 'Galaxy S23 Ultra',
+                        'galaxy-s24' => 'Galaxy S24',
+                        'galaxy-s24-plus' => 'Galaxy S24+',
+                        'galaxy-s24-ultra' => 'Galaxy S24 Ultra',
+                        'galaxy-z-fold-4' => 'Galaxy Z Fold 4',
+                        'galaxy-z-fold-5' => 'Galaxy Z Fold 5',
+                        'galaxy-z-flip-4' => 'Galaxy Z Flip 4',
+                        'galaxy-z-flip-5' => 'Galaxy Z Flip 5',
+                        'galaxy-a53' => 'Galaxy A53',
+                        'galaxy-a54' => 'Galaxy A54',
+                        'galaxy-a55' => 'Galaxy A55',
+                        'galaxy-s25' => 'Galaxy S25',
+                        'galaxy-s25-plus' => 'Galaxy S25+',
+                        'galaxy-s25-ultra' => 'Galaxy S25 Ultra',
+                        'galaxy-s25-edge' => 'Galaxy S25 Edge',
+                        'galaxy-s25-fe' => 'Galaxy S25 FE',
+                        'galaxy-s26' => 'Galaxy S26',
+                        'galaxy-s26-plus' => 'Galaxy S26+',
+                        'galaxy-s26-ultra' => 'Galaxy S26 Ultra',
                     ]],
-                    'xiaomi' => ['name' => 'Xiaomi', 'models' => [
-                        'redmi-4x'=>'Xiaomi Redmi 4X','redmi-note-4x'=>'Xiaomi Redmi Note 4X','redmi-note-4'=>'Xiaomi Redmi Note 4','redmi-5-plus'=>'Xiaomi Redmi 5 Plus','redmi-4a'=>'Xiaomi Redmi 4A','redmi-note-5a'=>'Xiaomi Redmi Note 5A','redmi-note-5'=>'Xiaomi Redmi Note 5','redmi-5'=>'Xiaomi Redmi 5','mi-a1'=>'Xiaomi Mi A1','mi-a2'=>'Xiaomi Mi A2','mi-6'=>'Xiaomi Mi 6','redmi-3s'=>'Xiaomi Redmi 3S','redmi-5a'=>'Xiaomi Redmi 5A','redmi-4-pro-prime'=>'Xiaomi Redmi 4 Pro/Prime','redmi-4'=>'Xiaomi Redmi 4','redmi-note-3'=>'Xiaomi Redmi Note 3','mi-5'=>'Xiaomi Mi 5','redmi-note-6-pro'=>'Xiaomi Redmi Note 6 Pro','redmi-6a'=>'Xiaomi Redmi 6A','mi-8'=>'Xiaomi Mi 8','redmi-note-7'=>'Xiaomi Redmi Note 7','redmi-note-3-pro'=>'Xiaomi Redmi Note 3 Pro','mi-8-se'=>'Xiaomi Mi 8 SE','redmi-3'=>'Xiaomi Redmi 3','mi-8-lite'=>'Xiaomi Mi 8 Lite','mi-max-2'=>'Xiaomi Mi Max 2','mi-5s'=>'Xiaomi Mi 5S','mi-a2-lite'=>'Xiaomi Mi A2 Lite','mi-max'=>'Xiaomi Mi Max','redmi-note-5-pro'=>'Xiaomi Redmi Note 5 Pro','mi-4'=>'Xiaomi Mi 4','redmi-6'=>'Xiaomi Redmi 6','redmi-s2'=>'Xiaomi Redmi S2','mi-mix-2'=>'Xiaomi Mi Mix 2','mi-4c'=>'Xiaomi Mi 4C','mi-5s-plus'=>'Xiaomi Mi 5S Plus','mi-4i'=>'Xiaomi Mi 4i','mi-note'=>'Xiaomi Mi Note','redmi-note-2-prime'=>'Xiaomi Redmi Note 2 Prime','mi-note-2'=>'Xiaomi Mi Note 2'
+                    'xiaomi-poco' => ['name' => 'Xiaomi/POCO', 'models' => [
+                        'xiaomi-13' => 'Xiaomi 13',
+                        'xiaomi-13-pro' => 'Xiaomi 13 Pro',
+                        'xiaomi-14' => 'Xiaomi 14',
+                        'xiaomi-14-ultra' => 'Xiaomi 14 Ultra',
+                        'xiaomi-15' => 'Xiaomi 15',
+                        'xiaomi-15-pro' => 'Xiaomi 15 Pro',
+                        'xiaomi-15-ultra' => 'Xiaomi 15 Ultra',
+                        'redmi-note-12' => 'Redmi Note 12',
+                        'redmi-note-12-pro' => 'Redmi Note 12 Pro',
+                        'redmi-note-13' => 'Redmi Note 13',
+                        'redmi-note-13-pro-plus' => 'Redmi Note 13 Pro+',
+                        'poco-x5-pro' => 'POCO X5 Pro',
+                        'poco-x6-pro' => 'POCO X6 Pro',
+                        'poco-f5' => 'POCO F5',
                     ]],
-                    'huawei' => ['name' => 'Huawei', 'models' => [
-                        'p10'=>'Huawei P10','nova'=>'Huawei Nova','mate-10'=>'Huawei Mate 10','mate-10-pro'=>'Huawei Mate 10 Pro','mate-20-lite'=>'Huawei Mate 20 Lite','mate-20-pro'=>'Huawei Mate 20 Pro','mate-9'=>'Huawei Mate 9','mate-9-pro'=>'Huawei Mate 9 Pro','nova-2-plus'=>'Huawei Nova 2 Plus','nova-3i'=>'Huawei Nova 3i','p-smart'=>'Huawei P Smart','p10-plus'=>'Huawei P10 Plus','p9-plus'=>'Huawei P9 Plus','y3-ii'=>'Huawei Y3 II','y5-2017'=>'Huawei Y5 2017','y5-2018'=>'Huawei Y5 2018','y7-2017'=>'Huawei Y7 2017','p20-lite'=>'Huawei P20 Lite','p9'=>'Huawei P9','p10-lite'=>'Huawei P10 Lite','y5-ii'=>'Huawei Y5 II','nova-2'=>'Huawei Nova 2','nova-3'=>'Huawei Nova 3','p9-lite'=>'Huawei P9 Lite','p9-lite-2017'=>'Huawei P9 Lite (2017)','p8-lite'=>'Huawei P8 Lite','ascend-mate-2'=>'Huawei Ascend Mate 2','y9-2018'=>'Huawei Y9 (2018)','y3-2017'=>'Huawei Y3 2017','y6-prime-2018-atu-l42'=>'Huawei Y6 Prime (2018) ATU-L42','p20-pro'=>'Huawei P20 Pro','mate-10-lite'=>'Huawei Mate 10 Lite','ascend-p7'=>'Huawei Ascend P7','ascend-mate-7'=>'Huawei Ascend Mate 7'
+                    'huawei-honor' => ['name' => 'Huawei/Honor', 'models' => [
+                        'huawei-p50-pro' => 'Huawei P50 Pro',
+                        'huawei-p60-pro' => 'Huawei P60 Pro',
+                        'huawei-mate-50-pro' => 'Huawei Mate 50 Pro',
+                        'honor-70' => 'Honor 70',
+                        'honor-90' => 'Honor 90',
+                        'honor-magic-5-pro' => 'Honor Magic 5 Pro',
+                        'honor-magic-6-pro' => 'Honor Magic 6 Pro',
                     ]],
-                    'meizu' => ['name' => 'Meizu', 'models' => [
-                        'm3-note'=>'Meizu M3 Note','m5s'=>'Meizu M5S','m5'=>'Meizu M5','m5-note'=>'Meizu M5 Note','m2-note'=>'Meizu M2 Note','mx-4'=>'Meizu MX 4','pro-6'=>'Meizu Pro 6','mx2'=>'Meizu MX2'
-                    ]],
-                    'zte' => ['name' => 'ZTE', 'models' => [
-                        'blade-v8'=>'ZTE Blade V8','blade-v7'=>'ZTE Blade V7','blade-a6'=>'ZTE Blade A6','blade-a610'=>'ZTE Blade A610','blade-x3'=>'ZTE Blade X3'
-                    ]],
-                    'lenovo' => ['name' => 'Lenovo', 'models' => [
-                        'vibe-z2'=>'Lenovo Vibe Z2','p70'=>'Lenovo P70','p780'=>'Lenovo P780','a2010'=>'Lenovo A2010','blade-x3'=>'Lenovo Blade X3'
-                    ]],
-                    'asus' => ['name' => 'ASUS', 'models' => [
-                        'zenfone-max'=>'ASUS Zenfone Max','zenfone-2'=>'ASUS Zenfone 2','zenfone-3'=>'ASUS Zenfone 3','zenfone-2-laser'=>'ASUS Zenfone 2 Laser','zenfone-3-max'=>'ASUS Zenfone 3 Max','zenfone-max-pro-m1'=>'ASUS Zenfone Max Pro M1','zenfone-4-max'=>'ASUS Zenfone 4 Max'
-                    ]],
-                    'sony' => ['name' => 'Sony', 'models' => [
-                        'xperia-z1'=>'Sony Xperia Z1','xperia-z'=>'Sony Xperia Z','xperia-z2'=>'Sony Xperia Z2','xperia-z5'=>'Sony Xperia Z5','xperia-z3-compact'=>'Sony Xperia Z3 Compact'
-                    ]],
-                    // Бренды без моделей (добавляем как бренды)
-                    'realme'=>['name'=>'realme'],'oppo'=>['name'=>'Oppo'],'vivo'=>['name'=>'Vivo'],'oneplus'=>['name'=>'OnePlus'],'google-pixel'=>['name'=>'Google Pixel'],'nokia'=>['name'=>'Nokia'],'motorola'=>['name'=>'Motorola'],'lg'=>['name'=>'LG'],'htc'=>['name'=>'HTC'],'tecno'=>['name'=>'Tecno'],'infinix'=>['name'=>'Infinix'],'poco'=>['name'=>'Poco'],'blackview'=>['name'=>'Blackview'],'ulefone'=>['name'=>'Ulefone'],'doogee'=>['name'=>'Doogee'],'cubot'=>['name'=>'Cubot'],'alcatel'=>['name'=>'Alcatel'],'philips'=>['name'=>'Philips'],'fly'=>['name'=>'Fly'],'dexp'=>['name'=>'DEXP'],'bq'=>['name'=>'BQ'],'texet'=>['name'=>'Texet'],'oukitel'=>['name'=>'Oukitel'],'umidigi'=>['name'=>'Umidigi'],'vertu'=>['name'=>'Vertu'],
                 ]
             ],
             'remont-planshetov' => [
                 'name' => 'Планшеты',
                 'brands' => [
-                    'ipad'=>['name'=>'iPad (Apple)'],'samsung'=>['name'=>'Samsung'],'xiaomi'=>['name'=>'Xiaomi'],'huawei'=>['name'=>'Huawei'],'lenovo'=>['name'=>'Lenovo'],'asus'=>['name'=>'ASUS'],'meizu'=>['name'=>'Meizu'],'sony'=>['name'=>'Sony'],'lg'=>['name'=>'LG'],'nokia'=>['name'=>'Nokia'],'honor'=>['name'=>'Honor'],'realme'=>['name'=>'realme'],'oppo'=>['name'=>'Oppo'],'teclast'=>['name'=>'Teclast'],'blackview'=>['name'=>'Blackview'],'digma'=>['name'=>'Digma'],'prestigio'=>['name'=>'Prestigio'],'irbis'=>['name'=>'Irbis'],'dexp'=>['name'=>'DEXP'],'bq'=>['name'=>'BQ'],'texet'=>['name'=>'Texet'],'amazon-kindle'=>['name'=>'Amazon Kindle'],'microsoft-surface'=>['name'=>'Microsoft Surface']
+                    'ipad' => ['name' => 'iPad (Apple)', 'models' => [
+                        'ipad-9-10-2' => 'iPad 9 (10.2)',
+                        'ipad-10-10-9' => 'iPad 10 (10.9)',
+                        'ipad-air-4' => 'iPad Air 4',
+                        'ipad-air-5' => 'iPad Air 5',
+                        'ipad-mini-6' => 'iPad mini 6',
+                        'ipad-pro-11-m1-m2' => 'iPad Pro 11 (M1/M2)',
+                        'ipad-pro-12-9-m1-m2' => 'iPad Pro 12.9 (M1/M2)',
+                    ]],
+                    'samsung' => ['name' => 'Samsung', 'models' => [
+                        'galaxy-tab-s8' => 'Galaxy Tab S8',
+                        'galaxy-tab-s8-ultra' => 'Galaxy Tab S8 Ultra',
+                        'galaxy-tab-s9' => 'Galaxy Tab S9',
+                        'galaxy-tab-s9-ultra' => 'Galaxy Tab S9 Ultra',
+                        'galaxy-tab-a8' => 'Galaxy Tab A8',
+                        'galaxy-tab-a9' => 'Galaxy Tab A9',
+                    ]],
+                    'xiaomi' => ['name' => 'Xiaomi', 'models' => [
+                        'xiaomi-pad-5' => 'Xiaomi Pad 5',
+                        'xiaomi-pad-6' => 'Xiaomi Pad 6',
+                    ]],
                 ]
             ],
             'remont-noutbukov' => [
                 'name' => 'Ноутбуки',
                 'brands' => [
-                    'apple-macbook'=>['name'=>'Apple MacBook'],'asus'=>['name'=>'Asus'],'hp'=>['name'=>'HP'],'lenovo'=>['name'=>'Lenovo'],'acer'=>['name'=>'Acer'],'dell'=>['name'=>'Dell'],'samsung'=>['name'=>'Samsung'],'sony'=>['name'=>'Sony'],'toshiba'=>['name'=>'Toshiba'],'huawei'=>['name'=>'Huawei'],'honor'=>['name'=>'Honor'],'xiaomi'=>['name'=>'Xiaomi'],'msi'=>['name'=>'MSI'],'gigabyte'=>['name'=>'Gigabyte'],'razer'=>['name'=>'Razer'],'irbis'=>['name'=>'Irbis'],'dexp'=>['name'=>'DEXP'],'digma'=>['name'=>'Digma'],'prestigio'=>['name'=>'Prestigio'],'fujitsu'=>['name'=>'Fujitsu'],'packard-bell'=>['name'=>'Packard Bell'],'emachines'=>['name'=>'eMachines']
+                    'apple-macbook' => ['name' => 'Apple MacBook', 'models' => [
+                        'macbook-air-m1-2020' => 'MacBook Air M1 (2020)',
+                        'macbook-air-m2-2022' => 'MacBook Air M2 (2022)',
+                        'macbook-air-m3-2024' => 'MacBook Air M3 (2024)',
+                        'macbook-air-m4' => 'MacBook Air M4',
+                        'macbook-pro-m4' => 'MacBook Pro M4',
+                        'macbook-air-m5' => 'MacBook Air M5',
+                        'macbook-pro-m5' => 'MacBook Pro M5',
+                        'macbook-pro-14-m1-m2-m3' => 'MacBook Pro 14 (M1/M2/M3)',
+                        'macbook-pro-16-m1-m2-m3' => 'MacBook Pro 16 (M1/M2/M3)',
+                    ]],
+                    'asus' => ['name' => 'Asus', 'models' => [
+                        'zenbook-14' => 'ZenBook 14',
+                        'rog-strix' => 'ROG Strix',
+                        'tuf-gaming' => 'TUF Gaming',
+                        'vivobook' => 'VivoBook',
+                    ]],
+                    'lenovo' => ['name' => 'Lenovo', 'models' => [
+                        'ideapad-5' => 'IdeaPad 5',
+                        'legion-5' => 'Legion 5',
+                        'thinkpad' => 'ThinkPad',
+                        'yoga' => 'Yoga',
+                    ]],
                 ]
             ],
             'remont-smart-chasov' => [
                 'name' => 'Смарт-часы',
                 'brands' => [
-                    'apple-watch'=>['name'=>'Apple Watch'],'samsung-galaxy-watch'=>['name'=>'Samsung Galaxy Watch'],'huawei-watch'=>['name'=>'Huawei Watch'],'xiaomi-mi-band'=>['name'=>'Xiaomi Mi Band'],'amazfit'=>['name'=>'Amazfit'],'garmin'=>['name'=>'Garmin'],'honor-watch'=>['name'=>'Honor Watch'],'realme-watch'=>['name'=>'Realme Watch']
+                    'apple-watch' => ['name' => 'Apple Watch', 'models' => [
+                        'apple-watch-series-7' => 'Apple Watch Series 7',
+                        'apple-watch-series-8' => 'Apple Watch Series 8',
+                        'apple-watch-series-9' => 'Apple Watch Series 9',
+                        'apple-watch-se-2' => 'Apple Watch SE 2',
+                        'apple-watch-ultra' => 'Apple Watch Ultra',
+                        'apple-watch-ultra-2' => 'Apple Watch Ultra 2',
+                    ]],
+                    'samsung-galaxy-watch' => ['name' => 'Samsung Galaxy Watch', 'models' => [
+                        'galaxy-watch-4' => 'Galaxy Watch 4',
+                        'galaxy-watch-5' => 'Galaxy Watch 5',
+                        'galaxy-watch-6' => 'Galaxy Watch 6',
+                        'galaxy-watch-6-classic' => 'Galaxy Watch 6 Classic',
+                    ]],
                 ]
             ]
         ];
 
         // "Другие устройства" заводим просто как категории (согласно структуре ЧПУ)
         $otherCategories = [
-            'remont-komputerov'=>'Ремонт компьютеров', 'remont-monitorov'=>'Ремонт мониторов', 'remont-monoblokov'=>'Ремонт моноблоков', 'remont-televizorov'=>'Ремонт телевизоров', 'remont-pristavok'=>'Ремонт игровых приставок', 'remont-dzhojstikov'=>'Ремонт джойстиков и геймпадов', 'remont-naushnikov'=>'Ремонт наушников', 'remont-portativnyh-kolonok'=>'Ремонт портативных колонок', 'remont-fotoapparatov'=>'Ремонт фотоаппаратов', 'remont-videokamer'=>'Ремонт видеокамер', 'remont-ekshn-kamer'=>'Ремонт экшн-камер', 'remont-obektivov'=>'Ремонт объективов', 'remont-fotovspyshek'=>'Ремонт фотовспышек', 'remont-stabilizatorov'=>'Ремонт стабилизаторов', 'remont-elektronnyh-knig'=>'Ремонт электронных книг', 'remont-kvadrokopterov'=>'Ремонт квадрокоптеров и дронов', 'remont-robotov-pylesosov'=>'Ремонт роботов-пылесосов', 'remont-kofemashin'=>'Ремонт кофемашин', 'remont-terminalov-sbora-dannyh'=>'Ремонт терминалов сбора данных', 'remont-elektrosamokatov'=>'Ремонт электросамокатов', 'remont-giroskuterov'=>'Ремонт гироскутеров', 'remont-monokoles'=>'Ремонт моноколес'
+            'remont-komputerov' => 'Ремонт компьютеров',
+            'remont-monitorov' => 'Ремонт мониторов',
+            'remont-monoblokov' => 'Ремонт моноблоков',
+            'remont-televizorov' => 'Ремонт телевизоров',
+            'remont-pristavok' => 'Ремонт игровых приставок',
+            'remont-dzhojstikov' => 'Ремонт джойстиков и геймпадов',
+            'remont-naushnikov' => 'Ремонт наушников',
+            'remont-portativnyh-kolonok' => 'Ремонт портативных колонок',
+            'remont-fotoapparatov' => 'Ремонт фотоаппаратов',
+            'remont-obektivov' => 'Ремонт объективов',
+            'remont-fotovspyshek' => 'Ремонт фотовспышек',
+            'remont-elektronnyh-knig' => 'Ремонт электронных книг',
+            'remont-kvadrokopterov' => 'Ремонт квадрокоптеров и дронов',
+            'remont-robotov-pylesosov' => 'Ремонт роботов-пылесосов',
+            'remont-terminalov-sbora-dannyh' => 'Ремонт терминалов сбора данных',
         ];
 
         // ─── 4. Запускаем циклы генерации ───
@@ -178,7 +321,7 @@ class DatabaseSeeder extends Seeder
                                 ]
                             );
 
-                            // Создаем LandingPages для каждой из 5 услуг для этой модели!
+                            // Создаем LandingPages для каждой услуги для этой модели
                             foreach ($serviceObjects as $svcObj) {
                                 LandingPage::updateOrCreate(
                                     [
