@@ -246,22 +246,22 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт телефонов</span>
-                <img src="{{ asset('images/android.svg') }}" alt="Телефоны" class="absolute bottom-[-5%] right-[0%] w-[80%] object-contain group-hover:scale-105 transition duration-500" />
+                <img src="{{ asset('images/android.svg') }}" alt="Телефоны" class="absolute bottom-[-5%] right-[0%] w-[58%] sm:w-[80%] object-contain group-hover:scale-105 transition duration-500" />
             </a>
 
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-noutbukov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт ноутбуков</span>
-                <img src="{{ asset('images/laptop.svg') }}" alt="Ноутбуки" class="absolute bottom-[2%] right-[-5%] w-[90%] object-contain group-hover:scale-105 transition duration-500" />
+                <img src="{{ asset('images/laptop.svg') }}" alt="Ноутбуки" class="absolute bottom-[2%] right-[-5%] w-[62%] sm:w-[90%] object-contain group-hover:scale-105 transition duration-500" />
             </a>
 
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-planshetov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт планшетов</span>
-                <img src="{{ asset('images/tablet.svg') }}" alt="Планшеты" class="absolute bottom-[-5%] left-[10%] w-[90%] object-contain group-hover:scale-105 transition duration-500" />
+                <img src="{{ asset('images/tablet.svg') }}" alt="Планшеты" class="absolute bottom-[-5%] left-[10%] w-[62%] sm:w-[90%] object-contain group-hover:scale-105 transition duration-500" />
             </a>
 
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-smart-chasov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт смарт-часов</span>
-                <img src="{{ asset('images/watch.svg') }}" alt="Смарт-часы" class="absolute bottom-0 right-0 w-[85%] object-contain group-hover:scale-105 transition duration-500" />
+                <img src="{{ asset('images/watch.svg') }}" alt="Смарт-часы" class="absolute bottom-0 right-0 w-[56%] sm:w-[85%] object-contain group-hover:scale-105 transition duration-500" />
             </a>
 
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="flex items-center justify-center relative h-[16rem] sm:h-[20rem] rounded-[2rem] border-2 border-[#2AC0D5] bg-white group shadow-sm hover:bg-cyan-50 transition duration-300">
