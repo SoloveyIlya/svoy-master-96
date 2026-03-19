@@ -11,6 +11,24 @@
     .animate-slide-in-up {
         animation: slideInUp 0.8s ease-out forwards;
     }
+    .flip-char {
+        display: inline-block;
+        transform-style: preserve-3d;
+        transform-origin: 50% 50%;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
+    }
+    .flip-out {
+        transform: rotateX(90deg);
+        opacity: 0;
+    }
+    .flip-in {
+        transform: rotateX(-90deg);
+        opacity: 0;
+    }
+    .flip-normal {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
 </style>
 @endpush
 
@@ -19,9 +37,12 @@
     {{-- HERO SECTION --}}
     <section class="max-w-[87.5rem] mx-auto px-4 pt-8 sm:pt-10 pb-12 sm:pb-16 lg:pb-24 relative overflow-hidden">
         <div class="relative z-10 lg:max-w-[55%]">
-            <h1 class="text-3xl sm:text-4xl lg:text-[2.875rem] font-bold leading-[1.2] mb-8 sm:mb-10 text-[#1A1A1A]">
-                <span class="text-[#2AC0D5]">Профессиональный ремонт</span><br>
-                техники - в Екатеринбурге от 450 рублей
+            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-[2.875rem] font-bold leading-[1.2] mb-8 sm:mb-10 text-[#1A1A1A]">
+                <div class="flex flex-wrap items-center gap-x-2">
+                    <span id="animated-word-container" class="text-[#2AC0D5] inline-block relative whitespace-nowrap overflow-visible perspective-[1000px] transition-[width] duration-300 ease-in-out"></span>
+                    <span class="text-[#1A1A1A]">ремонт</span>
+                </div>
+                <div class="mt-2">техники - в Екатеринбурге от 450 рублей</div>
             </h1>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-6 sm:gap-y-8 gap-x-4 mb-10 sm:mb-12">
@@ -77,7 +98,7 @@
             </div>
         </div>
 
-        <div class="absolute -right-32 sm:-right-48 lg:right-0 top-1/2 -translate-y-1/2 w-[300px] sm:w-[350px] lg:w-[550px] xl:w-[650px] z-0 pointer-events-none transition-all duration-500">
+        <div class="absolute -right-20 sm:-right-48 lg:right-0 top-1/2 -translate-y-1/2 w-[300px] sm:w-[350px] lg:w-[550px] xl:w-[650px] z-0 pointer-events-none transition-all duration-500 opacity-40 sm:opacity-100">
             <img src="{{ asset('images/iphonelogo.svg') }}" alt="Ремонт техники" class="w-full object-contain drop-shadow-2xl opacity-100 lg:opacity-100" />
         </div>
     </section>
@@ -185,9 +206,9 @@
         </div>
         
         <div class="flex justify-center">
-            <a href="{{ route('defects.index') }}" class="bg-[#2AC0D5] hover:bg-[#0678A8] text-white font-medium py-3 px-8 rounded-[2rem] transition">
+            <button type="button" class="js-open-modal bg-[#2AC0D5] hover:bg-[#0678A8] text-white font-medium py-3 px-8 rounded-[2rem] transition" data-cta-title="Другая поломка">
                 Другая поломка
-            </a>
+            </button>
         </div>
     </section>
 
@@ -245,7 +266,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт телефонов</span>
-                <img src="{{ asset('images/android.svg') }}" alt="Телефоны" class="absolute bottom-[-5%] left-0 right-0 mx-auto sm:mx-0 w-[58%] sm:w-[80%] sm:left-auto sm:right-[0%] object-contain group-hover:scale-105 transition duration-500" />
+                <img src="{{ asset('images/android.svg') }}" alt="Телефоны" class="absolute bottom-[-6%] left-0 right-0 mx-auto sm:mx-0 w-[58%] sm:w-[80%] sm:left-auto sm:right-[0%] object-contain group-hover:scale-105 transition duration-500" />
             </a>
 
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-noutbukov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
@@ -338,14 +359,14 @@
                     <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-[#1A1A1A]">Наши специалисты</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div class="bg-white p-4 rounded-[1rem] shadow-sm text-center">
-                            <img src="{{ asset('images/man.png') }}" alt="Мастер Иван" class="w-24 h-24 rounded-full mx-auto mb-3 object-cover bg-gray-200">
-                            <h4 class="font-bold text-[#1A1A1A]">Иван С.</h4>
-                            <p class="text-xs text-gray-500">Старший инженер</p>
+                            <img src="{{ asset('images/oleg.jpg') }}" alt="Мастер Иван" class="w-24 h-24 rounded-full mx-auto mb-3 object-cover bg-gray-200">
+                            <h4 class="font-bold text-[#1A1A1A]">Олег Валерьевич Егоров</h4>
+                            <p class="text-xs text-gray-500">Мастер по ремонту телефонов и планшетов, сметчик</p>
                         </div>
                         <div class="bg-white p-4 rounded-[1rem] shadow-sm text-center">
-                            <img src="{{ asset('images/man.png') }}" alt="Мастер Алексей" class="w-24 h-24 rounded-full mx-auto mb-3 object-cover bg-gray-200">
-                            <h4 class="font-bold text-[#1A1A1A]">Алексей В.</h4>
-                            <p class="text-xs text-gray-500">Мастер по BGA-пайке</p>
+                            <img src="{{ asset('images/kate.jpg') }}" alt="Мастер Алексей" class="w-24 h-24 rounded-full mx-auto mb-3 object-cover bg-gray-200">
+                            <h4 class="font-bold text-[#1A1A1A]">Екатерина Сергеевна Сыропятова</h4>
+                            <p class="text-xs text-gray-500">Администратор, мастер по ремонту телефонов и планшетов, системный администратор</p>
                         </div>
                     </div>
                 </div>
@@ -356,28 +377,59 @@
     {{-- ЭТАПЫ РАБОТ --}}
     <section class="max-w-[87.5rem] mx-auto px-4 py-16">
         <h2 class="text-2xl sm:text-3xl font-bold text-center mb-10 sm:mb-12 text-[#1A1A1A]">Алгоритм работы</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center relative">
-            <div class="hidden lg:block absolute top-[2.5rem] left-[10%] w-[80%] h-[2px] bg-gray-200 -z-10"></div>
-            
-            <div class="relative">
-                <div class="w-20 h-20 mx-auto bg-[#2AC0D5] text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4 shadow-md">1</div>
-                <h3 class="font-bold text-lg mb-2">Заявка</h3>
-                <p class="text-sm text-gray-500">Вы оставляете заявку на сайте или приносите технику к нам</p>
+        
+        <div class="relative">
+            {{-- Линия и стрелочки между этапами (только для десктопа) --}}
+            <div class="hidden lg:block absolute top-[2.5rem] left-0 w-full h-0 z-0 pointer-events-none">
+                {{-- Соединительная линия --}}
+                <div class="absolute top-0 left-[12.5%] w-[75%] h-[2px] bg-gray-200"></div>
+                
+                {{-- Стрелки ровно в промежутках (25%, 50%, 75%) --}}
+                <div class="absolute left-[25%] top-0 -translate-x-1/2 -translate-y-1/2">
+                    <svg class="w-8 h-8 text-[#2AC0D5] animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
+                </div>
+                <div class="absolute left-[50%] top-0 -translate-x-1/2 -translate-y-1/2">
+                    <svg class="w-8 h-8 text-[#2AC0D5] animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
+                </div>
+                <div class="absolute left-[75%] top-0 -translate-x-1/2 -translate-y-1/2">
+                    <svg class="w-8 h-8 text-[#2AC0D5] animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
+                </div>
             </div>
-            <div class="relative">
-                <div class="w-20 h-20 mx-auto bg-white border-4 border-[#2AC0D5] text-[#2AC0D5] rounded-full flex items-center justify-center text-2xl font-bold mb-4 shadow-md">2</div>
-                <h3 class="font-bold text-lg mb-2">Диагностика</h3>
-                <p class="text-sm text-gray-500">Бесплатно выявляем точную причину неисправности</p>
-            </div>
-            <div class="relative">
-                <div class="w-20 h-20 mx-auto bg-white border-4 border-[#2AC0D5] text-[#2AC0D5] rounded-full flex items-center justify-center text-2xl font-bold mb-4 shadow-md">3</div>
-                <h3 class="font-bold text-lg mb-2">Ремонт</h3>
-                <p class="text-sm text-gray-500">Согласовываем цену и производим ремонт устройства</p>
-            </div>
-            <div class="relative">
-                <div class="w-20 h-20 mx-auto bg-white border-4 border-[#2AC0D5] text-[#2AC0D5] rounded-full flex items-center justify-center text-2xl font-bold mb-4 shadow-md">4</div>
-                <h3 class="font-bold text-lg mb-2">Выдача</h3>
-                <p class="text-sm text-gray-500">Возвращаем рабочее устройство вместе с гарантией</p>
+
+            {{-- Сама сетка с шагами --}}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center relative z-10 px-4 sm:px-0">
+                <div class="group">
+                    <div class="w-20 h-20 mx-auto bg-[#2AC0D5] text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4 shadow-md relative z-10 transition-transform group-hover:scale-110 duration-300">1</div>
+                    <h3 class="font-bold text-lg mb-2">Заявка</h3>
+                    <p class="text-sm text-gray-500 font-light">Вы оставляете заявку на сайте или приносите технику к нам</p>
+                </div>
+                {{-- Стрелка для мобилок --}}
+                <div class="lg:hidden flex justify-center -my-4 relative z-0">
+                    <svg class="w-6 h-6 text-[#2AC0D5] animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13l-7 7-7-7m14-8l-7 7-7-7"></path></svg>
+                </div>
+                <div class="group">
+                    <div class="w-20 h-20 mx-auto bg-white border-4 border-[#2AC0D5] text-[#2AC0D5] rounded-full flex items-center justify-center text-2xl font-bold mb-4 shadow-md relative z-10 transition-transform group-hover:scale-110 duration-300">2</div>
+                    <h3 class="font-bold text-lg mb-2">Диагностика</h3>
+                    <p class="text-sm text-gray-500 font-light">Бесплатно выявляем точную причину неисправности</p>
+                </div>
+                {{-- Стрелка для мобилок --}}
+                <div class="lg:hidden flex justify-center -my-4 relative z-0">
+                    <svg class="w-6 h-6 text-[#2AC0D5] animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13l-7 7-7-7m14-8l-7 7-7-7"></path></svg>
+                </div>
+                <div class="group">
+                    <div class="w-20 h-20 mx-auto bg-white border-4 border-[#2AC0D5] text-[#2AC0D5] rounded-full flex items-center justify-center text-2xl font-bold mb-4 shadow-md relative z-10 transition-transform group-hover:scale-110 duration-300">3</div>
+                    <h3 class="font-bold text-lg mb-2">Ремонт</h3>
+                    <p class="text-sm text-gray-500 font-light">Согласовываем цену и производим ремонт устройства</p>
+                </div>
+                {{-- Стрелка для мобилок --}}
+                <div class="lg:hidden flex justify-center -my-4 relative z-0">
+                    <svg class="w-6 h-6 text-[#2AC0D5] animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13l-7 7-7-7m14-8l-7 7-7-7"></path></svg>
+                </div>
+                <div class="group">
+                    <div class="w-20 h-20 mx-auto bg-white border-4 border-[#2AC0D5] text-[#2AC0D5] rounded-full flex items-center justify-center text-2xl font-bold mb-4 shadow-md relative z-10 transition-transform group-hover:scale-110 duration-300">4</div>
+                    <h3 class="font-bold text-lg mb-2">Выдача</h3>
+                    <p class="text-sm text-gray-500 font-light">Возвращаем рабочее устройство вместе с гарантией</p>
+                </div>
             </div>
         </div>
     </section>
@@ -734,6 +786,79 @@
         }, obsOptions);
 
         document.querySelectorAll('.js-scroll-trigger').forEach(el => observer.observe(el));
+
+        // 7. СЛОВО В ЗАГОЛОВКЕ АНИМАЦИЯ
+        const words = ["Профессиональный", "Быстрый", "Качественный", "Надёжный", "Недорогой"];
+        let currentWordIndex = 0;
+        const animatedContainer = document.getElementById('animated-word-container');
+        if (animatedContainer) {
+            function createSpans(word) {
+                // Измеряем ширину нового слова
+                const temp = document.createElement('span');
+                temp.style.visibility = 'hidden';
+                temp.style.position = 'absolute';
+                temp.style.whiteSpace = 'nowrap';
+                temp.className = 'text-[#2AC0D5] font-bold text-2xl sm:text-3xl md:text-4xl lg:text-[2.875rem]';
+                temp.innerText = word;
+                document.body.appendChild(temp);
+                const width = temp.offsetWidth;
+                document.body.removeChild(temp);
+                
+                // Устанавливаем ширину контейнеру для плавной анимации
+                animatedContainer.style.width = width + 'px';
+
+                animatedContainer.innerHTML = '';
+                const wrapper = document.createElement('span');
+                wrapper.className = 'inline-block';
+                
+                word.split('').forEach(char => {
+                    const span = document.createElement('span');
+                    span.innerHTML = char === ' ' ? '&nbsp;' : char;
+                    span.className = 'flip-char flip-normal';
+                    wrapper.appendChild(span);
+                });
+                animatedContainer.appendChild(wrapper);
+                return wrapper.childNodes;
+            }
+
+            let currentSpans = createSpans(words[0]);
+
+            function changeWord() {
+                const nextWordIndex = (currentWordIndex + 1) % words.length;
+                const nextWord = words[nextWordIndex];
+                
+                currentSpans.forEach((span, i) => {
+                    setTimeout(() => {
+                        span.classList.remove('flip-normal');
+                        span.classList.add('flip-out');
+                    }, i * 30); 
+                });
+
+                const outDuration = (currentSpans.length * 30) + 400; 
+
+                setTimeout(() => {
+                    currentSpans = createSpans(nextWord);
+                    currentSpans.forEach(span => {
+                        span.classList.remove('flip-normal');
+                        span.classList.add('flip-in');
+                    });
+
+                    setTimeout(() => {
+                        currentSpans.forEach((span, i) => {
+                            setTimeout(() => {
+                                span.classList.remove('flip-in');
+                                span.classList.add('flip-normal');
+                            }, i * 30);
+                        });
+                    }, 50);
+
+                }, outDuration);
+
+                currentWordIndex = nextWordIndex;
+            }
+
+            setInterval(changeWord, 4000);
+        }
     });
 </script>
 @endpush

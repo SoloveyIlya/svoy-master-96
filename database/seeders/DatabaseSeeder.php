@@ -128,6 +128,24 @@ class DatabaseSeeder extends Seeder
                 'service_slug' => 'remont-posle-zalitiya',
             ],
             [
+                'name' => 'Нет сети / Wi-Fi',
+                'description' => 'Связь / модуль',
+                'slug' => 'net-seti-wifi',
+                'service_slug' => 'smena-po-proshivka',
+            ],
+            [
+                'name' => 'Камера / звук',
+                'description' => 'Микрофон / динамик',
+                'slug' => 'kamera-zvuk',
+                'service_slug' => 'zamena-mikrofona',
+            ],
+            [
+                'name' => 'Не включается',
+                'description' => 'Питание / плата',
+                'slug' => 'ne-vklyuchaetsya',
+                'service_slug' => 'remont-posle-zalitiya',
+            ],
+            [
                 'name' => 'Тормозит',
                 'description' => 'ПО / память',
                 'slug' => 'tormozit',

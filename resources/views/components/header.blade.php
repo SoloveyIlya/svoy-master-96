@@ -6,9 +6,9 @@
         </a>
         <button
             type="button"
+            id="burgerBtn"
             class="inline-flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-[#0678A8]"
             aria-label="Открыть меню"
-            data-mobile-menu-open
         >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -71,22 +71,20 @@
     </div>
 
     <div
-        class="fixed inset-0 z-[60] hidden"
-        data-mobile-menu
+        id="mobileMenu"
+        class="fixed inset-0 -translate-x-full transition-transform duration-300 bg-white z-[999] overflow-y-auto"
         aria-hidden="true"
     >
-        <div class="absolute inset-0 bg-black/50" data-mobile-menu-close></div>
-
-        <div class="relative z-10 h-full w-full bg-white p-6 overflow-y-auto">
+        <div class="p-6">
             <div class="flex items-center justify-between mb-8">
                 <a href="{{ route('home') }}">
                     <img src="{{ asset('images/logo.png') }}" alt="Свой Мастер" class="h-12 w-auto object-contain">
                 </a>
                 <button
                     type="button"
+                    id="closeMobileMenu"
                     class="inline-flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-[#0678A8]"
                     aria-label="Закрыть меню"
-                    data-mobile-menu-close
                 >
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -94,14 +92,52 @@
                 </button>
             </div>
 
-            <div class="mb-8">
-                <h3 class="text-sm uppercase tracking-wide text-gray-500 mb-4">Категории услуг</h3>
-                <nav class="space-y-3">
-                    <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="block text-lg font-semibold text-[#1A1A1A]">Ремонт телефонов</a>
-                    <a href="{{ route('catalog.category', ['categorySlug' => 'remont-noutbukov']) }}" class="block text-lg font-semibold text-[#1A1A1A]">Ремонт ноутбуков</a>
-                    <a href="{{ route('catalog.category', ['categorySlug' => 'remont-planshetov']) }}" class="block text-lg font-semibold text-[#1A1A1A]">Ремонт планшетов</a>
-                    <a href="{{ route('catalog.category', ['categorySlug' => 'remont-smart-chasov']) }}" class="block text-lg font-semibold text-[#1A1A1A]">Ремонт смарт-часов</a>
-                </nav>
+            <div class="mb-8 space-y-4">
+                {{-- Category 1 --}}
+                <div class="mobile-nav__group border-b border-gray-100 pb-2">
+                    <div class="mobile-nav__header flex items-center justify-between cursor-pointer py-2">
+                        <span class="text-lg font-semibold text-[#1A1A1A]">Ремонт телефонов</span>
+                        <svg class="w-5 h-5 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="mobile-nav__content hidden pt-2 pb-4 space-y-2 pl-4">
+                        <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'apple']) }}" class="block text-gray-600 hover:text-[#0678A8]">Apple</a>
+                        <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'samsung']) }}" class="block text-gray-600 hover:text-[#0678A8]">Samsung</a>
+                        <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'xiaomi']) }}" class="block text-gray-600 hover:text-[#0678A8]">Xiaomi</a>
+                        <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'honor']) }}" class="block text-gray-600 hover:text-[#0678A8]">Honor</a>
+                        <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="block text-[#0678A8] font-medium pt-2">Все бренды &rarr;</a>
+                    </div>
+                </div>
+
+                {{-- Category 2 --}}
+                <div class="mobile-nav__group border-b border-gray-100 pb-2">
+                    <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'apple']) }}" class="block py-2 text-lg font-semibold text-[#1A1A1A]">Ремонт Apple</a>
+                </div>
+
+                {{-- Category 3 --}}
+                <div class="mobile-nav__group border-b border-gray-100 pb-2">
+                    <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'samsung']) }}" class="block py-2 text-lg font-semibold text-[#1A1A1A]">Ремонт Samsung</a>
+                </div>
+
+                {{-- Category 4 --}}
+                <div class="mobile-nav__group border-b border-gray-100 pb-2">
+                    <div class="mobile-nav__header flex items-center justify-between cursor-pointer py-2">
+                        <span class="text-lg font-semibold text-[#1A1A1A]">Ремонт ноутбуков</span>
+                        <svg class="w-5 h-5 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="mobile-nav__content hidden pt-2 pb-4 space-y-2 pl-4">
+                        <a href="#" class="block text-gray-600 hover:text-[#0678A8]">Apple MacBook</a>
+                        <a href="#" class="block text-gray-600 hover:text-[#0678A8]">Asus</a>
+                        <a href="#" class="block text-gray-600 hover:text-[#0678A8]">Acer</a>
+                        <a href="#" class="block text-gray-600 hover:text-[#0678A8]">Lenovo</a>
+                        <a href="#" class="block text-gray-600 hover:text-[#0678A8]">HP</a>
+                        <a href="{{ route('catalog.category', ['categorySlug' => 'remont-noutbukov']) }}" class="block text-[#0678A8] font-medium pt-2">Все бренды &rarr;</a>
+                    </div>
+                </div>
+
+                {{-- Category 5 --}}
+                <div class="mobile-nav__group border-b border-gray-100 pb-2">
+                    <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'xiaomi']) }}" class="block py-2 text-lg font-semibold text-[#1A1A1A]">Ремонт Xiaomi</a>
+                </div>
             </div>
 
             <div class="pt-6 border-t border-gray-200 space-y-3">
@@ -112,27 +148,3 @@
             </div>
         </div>
     </div>
-</header>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const menu = document.querySelector('[data-mobile-menu]');
-        if (!menu) return;
-
-        const openButton = document.querySelector('[data-mobile-menu-open]');
-        const closeButtons = document.querySelectorAll('[data-mobile-menu-close]');
-
-        const openMenu = () => {
-            menu.classList.remove('hidden');
-            document.body.classList.add('overflow-hidden');
-        };
-
-        const closeMenu = () => {
-            menu.classList.add('hidden');
-            document.body.classList.remove('overflow-hidden');
-        };
-
-        openButton?.addEventListener('click', openMenu);
-        closeButtons.forEach((button) => button.addEventListener('click', closeMenu));
-    });
-</script>
