@@ -2,11 +2,23 @@
 
 @section('title', 'Свой Мастер - Ремонт цифровой техники в Екатеринбурге')
 
+@push('styles')
+<style>
+    @keyframes slideInUp {
+        from { transform: translateY(100px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .animate-slide-in-up {
+        animation: slideInUp 0.8s ease-out forwards;
+    }
+</style>
+@endpush
+
 @section('content')
 
     {{-- HERO SECTION --}}
-    <section class="max-w-[87.5rem] mx-auto px-4 pt-8 sm:pt-10 pb-12 sm:pb-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative overflow-hidden">
-        <div class="relative z-10">
+    <section class="max-w-[87.5rem] mx-auto px-4 pt-8 sm:pt-10 pb-12 sm:pb-16 lg:pb-24 relative overflow-hidden">
+        <div class="relative z-10 lg:max-w-[55%]">
             <h1 class="text-3xl sm:text-4xl lg:text-[2.875rem] font-bold leading-[1.2] mb-8 sm:mb-10 text-[#1A1A1A]">
                 <span class="text-[#2AC0D5]">Профессиональный ремонт</span><br>
                 техники - в Екатеринбурге от 450 рублей
@@ -48,19 +60,25 @@
             </div>
 
             <div class="flex flex-wrap items-center gap-3 sm:gap-4">
-                <button class="w-full sm:w-auto bg-[#2AC0D5] hover:bg-[#0678A8] text-white font-medium py-3 px-6 sm:px-8 rounded-[2rem] transition shadow-md">
+                <button
+                    type="button"
+                    class="js-open-modal w-full sm:w-auto bg-[#2AC0D5] hover:bg-[#0678A8] text-white font-medium py-3 px-6 sm:px-8 rounded-[2rem] transition shadow-md"
+                    data-cta-title="Узнать цену ремонта бесплатно"
+                >
                     Узнать цену ремонта бесплатно
                 </button>
-                <button class="w-full sm:w-auto border-2 border-[#2AC0D5] text-[#2AC0D5] hover:bg-[#2AC0D5] hover:text-white font-medium py-3 px-6 sm:px-8 rounded-[2rem] transition">
+                <button
+                    type="button"
+                    class="js-open-modal w-full sm:w-auto border-2 border-[#2AC0D5] text-[#2AC0D5] hover:bg-[#2AC0D5] hover:text-white font-medium py-3 px-6 sm:px-8 rounded-[2rem] transition"
+                    data-cta-title="Вызвать курьера"
+                >
                     Вызвать курьера
                 </button>
             </div>
         </div>
 
-        <div class="relative z-0 flex justify-center lg:justify-end">
-            <div class="absolute inset-0 bg-gradient-to-r from-white to-cyan-50 opacity-50 blur-3xl z-0"></div>
-            {{-- Убедись, что путь до картинки верный --}}
-            <img src="{{ asset('images/iphonelogo.svg') }}" alt="Ремонт техники" class="relative z-10 w-full max-w-[45rem] object-contain drop-shadow-2xl" />
+        <div class="absolute -right-32 sm:-right-48 lg:right-0 top-1/2 -translate-y-1/2 w-[300px] sm:w-[350px] lg:w-[550px] xl:w-[650px] z-0 pointer-events-none transition-all duration-500">
+            <img src="{{ asset('images/iphonelogo.svg') }}" alt="Ремонт техники" class="w-full object-contain drop-shadow-2xl opacity-100 lg:opacity-100" />
         </div>
     </section>
 
@@ -68,78 +86,81 @@
     <section class="w-full py-10 overflow-hidden bg-gray-50">
         <div id="slider-container" class="w-full relative">
             <div id="slider-track" class="flex gap-4 md:gap-6 will-change-transform px-4 md:px-[10%]">
-                
-                {{-- SLIDE 1 --}}
-                <div class="slider-item w-[92%] sm:w-[88%] md:w-[85%] lg:w-[60rem] flex-shrink-0 relative rounded-[2rem] overflow-hidden h-[16.5rem] sm:h-[18rem] md:h-[22rem] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] shadow-lg flex">
-                    
-                    {{-- Паттерн фона --}}
-                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay pointer-events-none z-0"></div>
-                    
-                    {{-- ЛЕВАЯ КОЛОНКА: Текст (занимает 60% ширины) --}}
-                    <div class="relative z-10 w-full md:w-[60%] h-full flex flex-col justify-center items-start px-6 sm:px-8 md:pl-16">
-                        <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight mb-6 tracking-tight">
-                            <span class="text-[#FFD12A]">-10%</span> на работу мастера<br>
-                            Каждому клиенту за отзыв<br>
-                            промо код "Спасибо Мастер"
-                        </h2>
-                        <button class="border border-white/50 text-white hover:bg-white hover:text-[#0678A8] text-sm font-medium py-2.5 px-6 rounded-full transition backdrop-blur-sm">
-                            Подробнее →
-                        </button>
+
+                @if(isset($banners) && $banners->count() > 0)
+                    {{-- Динамические баннеры из БД --}}
+                    @foreach($banners as $banner)
+                        <div class="slider-item w-[92%] sm:w-[88%] md:w-[85%] lg:w-[60rem] flex-shrink-0 rounded-[2rem] overflow-hidden h-[16.5rem] sm:h-[18rem] md:h-[22rem]">
+                            <img src="{{ Storage::url($banner->image_path) }}" alt="Баннер" class="w-full h-full rounded-[2rem] object-cover" />
+                        </div>
+                    @endforeach
+                @else
+                    {{-- Хардкод-слайды (fallback) --}}
+
+                    {{-- SLIDE 1 --}}
+                    <div class="slider-item w-[92%] sm:w-[88%] md:w-[85%] lg:w-[60rem] flex-shrink-0 relative rounded-[2rem] overflow-hidden h-[16.5rem] sm:h-[18rem] md:h-[22rem] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] shadow-lg flex">
+                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay pointer-events-none z-0"></div>
+                        <div class="relative z-10 w-full md:w-[60%] h-full flex flex-col justify-center items-start px-6 sm:px-8 md:pl-16">
+                            <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight mb-6 tracking-tight">
+                                <span class="text-[#FFD12A]">-10%</span> на работу мастера<br>
+                                Каждому клиенту за отзыв<br>
+                                промо код "Спасибо Мастер"
+                            </h2>
+                            <button type="button" class="js-open-modal border border-white/50 text-white hover:bg-white hover:text-[#0678A8] text-sm font-medium py-2.5 px-6 rounded-full transition backdrop-blur-sm" data-cta-title="Оставить заявку по акции -10%">
+                                Подробнее →
+                            </button>
+                        </div>
+                        <div class="relative z-10 w-[40%] h-full flex items-end justify-center hidden md:flex">
+                            <img src="{{ asset('images/man.png') }}" alt="Мастер" class="max-h-[95%] max-w-full object-contain object-bottom drop-shadow-lg" />
+                        </div>
                     </div>
 
-                    {{-- ПРАВАЯ КОЛОНКА: Картинка (занимает 40% ширины, прижата к низу) --}}
-                    <div class="relative z-10 w-[40%] h-full flex items-end justify-center hidden md:flex">
-                        {{-- object-contain гарантирует, что человек впишется в свою колонку без искажений --}}
-                        <img src="{{ asset('images/man.png') }}" alt="Мастер" class="max-h-[95%] max-w-full object-contain object-bottom drop-shadow-lg" />
+                    {{-- SLIDE 2 --}}
+                    <div class="slider-item w-[92%] sm:w-[88%] md:w-[85%] lg:w-[60rem] flex-shrink-0 relative rounded-[2rem] overflow-hidden h-[16.5rem] sm:h-[18rem] md:h-[22rem] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] shadow-lg flex">
+                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay pointer-events-none z-0"></div>
+                        <div class="relative z-10 w-full md:w-[60%] h-full flex flex-col justify-center items-start px-6 sm:px-8 md:pl-16">
+                            <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight mb-6 tracking-tight">
+                                <span class="text-[#FFD12A]">-15%</span> при заказе ремонта<br>
+                                двух устройств сразу
+                            </h2>
+                            <button type="button" class="js-open-modal border border-white/50 text-white hover:bg-white hover:text-[#0678A8] text-sm font-medium py-2.5 px-6 rounded-full transition backdrop-blur-sm" data-cta-title="Оставить заявку по акции -15%">
+                                Подробнее →
+                            </button>
+                        </div>
+                        <div class="relative z-10 w-[40%] h-full flex items-end justify-center hidden md:flex">
+                            <img src="{{ asset('images/man.png') }}" alt="Мастер" class="max-h-[95%] max-w-full object-contain object-bottom drop-shadow-lg" />
+                        </div>
                     </div>
 
-                </div>
-
-                {{-- SLIDE 2 --}}
-                <div class="slider-item w-[92%] sm:w-[88%] md:w-[85%] lg:w-[60rem] flex-shrink-0 relative rounded-[2rem] overflow-hidden h-[16.5rem] sm:h-[18rem] md:h-[22rem] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] shadow-lg flex">
-                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay pointer-events-none z-0"></div>
-                    
-                    <div class="relative z-10 w-full md:w-[60%] h-full flex flex-col justify-center items-start px-6 sm:px-8 md:pl-16">
-                        <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight mb-6 tracking-tight">
-                            <span class="text-[#FFD12A]">-15%</span> при заказе ремонта<br>
-                            двух устройств сразу
-                        </h2>
-                        <button class="border border-white/50 text-white hover:bg-white hover:text-[#0678A8] text-sm font-medium py-2.5 px-6 rounded-full transition backdrop-blur-sm">
-                            Подробнее →
-                        </button>
+                    {{-- SLIDE 3 --}}
+                    <div class="slider-item w-[92%] sm:w-[88%] md:w-[85%] lg:w-[60rem] flex-shrink-0 relative rounded-[2rem] overflow-hidden h-[16.5rem] sm:h-[18rem] md:h-[22rem] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] shadow-lg flex">
+                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay pointer-events-none z-0"></div>
+                        <div class="relative z-10 w-full md:w-[60%] h-full flex flex-col justify-center items-start px-6 sm:px-8 md:pl-16">
+                            <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight mb-6 tracking-tight">
+                                <span class="text-[#FFD12A]">Бесплатное</span> защитное<br>
+                                стекло при замене дисплея
+                            </h2>
+                            <button type="button" class="js-open-modal border border-white/50 text-white hover:bg-white hover:text-[#0678A8] text-sm font-medium py-2.5 px-6 rounded-full transition backdrop-blur-sm" data-cta-title="Оставить заявку на замену дисплея">
+                                Подробнее →
+                            </button>
+                        </div>
+                        <div class="relative z-10 w-[40%] h-full flex items-end justify-center hidden md:flex">
+                            <img src="{{ asset('images/man.png') }}" alt="Мастер" class="max-h-[95%] max-w-full object-contain object-bottom drop-shadow-lg" />
+                        </div>
                     </div>
 
-                    <div class="relative z-10 w-[40%] h-full flex items-end justify-center hidden md:flex">
-                        <img src="{{ asset('images/man.png') }}" alt="Мастер" class="max-h-[95%] max-w-full object-contain object-bottom drop-shadow-lg" />
-                    </div>
-                </div>
-
-                {{-- SLIDE 3 --}}
-                <div class="slider-item w-[92%] sm:w-[88%] md:w-[85%] lg:w-[60rem] flex-shrink-0 relative rounded-[2rem] overflow-hidden h-[16.5rem] sm:h-[18rem] md:h-[22rem] bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] shadow-lg flex">
-                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay pointer-events-none z-0"></div>
-                    
-                    <div class="relative z-10 w-full md:w-[60%] h-full flex flex-col justify-center items-start px-6 sm:px-8 md:pl-16">
-                        <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight mb-6 tracking-tight">
-                            <span class="text-[#FFD12A]">Бесплатное</span> защитное<br>
-                            стекло при замене дисплея
-                        </h2>
-                        <button class="border border-white/50 text-white hover:bg-white hover:text-[#0678A8] text-sm font-medium py-2.5 px-6 rounded-full transition backdrop-blur-sm">
-                            Подробнее →
-                        </button>
-                    </div>
-
-                    <div class="relative z-10 w-[40%] h-full flex items-end justify-center hidden md:flex">
-                        <img src="{{ asset('images/man.png') }}" alt="Мастер" class="max-h-[95%] max-w-full object-contain object-bottom drop-shadow-lg" />
-                    </div>
-                </div>
+                @endif
 
             </div>
         </div>
 
         <div class="flex justify-center items-center gap-3 mt-8">
-            <button class="slider-dot w-3 h-3 rounded-full bg-[#0678A8] transition-all duration-300 transform scale-125"></button>
-            <button class="slider-dot w-3 h-3 rounded-full bg-gray-300 hover:bg-[#2AC0D5] transition-all duration-300"></button>
-            <button class="slider-dot w-3 h-3 rounded-full bg-gray-300 hover:bg-[#2AC0D5] transition-all duration-300"></button>
+            @php
+                $slideCount = (isset($banners) && $banners->count() > 0) ? $banners->count() : 3;
+            @endphp
+            @for($i = 0; $i < $slideCount; $i++)
+                <button type="button" class="slider-dot w-3 h-3 rounded-full {{ $i === 0 ? 'bg-[#0678A8] scale-125' : 'bg-gray-300 hover:bg-[#2AC0D5]' }} transition-all duration-300"></button>
+            @endfor
         </div>
     </section>
 
@@ -151,52 +172,38 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            @php
-                $issues = [
-                    ['title' => 'Разбилось стекло', 'desc' => 'Трещины / паутинка'],
-                    ['title' => 'Не заряжается', 'desc' => 'Разъем / кабель / плата'],
-                    ['title' => 'Быстро садится', 'desc' => 'Аккумулятор'],
-                    ['title' => 'Попала вода', 'desc' => 'Срочно в диагностику'],
-                    ['title' => 'Нет сети / Wi-Fi', 'desc' => 'Связь / модуль'],
-                    ['title' => 'Камера / звук', 'desc' => 'Микрофон / динамик'],
-                    ['title' => 'Не включается', 'desc' => 'Питание / плата'],
-                    ['title' => 'Тормозит', 'desc' => 'ПО / память']
-                ];
-            @endphp
-
-            @foreach($issues as $issue)
-            <div class="border border-gray-200 rounded-[1rem] p-4 sm:p-6 hover:shadow-lg hover:border-[#2AC0D5] transition cursor-pointer bg-white">
-                <h3 class="font-bold text-[#1A1A1A] mb-1">{{ $issue['title'] }}</h3>
-                <p class="text-sm text-gray-500">{{ $issue['desc'] }}</p>
-            </div>
-            @endforeach
+            @forelse($defects as $defect)
+                <a href="{{ route('defects.show', $defect->slug) }}" class="border border-gray-200 rounded-[1rem] p-4 sm:p-6 hover:shadow-lg hover:border-[#2AC0D5] transition cursor-pointer bg-white block">
+                    <h3 class="font-bold text-[#1A1A1A] mb-1">{{ $defect->name }}</h3>
+                    <p class="text-sm text-gray-500">{{ $defect->description }}</p>
+                </a>
+            @empty
+                <div class="col-span-full border border-dashed border-gray-300 rounded-[1rem] p-6 text-center text-gray-500">
+                    Поломки скоро появятся.
+                </div>
+            @endforelse
         </div>
         
         <div class="flex justify-center">
-            <button class="bg-[#2AC0D5] hover:bg-[#0678A8] text-white font-medium py-3 px-8 rounded-[2rem] transition">
+            <a href="{{ route('defects.index') }}" class="bg-[#2AC0D5] hover:bg-[#0678A8] text-white font-medium py-3 px-8 rounded-[2rem] transition">
                 Другая поломка
-            </button>
+            </a>
         </div>
     </section>
 
     {{-- ЗАМЕНА СТЕКЛА (С ТАБАМИ МАРКИ) --}}
     <section class="max-w-[87.5rem] mx-auto px-4 py-8">
-            <div class="bg-[#0678A8] rounded-[2rem] relative flex flex-col md:flex-row items-end pt-8 px-8 pb-0 md:pt-12 md:px-12 md:pb-0 shadow-xl">
+            <div class="bg-[#0678A8] rounded-[2rem] relative flex flex-col-reverse md:flex-row items-end pt-8 px-6 sm:px-8 pb-0 md:pt-12 md:px-12 md:pb-0 shadow-xl overflow-hidden">
                 
                 <div class="absolute inset-0 bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] opacity-90 z-0 rounded-[2rem]"></div>
                 
-                <!-- 2. У блока картинки: добавили self-end, чтобы он всегда стоял на нижней линии -->
-                <div class="relative z-10 md:w-1/3 self-end">
+                <div class="relative z-10 md:w-1/3 self-end -mb-10 md:mb-0">
                     <img src="{{ asset('images/broken-phone.png') }}" 
                         alt="Разбитое стекло" 
-                        class="w-full transform transition-transform duration-300 
-                                md:scale-130       /* Увеличиваем */
-                                md:translate-y-[0%] /* Позволяем ей чуть-чуть «свисать» или стоять впритык */
-                                drop-shadow-2xl object-contain origin-bottom" />
+                        class="opacity-0 js-scroll-trigger w-[120%] sm:w-[110%] md:w-full transform transition-transform duration-300 scale-110 md:scale-[1.28] drop-shadow-2xl object-contain origin-bottom" />
                 </div>
 
-                <!-- 3. Блок текста: ему нужно вернуть нижний отступ, иначе он упадет на пол -->
-                <div class="relative z-10 md:w-2/3 md:pl-16 text-white py-12 self-center">
+                <div class="relative z-10 md:w-2/3 md:pl-16 text-white py-8 md:py-12 self-center">
                 <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">Замена стекла</h2>
                 <p class="text-white/80 mb-8 max-w-2xl leading-relaxed">
                     Если изображение и сенсор работают — часто можно заменить только стекло, без замены всего дисплейного модуля. Это выгоднее и аккуратнее для устройства.
@@ -205,33 +212,25 @@
                 <div class="mb-4">
                     <p class="font-semibold mb-3">Выберите марку устройства:</p>
                     <div class="flex flex-wrap gap-2" id="brand-tabs">
-                        <button onclick="changeBrandTab('apple')" class="brand-tab active bg-white text-[#0678A8] px-5 py-2 rounded-full font-medium transition">Apple</button>
-                        <button onclick="changeBrandTab('samsung')" class="brand-tab bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded-full font-medium transition">Samsung</button>
-                        <button onclick="changeBrandTab('xiaomi')" class="brand-tab bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded-full font-medium transition">Xiaomi</button>
+                        @foreach($brands as $index => $brand)
+                        <button onclick="changeBrandTab('{{ $brand->slug }}', this)" 
+                            class="brand-tab {{ $index === 0 ? 'active bg-white text-[#0678A8]' : 'bg-white/20 hover:bg-white/40 text-white' }} px-5 py-2 rounded-full font-medium transition">
+                            {{ $brand->name }}
+                        </button>
+                        @endforeach
                     </div>
                 </div>
 
                 <div class="mt-6 border-t border-white/20 pt-6">
-                    {{-- Модели Apple --}}
-                    <div id="models-apple" class="models-grid grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                        @foreach(['iPhone 14', 'iPhone 14 Pro', 'iPhone 15', 'iPhone 15 Pro', 'iPhone 16', 'iPhone 16 Pro', 'iPhone 13', 'iPhone 12'] as $model)
-                            <a href="{{ route('catalog.landing', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'apple', 'modelSlug' => 'iphone-14', 'serviceSlug' => 'zamena-stekla']) }}" class="text-sm text-white/90 hover:text-white hover:underline transition">{{ $model }}</a>
+                    @foreach($brands as $index => $brand)
+                    <div id="models-{{ $brand->slug }}" class="models-grid {{ $index === 0 ? '' : 'hidden' }} grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                        @foreach($brand->deviceModels as $model)
+                            <a href="{{ route('catalog.landing', ['categorySlug' => 'remont-telefonov', 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug, 'serviceSlug' => 'zamena-stekla']) }}" class="text-sm text-white/90 hover:text-white hover:underline transition">
+                                {{ $model->name }}
+                            </a>
                         @endforeach
                     </div>
-                    
-                    {{-- Модели Samsung --}}
-                    <div id="models-samsung" class="models-grid hidden grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                        @foreach(['Galaxy S24', 'Galaxy S23', 'Galaxy S22', 'Galaxy A54', 'Galaxy A34', 'Galaxy Z Fold', 'Galaxy Z Flip'] as $model)
-                            <a href="{{ route('catalog.landing', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'samsung', 'modelSlug' => 's20', 'serviceSlug' => 'zamena-stekla']) }}" class="text-sm text-white/90 hover:text-white hover:underline transition">{{ $model }}</a>
-                        @endforeach
-                    </div>
-
-                    {{-- Модели Xiaomi --}}
-                    <div id="models-xiaomi" class="models-grid hidden grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                        @foreach(['Xiaomi 14', 'Xiaomi 13T', 'Redmi Note 13', 'Redmi Note 12', 'POCO X6', 'POCO F5'] as $model)
-                            <a href="{{ route('catalog.landing', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'xiaomi', 'modelSlug' => 'redmi-note-7', 'serviceSlug' => 'zamena-stekla']) }}" class="text-sm text-white/90 hover:text-white hover:underline transition">{{ $model }}</a>
-                        @endforeach
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -273,15 +272,15 @@
     {{-- БРЕНДЫ --}}
     <section class="max-w-[87.5rem] mx-auto px-4 pb-16">
         <h2 class="text-2xl font-bold text-center mb-10 text-[#1A1A1A]">Ремонтируем популярные устройства</h2>
-        <div class="flex flex-wrap justify-center items-center gap-12 md:gap-20 [&_img]:h-14 opacity-60 grayscale hover:grayscale-0 transition duration-500">
-            <img src="{{ asset('images/brands/apple.png') }}" alt="Apple" class="h-10 object-contain hover:grayscale-0 transition" />
-            <img src="{{ asset('images/brands/samsung.png') }}" alt="Samsung" class="h-6 object-contain hover:grayscale-0 transition" />
-            <img src="{{ asset('images/brands/asus.png') }}" alt="Asus" class="h-6 object-contain hover:grayscale-0 transition" />
-            <img src="{{ asset('images/brands/huawei.png') }}" alt="Huawei" class="h-10 object-contain hover:grayscale-0 transition" />
-            <img src="{{ asset('images/brands/lenovo.png') }}" alt="Lenovo" class="h-6 object-contain hover:grayscale-0 transition" />
-            <img src="{{ asset('images/brands/xiaomi.png') }}" alt="Xiaomi" class="h-10 object-contain hover:grayscale-0 transition" />
-            <img src="{{ asset('images/brands/nokia.png') }}" alt="Nokia" class="h-6 object-contain hover:grayscale-0 transition" />
-            <img src="{{ asset('images/brands/sony.png') }}" alt="Sony" class="h-6 object-contain hover:grayscale-0 transition" />
+        <div class="flex flex-wrap justify-center items-center gap-12 md:gap-20 [&_img]:h-14 transition duration-500">
+            <img src="{{ asset('images/brands/apple.png') }}" alt="Apple" class="h-10 object-contain transition" />
+            <img src="{{ asset('images/brands/samsung.png') }}" alt="Samsung" class="h-6 object-contain transition" />
+            <img src="{{ asset('images/brands/asus.png') }}" alt="Asus" class="h-6 object-contain transition" />
+            <img src="{{ asset('images/brands/huawei.png') }}" alt="Huawei" class="h-10 object-contain transition" />
+            <img src="{{ asset('images/brands/lenovo.png') }}" alt="Lenovo" class="h-6 object-contain transition" />
+            <img src="{{ asset('images/brands/xiaomi.png') }}" alt="Xiaomi" class="h-10 object-contain transition" />
+            <img src="{{ asset('images/brands/nokia.png') }}" alt="Nokia" class="h-6 object-contain transition" />
+            <img src="{{ asset('images/brands/sony.png') }}" alt="Sony" class="h-6 object-contain transition" />
         </div>
     </section>
 
@@ -387,13 +386,21 @@
     <section class="max-w-[87.5rem] mx-auto px-4 py-16 bg-gray-50 rounded-[2rem] mb-16">
         <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-10 text-[#1A1A1A]">Отзывы наших клиентов</h2>
         
-        <div class="relative overflow-hidden" id="reviews-slider">
-            <div class="flex transition-transform duration-500 ease-in-out" id="reviews-track">
+        <div class="relative group" id="reviews-slider">
+            {{-- Кнопки навигации (только для десктопа) --}}
+            <button id="reviews-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 z-20 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-100 flex items-center justify-center text-[#0678A8] hover:bg-[#2AC0D5] hover:text-white transition opacity-0 group-hover:opacity-100 hidden lg:flex">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <button id="reviews-next" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 z-20 w-12 h-12 bg-white rounded-full shadow-lg border border-gray-100 flex items-center justify-center text-[#0678A8] hover:bg-[#2AC0D5] hover:text-white transition opacity-0 group-hover:opacity-100 hidden lg:flex">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+
+            <div class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-0 pb-6" id="reviews-track">
                 
                 {{-- Проверяем наличие переменной $reviews (данные из контроллера) --}}
                 @if(isset($reviews) && $reviews->count() > 0)
                     @foreach($reviews as $review)
-                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+                    <div class="flex-shrink-0 w-full snap-center px-4 md:px-20 lg:px-40">
                         <div class="bg-white p-8 rounded-[1rem] shadow-sm h-full flex flex-col">
                             <div class="flex items-center gap-4 mb-4">
                                 <div class="w-12 h-12 bg-[#2AC0D5] rounded-full flex justify-center items-center text-white font-bold text-lg">
@@ -414,7 +421,7 @@
                 @else
                     {{-- Демонстрационные отзывы, если БД пуста --}}
                     @for($i = 1; $i <= 3; $i++)
-                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+                    <div class="flex-shrink-0 w-full snap-center px-4 md:px-20 lg:px-40">
                         <div class="bg-white p-8 rounded-[1rem] shadow-sm h-full flex flex-col">
                             <div class="flex items-center gap-4 mb-4">
                                 <div class="w-12 h-12 bg-[#0678A8] rounded-full flex justify-center items-center text-white font-bold text-lg">О</div>
@@ -429,12 +436,7 @@
                     </div>
                     @endfor
                 @endif
-
             </div>
-            
-            {{-- Кнопки управления отзывами --}}
-            <button onclick="prevReview()" class="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full w-10 h-10 items-center justify-center text-[#0678A8] hover:bg-[#2AC0D5] hover:text-white transition">←</button>
-            <button onclick="nextReview()" class="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full w-10 h-10 items-center justify-center text-[#0678A8] hover:bg-[#2AC0D5] hover:text-white transition">→</button>
         </div>
     </section>
 
@@ -497,40 +499,50 @@
                     <p class="flex items-center gap-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> remont@svoymaster96.ru</p>
                     <p class="flex items-center gap-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> г. Екатеринбург, Антона Валека, 13, офис 200</p>
                 </div>
-                {{-- Карта (Заглушка или реальный iframe) --}}
-                <div class="w-full h-48 rounded-[1rem] bg-gray-200 overflow-hidden">
-                    <img src="{{ asset('images/map.png') }}" alt="Карта" class="w-full h-full object-cover">
+                <div class="w-full h-[300px] lg:h-[400px] rounded-2xl overflow-hidden shadow-lg relative">
+                    <iframe
+                        src="https://yandex.ru/map-widget/v1/?ll=60.589708%2C56.838908&mode=search&oid=155446185701&ol=biz&z=16.49"
+                        width="100%"
+                        height="100%"
+                        frameborder="0"
+                        allowfullscreen="true"
+                        style="position:relative; z-index:10;"
+                    >
+                    </iframe>
+                    <div class="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center z-0">
+                        <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    </div>
                 </div>
             </div>
 
             <div class="relative z-10 bg-white/10 p-5 sm:p-8 rounded-[1rem] backdrop-blur-sm">
-                <h3 class="text-xl font-bold mb-6 text-center">Оставьте заявку на бесплатную диагностику</h3>
-                <form action="#" method="POST" class="space-y-4">
-                    @csrf
-                    <input type="text" placeholder="Имя" class="w-full bg-transparent border border-white/30 rounded-full px-5 py-3 text-white placeholder-white/70 focus:outline-none focus:border-white transition">
-                    <input type="tel" placeholder="+7 (___) ___-__-__" class="w-full bg-transparent border border-white/30 rounded-full px-5 py-3 text-white placeholder-white/70 focus:outline-none focus:border-white transition">
-                    <textarea placeholder="Комментарий" rows="3" class="w-full bg-transparent border border-white/30 rounded-2xl px-5 py-3 text-white placeholder-white/70 focus:outline-none focus:border-white transition resize-none"></textarea>
-                    <button type="submit" class="w-full bg-[#2AC0D5] hover:bg-white hover:text-[#0678A8] text-white font-bold rounded-full py-4 transition shadow-md">Отправить</button>
-                    <p class="text-[10px] text-center text-white/60 mt-2">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных</p>
-                </form>
+                <h3 class="text-xl font-bold mb-4 text-center">Оставьте заявку на бесплатную диагностику</h3>
+                <p class="text-white/80 text-sm text-center mb-6">Откроем форму и перезвоним, чтобы уточнить симптомы и назвать ориентир по стоимости.</p>
+                <button
+                    type="button"
+                    class="js-open-modal w-full bg-[#2AC0D5] hover:bg-white hover:text-[#0678A8] text-white font-bold rounded-full py-4 transition shadow-md"
+                    data-cta-title="Оставьте заявку на бесплатную диагностику"
+                >
+                    Оставить заявку
+                </button>
             </div>
         </div>
     </section>
+
+    <x-modal-form />
 
 @endsection
 
 @push('scripts')
 <script>
     // 1. ТАБЫ ДЛЯ БЛОКА "ЗАМЕНА СТЕКЛА"
-    function changeBrandTab(brand) {
+    function changeBrandTab(brand, activeBtn) {
         // Убираем активный класс у кнопок
         document.querySelectorAll('.brand-tab').forEach(btn => {
             btn.classList.remove('active', 'bg-white', 'text-[#0678A8]');
             btn.classList.add('bg-white/20', 'text-white');
         });
-        
-        // Добавляем активный класс нажатой кнопке
-        const activeBtn = event.target;
+
         activeBtn.classList.remove('bg-white/20', 'text-white');
         activeBtn.classList.add('active', 'bg-white', 'text-[#0678A8]');
 
@@ -563,120 +575,165 @@
         });
     });
 
-    // 3. ПРОСТОЙ СЛАЙДЕР ДЛЯ ОТЗЫВОВ
-    let currentReviewIndex = 0;
-    function showReviewSlide(index) {
-        const track = document.getElementById('reviews-track');
-        const items = track.children;
-        
-        // Определяем сколько карточек видно на экране
-        let visibleCards = 1;
-        if (window.innerWidth >= 768) visibleCards = 2;
-        if (window.innerWidth >= 1024) visibleCards = 3;
+    document.addEventListener('DOMContentLoaded', () => {
+        // 3. ГЛОБАЛЬНАЯ МОДАЛКА ДЛЯ CTA-КНОПОК
+        const modal = document.getElementById('global-cta-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const openModalButtons = document.querySelectorAll('.js-open-modal');
+        const closeModalButtons = document.querySelectorAll('[data-modal-close]');
 
-        const maxIndex = items.length - visibleCards;
-        
-        if (index > maxIndex) currentReviewIndex = 0;
-        else if (index < 0) currentReviewIndex = maxIndex;
-        else currentReviewIndex = index;
+        const openModal = (titleText) => {
+            if (!modal) return;
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+            if (modalTitle && titleText) {
+                modalTitle.textContent = titleText;
+            }
+        };
 
-        // Расчет смещения в %
-        const percentage = -(currentReviewIndex * (100 / visibleCards));
-        track.style.transform = `translateX(${percentage}%)`;
-    }
+        const closeModal = () => {
+            if (!modal) return;
+            modal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        };
 
-    function nextReview() { showReviewSlide(currentReviewIndex + 1); }
-    function prevReview() { showReviewSlide(currentReviewIndex - 1); }
+        openModalButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                const titleText = button.dataset.ctaTitle || 'Оставить заявку';
+                openModal(titleText);
+            });
+        });
 
-    // Пересчитываем слайдер при ресайзе экрана
-    window.addEventListener('resize', () => showReviewSlide(currentReviewIndex));
+        closeModalButtons.forEach((button) => {
+            button.addEventListener('click', closeModal);
+        });
 
-    // --- АВТО-СЛАЙДЕР БАННЕРОВ ---
-document.addEventListener('DOMContentLoaded', () => {
-    const track = document.getElementById('slider-track');
-    if (!track) return;
-    
-    const originalItems = Array.from(document.querySelectorAll('.slider-item'));
-    const container = document.getElementById('slider-container');
-    const dots = document.querySelectorAll('.slider-dot');
-    const realCount = originalItems.length;
-
-    if (realCount === 0) return;
-
-    // Клонируем элементы для бесконечной прокрутки
-    const cloneFirst = originalItems[0].cloneNode(true);
-    const cloneLast = originalItems[realCount - 1].cloneNode(true);
-    track.insertBefore(cloneLast, originalItems[0]);
-    track.appendChild(cloneFirst);
-
-    const allItems = document.querySelectorAll('.slider-item');
-    let currentIndex = 1;
-    let isAnimating = false;
-    let interval;
-
-    function updateSlider(animate = true) {
-        const transitionStyle = animate ? 'transform 0.5s ease-out' : 'none';
-        track.style.transition = transitionStyle;
-
-        const targetSlide = allItems[currentIndex];
-        const slideLeft = targetSlide.offsetLeft;
-        const centerOffset = (container.offsetWidth - targetSlide.offsetWidth) / 2;
-        const translateX = slideLeft - centerOffset;
-
-        track.style.transform = `translate3d(-${translateX}px, 0, 0)`;
-
-            // --- ВОТ ЭТА ЧАСТЬ ЧИНИТ "БЛЕДНОСТЬ" ---
-    allItems.forEach((item, index) => {
-        // Добавляем плавность изменения прозрачности
-        item.style.transition = animate ? 'transform 0.5s ease-out, opacity 0.5s ease-out' : 'none';
-        
-        if (index === currentIndex) {
-            item.style.opacity = '1';       // Активный — яркий
-            item.style.filter = 'none';      // Убираем размытие, если было
-        } else {
-            item.style.opacity = '0.4';     // Неактивные — бледные (можешь поставить 0.5 или 0.6)
-            item.style.filter = 'blur(1px)'; // Легкое размытие для фокуса (опционально)
-        }
-    });
-    // ---------------------------------------
-
-        let dotIndex = currentIndex - 1;
-        if (dotIndex < 0) dotIndex = realCount - 1;
-        if (dotIndex >= realCount) dotIndex = 0;
-
-        dots.forEach((dot, index) => {
-            if (index === dotIndex) {
-                dot.classList.remove('bg-gray-300');
-                dot.classList.add('bg-[#0678A8]', 'scale-125');
-            } else {
-                dot.classList.remove('bg-[#0678A8]', 'scale-125');
-                dot.classList.add('bg-gray-300');
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeModal();
             }
         });
-    }
 
-    function nextSlide() {
-        if (isAnimating) return;
-        isAnimating = true;
-        currentIndex++;
-        updateSlider(true);
+        // 4. АВТО-СЛАЙДЕР БАННЕРОВ
+        const track = document.getElementById('slider-track');
+        if (!track) return;
+
+        const originalItems = Array.from(document.querySelectorAll('.slider-item'));
+        const container = document.getElementById('slider-container');
+        const dots = document.querySelectorAll('.slider-dot');
+        const realCount = originalItems.length;
+
+        if (realCount === 0) return;
+
+        const cloneFirst = originalItems[0].cloneNode(true);
+        const cloneLast = originalItems[realCount - 1].cloneNode(true);
+        track.insertBefore(cloneLast, originalItems[0]);
+        track.appendChild(cloneFirst);
+
+        const allItems = document.querySelectorAll('.slider-item');
+        let currentIndex = 1;
+        let isAnimating = false;
+        let interval;
+
+        function updateSlider(animate = true) {
+            const transitionStyle = animate ? 'transform 0.5s ease-out' : 'none';
+            track.style.transition = transitionStyle;
+
+            const targetSlide = allItems[currentIndex];
+            const slideLeft = targetSlide.offsetLeft;
+            const centerOffset = (container.offsetWidth - targetSlide.offsetWidth) / 2;
+            const translateX = slideLeft - centerOffset;
+
+            track.style.transform = `translate3d(-${translateX}px, 0, 0)`;
+
+            allItems.forEach((item, index) => {
+                item.style.transition = animate ? 'transform 0.5s ease-out, opacity 0.5s ease-out' : 'none';
+                if (index === currentIndex) {
+                    item.style.opacity = '1';
+                    item.style.filter = 'none';
+                } else {
+                    item.style.opacity = '0.4';
+                    item.style.filter = 'blur(1px)';
+                }
+            });
+
+            let dotIndex = currentIndex - 1;
+            if (dotIndex < 0) dotIndex = realCount - 1;
+            if (dotIndex >= realCount) dotIndex = 0;
+
+            dots.forEach((dot, index) => {
+                if (index === dotIndex) {
+                    dot.classList.remove('bg-gray-300');
+                    dot.classList.add('bg-[#0678A8]', 'scale-125');
+                } else {
+                    dot.classList.remove('bg-[#0678A8]', 'scale-125');
+                    dot.classList.add('bg-gray-300');
+                }
+            });
+        }
+
+        function nextSlide() {
+            if (isAnimating) return;
+            isAnimating = true;
+            currentIndex++;
+            updateSlider(true);
+
+            setTimeout(() => {
+                if (currentIndex === allItems.length - 1) {
+                    currentIndex = 1;
+                    updateSlider(false);
+                }
+                isAnimating = false;
+            }, 500);
+        }
+
+        function goToSlide(realSlideIndex) {
+            if (isAnimating) return;
+            currentIndex = realSlideIndex + 1;
+            updateSlider(true);
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => goToSlide(index));
+        });
+
+        function startTimer() {
+            interval = setInterval(nextSlide, 3500);
+        }
+
+        window.addEventListener('resize', () => updateSlider(false));
 
         setTimeout(() => {
-            if (currentIndex === allItems.length - 1) {
-                currentIndex = 1;
-                updateSlider(false);
-            }
-            isAnimating = false;
-        }, 500);
-    }
+            updateSlider(false);
+            startTimer();
+        }, 50);
 
-    function startTimer() { interval = setInterval(nextSlide, 3500); }
-    window.addEventListener('resize', () => updateSlider(false));
+        // 5. СКРОЛЛ ОТЗЫВОВ
+        const reviewsTrack = document.getElementById('reviews-track');
+        const btnPrev = document.getElementById('reviews-prev');
+        const btnNext = document.getElementById('reviews-next');
 
-    setTimeout(() => {
-        updateSlider(false);
-        startTimer();
-    }, 50);
-});
+        if (reviewsTrack && btnPrev && btnNext) {
+            btnPrev.addEventListener('click', () => {
+                reviewsTrack.scrollBy({ left: -reviewsTrack.offsetWidth, behavior: 'smooth' });
+            });
+            btnNext.addEventListener('click', () => {
+                reviewsTrack.scrollBy({ left: reviewsTrack.offsetWidth, behavior: 'smooth' });
+            });
+        }
+
+        // 6. АНИМАЦИЯ ПРИ СКРОЛЛЕ
+        const obsOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-slide-in-up');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, obsOptions);
+
+        document.querySelectorAll('.js-scroll-trigger').forEach(el => observer.observe(el));
+    });
 </script>
 @endpush

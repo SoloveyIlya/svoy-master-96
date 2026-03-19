@@ -33,11 +33,11 @@
         <div>
             <h4 class="font-bold text-[#1A1A1A] mb-4">Информация</h4>
             <ul class="space-y-2 text-sm text-gray-600">
-                <li><a href="{{ route('home') }}" class="hover:text-[#2AC0D5] transition">О компании</a></li>
-                <li><a href="{{ route('home') }}" class="hover:text-[#2AC0D5] transition">Отзывы</a></li>
-                <li><a href="{{ route('home') }}" class="hover:text-[#2AC0D5] transition">Гарантия</a></li>
+                <li><a href="{{ route('about') }}" class="hover:text-[#2AC0D5] transition">О компании</a></li>
+                <li><a href="https://yandex.by/maps/org/svoy_master/155446185701/?ll=60.589708%2C56.838908&z=16.49" target="_blank" rel="noopener noreferrer" class="hover:text-[#2AC0D5] transition">Отзывы</a></li>
+                <li><a href="{{ route('warranty') }}" class="hover:text-[#2AC0D5] transition">Гарантия</a></li>
                 <li><a href="{{ route('contacts') }}" class="hover:text-[#2AC0D5] transition">Контакты</a></li>
-                <li><a href="{{ route('contacts') }}" class="hover:text-[#2AC0D5] transition">Политика конфиденциальности</a></li>
+                <li><a href="{{ route('privacy') }}" target="_blank" rel="noopener noreferrer" class="hover:text-[#2AC0D5] transition">Политика конфиденциальности</a></li>
             </ul>
         </div>
 
@@ -47,13 +47,13 @@
             <p class="text-sm text-gray-600 mb-1">г. Екатеринбург, ул. Антона Валека, 13</p>
             <p class="text-sm text-gray-600 mb-4">Пн-Вс: 09:00 - 22:00</p>
 
-            <div class="bg-gray-50 p-3 rounded-lg flex items-center gap-3 mb-4 w-max border border-gray-200">
+            <a href="https://yandex.by/maps/org/svoy_master/155446185701/?ll=60.589708%2C56.838908&z=16.49" target="_blank" rel="noopener noreferrer" class="bg-gray-50 p-3 rounded-lg flex items-center gap-3 mb-4 w-max border border-gray-200 hover:border-[#2AC0D5] transition">
                 <span class="text-2xl font-bold text-[#1A1A1A]">4.9</span>
                 <div>
                     <div class="flex text-[#FFD12A] text-sm">★★★★★</div>
                     <span class="text-[10px] text-gray-500">Яндекс Карты</span>
                 </div>
-            </div>
+            </a>
 
             <div class="flex gap-2 opacity-50">
                 <img src="{{ asset('images/visa.svg') }}" alt="Visa" class="h-6">

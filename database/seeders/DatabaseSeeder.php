@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Defect;
 use App\Models\DeviceModel;
 use App\Models\LandingPage;
 use App\Models\Lead;
@@ -94,6 +95,56 @@ class DatabaseSeeder extends Seeder
                     'seo_description' => 'Профессиональная ' . mb_strtolower($svc['name']) . ' на {brand} {model}. Гарантия: ' . $svc['warranty_text'] . '.',
                     'seo_h1' => $svc['name'] . ' {brand} {model}',
                     'status' => 'active'
+                ]
+            );
+        }
+
+        // ─── 2.1. Поломки (Defects) ───
+        $this->command->info('Создаем поломки (Defects)...');
+
+        $defectsData = [
+            [
+                'name' => 'Разбилось стекло',
+                'description' => 'Трещины / паутинка',
+                'slug' => 'razbilos-steklo',
+                'service_slug' => 'zamena-stekla',
+            ],
+            [
+                'name' => 'Не заряжается',
+                'description' => 'Разъем / кабель / плата',
+                'slug' => 'ne-zaryazhaetsya',
+                'service_slug' => 'zamena-razema-zaryadki',
+            ],
+            [
+                'name' => 'Быстро садится',
+                'description' => 'Аккумулятор',
+                'slug' => 'bystro-saditsya',
+                'service_slug' => 'zamena-akkumulyatora',
+            ],
+            [
+                'name' => 'Попала вода',
+                'description' => 'Срочно в диагностику',
+                'slug' => 'popala-voda',
+                'service_slug' => 'remont-posle-zalitiya',
+            ],
+            [
+                'name' => 'Тормозит',
+                'description' => 'ПО / память',
+                'slug' => 'tormozit',
+                'service_slug' => 'smena-po-proshivka',
+            ],
+        ];
+
+        foreach ($defectsData as $defect) {
+            $service = Service::where('slug', $defect['service_slug'])->first();
+
+            Defect::updateOrCreate(
+                ['slug' => $defect['slug']],
+                [
+                    'name' => $defect['name'],
+                    'description' => $defect['description'],
+                    'service_id' => $service?->id,
+                    'is_active' => true,
                 ]
             );
         }

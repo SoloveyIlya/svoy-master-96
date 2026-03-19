@@ -32,4 +32,9 @@ class Service extends Model
     {
         return $this->hasMany(ServiceScope::class);
     }
+
+    public function defects(): HasMany
+    {
+        return $this->hasMany(Defect::class);
+    }
 }

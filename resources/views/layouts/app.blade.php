@@ -24,7 +24,7 @@
     <x-header />
 
     {{-- NAVIGATION MENU --}}
-    <nav class="w-full bg-[#0678A8] text-white shadow-md relative z-20 overflow-x-auto no-scrollbar">
+    <nav class="hidden lg:flex w-full bg-[#0678A8] text-white shadow-md relative z-20 overflow-x-auto no-scrollbar">
         <div class="w-max min-w-full mx-auto px-4 flex items-center justify-start sm:justify-center lg:justify-evenly gap-5 lg:gap-8 py-3.5 text-sm font-medium whitespace-nowrap">
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="flex items-center gap-1 hover:text-[#2AC0D5] transition">
                 Ремонт телефонов <svg class="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
