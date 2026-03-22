@@ -20,23 +20,32 @@
 
             <h2 id="modal-title" class="text-2xl sm:text-3xl font-bold text-[#1A1A1A] mb-6">Оставить заявку</h2>
 
-            <form action="{{ route('leads.store') }}" method="POST" class="space-y-4">
+            <form action="{{ route('leads.store') }}" method="POST" class="space-y-6" x-data="{ isSubmitting: false }" @submit="isSubmitting = true">
                 @csrf
                 <input type="hidden" name="page_url" value="{{ request()->fullUrl() }}">
 
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Имя"
-                    class="w-full border border-gray-300 rounded-full px-5 py-3 focus:outline-none focus:border-[#2AC0D5] transition"
-                >
-                <input
-                    type="tel"
-                    name="phone"
-                    required
-                    placeholder="+7 (___) ___-__-__"
-                    class="w-full border border-gray-300 rounded-full px-5 py-3 focus:outline-none focus:border-[#2AC0D5] transition"
-                >
+                <div>
+                    <input
+                        type="text"
+                        name="name"
+                        required
+                        placeholder="Имя"
+                        class="peer w-full border border-gray-300 rounded-full px-5 py-3 focus:outline-none focus:border-[#2AC0D5] transition focus:invalid:border-red-500 invalid:[&:not(:placeholder-shown)]:border-red-500"
+                    >
+                    <p class="hidden peer-invalid:[&:not(:placeholder-shown)]:block text-red-500 text-xs mt-1 pl-4">Обязательное поле для заполнения</p>
+                </div>
+                <div>
+                    <input
+                        type="tel"
+                        name="phone"
+                        required
+                        pattern="[\+]\d{1}\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}"
+                        placeholder="+7 (___) ___-__-__"
+                        x-mask="+7 (999) 999-99-99"
+                        class="peer w-full border border-gray-300 rounded-full px-5 py-3 focus:outline-none focus:border-[#2AC0D5] transition focus:invalid:border-red-500 invalid:[&:not(:placeholder-shown)]:border-red-500"
+                    >
+                    <p class="hidden peer-invalid:[&:not(:placeholder-shown)]:block text-red-500 text-xs mt-1 pl-4">Введите телефон в формате +7 (XXX) XXX-XX-XX</p>
+                </div>
                 <textarea
                     name="comment"
                     rows="3"
@@ -49,8 +58,8 @@
                     <span>Согласен на обработку персональных данных</span>
                 </label>
 
-                <button type="submit" class="w-full bg-[#2AC0D5] hover:bg-[#0678A8] text-white font-bold rounded-full py-4 transition shadow-md">
-                    Отправить
+                <button type="submit" :disabled="isSubmitting" class="w-full bg-[#2AC0D5] hover:bg-[#0678A8] text-white font-bold rounded-full py-4 transition shadow-md disabled:opacity-75 disabled:cursor-not-allowed">
+                    <span x-text="isSubmitting ? 'Отправка...' : 'Отправить'">Отправить</span>
                 </button>
 
                 <p class="text-sm text-center text-gray-600">

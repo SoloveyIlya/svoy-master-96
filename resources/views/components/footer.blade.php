@@ -3,16 +3,16 @@
         {{-- Колонка 1: Лого, контакты --}}
         <div>
             <a href="{{ route('home') }}" class="inline-block mb-4">
-                <img src="{{ asset('images/logo.png') }}" alt="Свой Мастер" class="h-[4.5rem] w-auto object-contain">
+                <img src="{{ asset('images/logo.png') }}" alt="Свой Мастер" loading="lazy" class="h-[4.5rem] w-auto object-contain">
             </a>
-            <p class="text-lg font-bold text-[#1A1A1A] mb-1">+7 (343) 226-46-22</p>
-            <p class="text-sm text-[#0678A8] mb-4">remont@svoymaster96.ru</p>
+            <a href="tel:+73432264622" class="block text-lg font-bold text-[#1A1A1A] mb-1 hover:text-[#2AC0D5] transition">+7 (343) 226-46-22</a>
+            <a href="mailto:remont@svoymaster96.ru" class="block text-sm text-[#0678A8] mb-4 hover:underline">remont@svoymaster96.ru</a>
             <div class="flex items-center gap-3">
                 <a href="{{ route('contacts') }}" class="w-10 h-10 rounded-full bg-gradient-to-r from-[#0678A8] to-[#029DBF] flex items-center justify-center hover:opacity-90 transition shadow-sm hover:shadow-md">
-                    <img src="{{ asset('images/TG.svg') }}" alt="Telegram" class="w-5 h-5 object-contain" />
+                    <img src="{{ asset('images/TG.svg') }}" alt="Telegram" loading="lazy" class="w-5 h-5 object-contain" />
                 </a>
                 <a href="{{ route('contacts') }}" class="w-10 h-10 rounded-full bg-gradient-to-r from-[#0678A8] to-[#029DBF] flex items-center justify-center hover:opacity-90 transition shadow-sm hover:shadow-md">
-                    <img src="{{ asset('images/WA.svg') }}" alt="WhatsApp" class="w-5 h-5 object-contain" />
+                    <img src="{{ asset('images/WA.svg') }}" alt="WhatsApp" loading="lazy" class="w-5 h-5 object-contain" />
                 </a>
             </div>
         </div>
@@ -56,9 +56,9 @@
             </a>
 
             <div class="flex gap-2 opacity-50">
-                <img src="{{ asset('images/visa.svg') }}" alt="Visa" class="h-6">
-                <img src="{{ asset('images/mastercard.svg') }}" alt="Mastercard" class="h-6">
-                <img src="{{ asset('images/mir.svg') }}" alt="Mir" class="h-6">
+                <img src="{{ asset('images/visa.svg') }}" alt="Visa" loading="lazy" class="h-6">
+                <img src="{{ asset('images/mastercard.svg') }}" alt="Mastercard" loading="lazy" class="h-6">
+                <img src="{{ asset('images/mir.svg') }}" alt="Mir" loading="lazy" class="h-6">
             </div>
         </div>
     </div>

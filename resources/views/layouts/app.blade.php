@@ -2,9 +2,9 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>@yield('title', 'Свой Мастер - Ремонт цифровой техники')</title>
-    <meta name="description" content="@yield('meta_description', '')">
+    <meta name="description" content="@yield('seo_description', 'Профессиональный ремонт телефонов, ноутбуков и планшетов в Екатеринбурге. Оригинальные запчасти, гарантия до 2 лет.')">
     @hasSection('canonical')
         <link rel="canonical" href="@yield('canonical')">
     @endif
@@ -14,11 +14,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
     <style>
+        html { -webkit-text-size-adjust: 100%; }
         /* FIX FOR BUTTON CURSORS GLOBAL */
         button, .js-open-modal, .slider-dot, .faq-btn, a, .brand-tab {
             cursor: pointer !important;
@@ -57,7 +58,7 @@
                                 @endforeach
                             @else
                                 {{-- Fallback --}}
-                                <div><h3 class="font-bold mb-4 text-[#0678A8]">Популярные бренды</h3><ul class="space-y-2 text-sm"><li><a href="#" class="hover:text-[#2AC0D5] transition">Apple</a></li><li><a href="#" class="hover:text-[#2AC0D5] transition">Samsung</a></li></ul></div>
+                                <div><h3 class="font-bold mb-4 text-[#0678A8]">Популярные бренды</h3><ul class="space-y-2 text-sm"><li><a href="/" class="hover:text-[#2AC0D5] transition">Apple</a></li><li><a href="/" class="hover:text-[#2AC0D5] transition">Samsung</a></li></ul></div>
                             @endif
                         </div>
                     </div>
@@ -84,7 +85,7 @@
                                 @endforeach
                             @else
                                 {{-- Fallback --}}
-                                <div><h3 class="font-bold mb-4 text-[#0678A8]">iPhone</h3><ul class="space-y-2 text-sm"><li><a href="#" class="hover:text-[#2AC0D5] transition">iPhone 15 Pro Max</a></li></ul></div>
+                                <div><h3 class="font-bold mb-4 text-[#0678A8]">iPhone</h3><ul class="space-y-2 text-sm"><li><a href="/" class="hover:text-[#2AC0D5] transition">iPhone 15 Pro Max</a></li></ul></div>
                             @endif
                         </div>
                     </div>
@@ -111,7 +112,7 @@
                                 @endforeach
                             @else
                                 {{-- Fallback --}}
-                                <div><h3 class="font-bold mb-4 text-[#0678A8]">Galaxy S</h3><ul class="space-y-2 text-sm"><li><a href="#" class="hover:text-[#2AC0D5] transition">Galaxy S24 Ultra</a></li></ul></div>
+                                <div><h3 class="font-bold mb-4 text-[#0678A8]">Galaxy S</h3><ul class="space-y-2 text-sm"><li><a href="/" class="hover:text-[#2AC0D5] transition">Galaxy S24 Ultra</a></li></ul></div>
                             @endif
                         </div>
                     </div>
@@ -133,7 +134,7 @@
                                     <div><a href="{{ route('catalog.brand', ['categorySlug' => 'remont-noutbukov', 'brandSlug' => $brand->slug]) }}" class="hover:text-[#2AC0D5] transition font-bold">{{ $brand->name }}</a></div>
                                 @endforeach
                             @else
-                                <div><h3 class="font-bold mb-4 text-[#0678A8]">Популярные бренды</h3><ul class="space-y-2 text-sm"><li><a href="#" class="hover:text-[#2AC0D5] transition">Apple MacBook</a></li></ul></div>
+                                <div><h3 class="font-bold mb-4 text-[#0678A8]">Популярные бренды</h3><ul class="space-y-2 text-sm"><li><a href="/" class="hover:text-[#2AC0D5] transition">Apple MacBook</a></li></ul></div>
                             @endif
                         </div>
                     </div>
@@ -160,7 +161,7 @@
                                 @endforeach
                             @else
                                 {{-- Fallback --}}
-                                <div><h3 class="font-bold mb-4 text-[#0678A8]">Redmi</h3><ul class="space-y-2 text-sm"><li><a href="#" class="hover:text-[#2AC0D5] transition">Redmi Note 13</a></li></ul></div>
+                                <div><h3 class="font-bold mb-4 text-[#0678A8]">Redmi</h3><ul class="space-y-2 text-sm"><li><a href="/" class="hover:text-[#2AC0D5] transition">Redmi Note 13</a></li></ul></div>
                             @endif
                         </div>
                     </div>

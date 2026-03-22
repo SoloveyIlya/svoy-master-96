@@ -16,6 +16,7 @@
                         <div class="h-12 w-full flex items-center justify-center">
                             <img src="{{ asset('images/brands/' . $b->slug . '.png') }}" 
                                  alt="{{ $b->name }}" 
+                                 loading="lazy"
                                  class="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform" 
                                  onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
                             <span class="hidden font-bold text-xl text-gray-300">{{ mb_substr($b->name, 0, 1) }}</span>

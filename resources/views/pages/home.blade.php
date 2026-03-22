@@ -187,22 +187,22 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт телефонов</span>
-                <img src="{{ asset('images/android.svg') }}" alt="Телефоны" class="absolute bottom-[-8%] left-0 right-0 mx-auto sm:mx-0 w-[58%] sm:w-[80%] sm:left-auto sm:right-[0%] object-contain group-hover:scale-105 transition duration-500" />
+                <img src="{{ asset('images/android.svg') }}" alt="Телефоны" loading="lazy" class="absolute bottom-[-8%] left-0 right-0 mx-auto sm:mx-0 w-[58%] sm:w-[80%] sm:left-auto sm:right-[0%] object-contain group-hover:scale-105 transition duration-500" />
             </a>
 
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-noutbukov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт ноутбуков</span>
-                <img src="{{ asset('images/laptop.svg') }}" alt="Ноутбуки" class="absolute bottom-[-4%] left-0 right-0 mx-auto sm:mx-0 w-[62%] sm:w-[90%] sm:left-auto sm:right-[-5%] object-contain group-hover:scale-105 transition duration-500" />
+                <img src="{{ asset('images/laptop.svg') }}" alt="Ноутбуки" loading="lazy" class="absolute bottom-[-4%] left-0 right-0 mx-auto sm:mx-0 w-[62%] sm:w-[90%] sm:left-auto sm:right-[-5%] object-contain group-hover:scale-105 transition duration-500" />
             </a>
 
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-planshetov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт планшетов</span>
-                <img src="{{ asset('images/tablet.svg') }}" alt="Планшеты" class="absolute bottom-[-15%] left-0 right-0 mx-auto sm:mx-0 w-[62%] sm:w-[90%] sm:left-[10%] sm:right-auto object-contain group-hover:scale-105 transition duration-500" />
+                <img src="{{ asset('images/tablet.svg') }}" alt="Планшеты" loading="lazy" class="absolute bottom-[-15%] left-0 right-0 mx-auto sm:mx-0 w-[62%] sm:w-[90%] sm:left-[10%] sm:right-auto object-contain group-hover:scale-105 transition duration-500" />
             </a>
 
             <a href="{{ route('catalog.category', ['categorySlug' => 'remont-smart-chasov']) }}" class="block relative h-[16rem] sm:h-[20rem] rounded-[2rem] overflow-hidden bg-gradient-to-b from-[#2AC0D5] to-[#0678A8] group shadow-sm hover:shadow-2xl transition duration-300">
                 <span class="absolute top-6 sm:top-8 left-6 sm:left-8 text-white font-semibold text-xl sm:text-2xl z-10">Ремонт смарт-часов</span>
-                <img src="{{ asset('images/watch.svg') }}" alt="Смарт-часы" class="absolute bottom-0 left-0 right-0 mx-auto sm:mx-0 w-[56%] sm:w-[85%] sm:left-auto sm:right-0 object-contain group-hover:scale-105 transition duration-500" />
+                <img src="{{ asset('images/watch.svg') }}" alt="Смарт-часы" loading="lazy" class="absolute bottom-0 left-0 right-0 mx-auto sm:mx-0 w-[56%] sm:w-[85%] sm:left-auto sm:right-0 object-contain group-hover:scale-105 transition duration-500" />
             </a>
 
             <a href="{{ route('prices') }}" class="flex items-center justify-center relative h-[16rem] sm:h-[20rem] rounded-[2rem] border-2 border-[#2AC0D5] bg-white group shadow-sm hover:bg-cyan-50 transition duration-300">
@@ -221,6 +221,7 @@
                    title="{{ $brand->name }}">
                     <img src="{{ asset('images/brands/' . $brand->slug . '.png') }}" 
                          alt="{{ $brand->name }}" 
+                         loading="lazy"
                          class="h-10 object-contain transition" 
                          onerror="this.onerror=null; this.outerHTML='<span class=\'font-bold text-xl text-gray-400\'>{{ $brand->name }}</span>'" />
                 </a>
@@ -251,12 +252,12 @@
                     <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-[#1A1A1A]">Наши специалисты</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div class="bg-white p-4 rounded-[1rem] shadow-sm text-center">
-                            <img src="{{ asset('images/oleg.jpg') }}" alt="Мастер Иван" class="w-24 h-24 rounded-full mx-auto mb-3 object-cover bg-gray-200">
+                            <img src="{{ asset('images/oleg.jpg') }}" alt="Мастер Иван" loading="lazy" class="w-24 h-24 rounded-full mx-auto mb-3 object-cover bg-gray-200">
                             <h4 class="font-bold text-[#1A1A1A]">Олег Валерьевич Егоров</h4>
                             <p class="text-xs text-gray-500">Мастер по ремонту телефонов и планшетов, сметчик</p>
                         </div>
                         <div class="bg-white p-4 rounded-[1rem] shadow-sm text-center">
-                            <img src="{{ asset('images/kate.jpg') }}" alt="Мастер Алексей" class="w-24 h-24 rounded-full mx-auto mb-3 object-cover bg-gray-200">
+                            <img src="{{ asset('images/kate.jpg') }}" alt="Мастер Алексей" loading="lazy" class="w-24 h-24 rounded-full mx-auto mb-3 object-cover bg-gray-200">
                             <h4 class="font-bold text-[#1A1A1A]">Екатерина Сергеевна Сыропятова</h4>
                             <p class="text-xs text-gray-500">Администратор, мастер по ремонту телефонов и планшетов, системный администратор</p>
                         </div>

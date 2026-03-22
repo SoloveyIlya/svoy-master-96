@@ -41,10 +41,10 @@
             <div class="space-y-4">
                 <h2 class="text-2xl font-bold text-[#1A1A1A]">Мессенджеры</h2>
                 <div class="flex items-center gap-4">
-                    <a href="#" class="w-12 h-12 rounded-full bg-gradient-to-r from-[#0678A8] to-[#029DBF] flex items-center justify-center hover:opacity-90 transition shadow-md">
+                    <a href="/" class="w-12 h-12 rounded-full bg-gradient-to-r from-[#0678A8] to-[#029DBF] flex items-center justify-center hover:opacity-90 transition shadow-md">
                         <img src="{{ asset('images/TG.svg') }}" alt="Telegram" class="w-6 h-6 object-contain" />
                     </a>
-                    <a href="#" class="w-12 h-12 rounded-full bg-gradient-to-r from-[#0678A8] to-[#029DBF] flex items-center justify-center hover:opacity-90 transition shadow-md">
+                    <a href="/" class="w-12 h-12 rounded-full bg-gradient-to-r from-[#0678A8] to-[#029DBF] flex items-center justify-center hover:opacity-90 transition shadow-md">
                         <img src="{{ asset('images/WA.svg') }}" alt="WhatsApp" class="w-6 h-6 object-contain" />
                     </a>
                 </div>
