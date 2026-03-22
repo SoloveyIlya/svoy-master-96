@@ -18,8 +18,8 @@
     </div>
 
     <x-defects-block :defects="$defects" />
-    <x-steps-block />
-    <x-cases-block :cases="$cases" />
+    <x-workflow-block />
     <x-reviews-block :reviews="$reviews" />
     <x-contact-form />
+    <x-banners-slider :banners="$banners ?? collect()" />
 @endsection

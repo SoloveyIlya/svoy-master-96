@@ -7,7 +7,13 @@
             @foreach($rows as $row)
                 <li class="flex flex-col md:flex-row items-start md:items-center justify-between p-5 sm:p-6 hover:bg-[#2AC0D5]/5 transition-colors group">
                     <div class="flex-grow pr-4 mb-4 md:mb-0 w-full md:w-auto">
-                        <h4 class="text-lg font-bold text-gray-900 mb-1 group-hover:text-[#0678A8] transition-colors">{{ $row['name'] }}</h4>
+                        @if(!empty($row['url']))
+                            <a href="{{ $row['url'] }}" class="block text-lg font-bold text-gray-900 mb-1 group-hover:text-[#0678A8] transition-colors hover:underline">
+                                {{ $row['name'] }}
+                            </a>
+                        @else
+                            <h4 class="text-lg font-bold text-gray-900 mb-1 group-hover:text-[#0678A8] transition-colors">{{ $row['name'] }}</h4>
+                        @endif
                         <div class="flex items-center text-sm text-gray-500">
                             <svg class="w-4 h-4 mr-1.5 text-[#2AC0D5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             <span>Время ремонта: <span class="font-medium text-gray-700">{{ $row['duration'] }}</span></span>
@@ -21,9 +27,9 @@
                                 {{ $row['price'] ? 'от ' . number_format((int)$row['price'], 0, '', ' ') . ' ₽' : 'По запросу' }}
                             </div>
                         </div>
-                        <a href="{{ $row['url'] ?? '#' }}" class="shrink-0 bg-[#0678A8]/10 hover:bg-[#0678A8] text-[#0678A8] hover:text-white font-bold py-2.5 px-6 rounded-xl transition-all hover:shadow-md">
+                        <button type="button" class="js-open-modal shrink-0 bg-[#0678A8]/10 hover:bg-[#0678A8] text-[#0678A8] hover:text-white font-bold py-2.5 px-6 rounded-xl transition-all hover:shadow-md cursor-pointer" data-cta-title="Заказать: {{ $row['name'] }}">
                             Заказать
-                        </a>
+                        </button>
                     </div>
                 </li>
             @endforeach

@@ -50,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
                 })->get();
 
             $xiaomiModels = DeviceModel::where('status', 'active')
-                ->whereHas('brand', fn($q) => $q->where('slug', 'xiaomi-poco'))
+                ->whereHas('brand', fn($q) => $q->where('slug', 'xiaomi'))
                 ->whereHas('category', fn($q) => $q->where('slug', 'remont-telefonov'))
                 ->get();
 

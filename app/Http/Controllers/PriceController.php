@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Defect;
 use App\Models\DeviceCase;
@@ -22,7 +23,7 @@ class PriceController extends Controller
                     'name' => $s->name,
                     'price' => $s->price_from,
                     'duration' => $s->duration_text,
-                    'url' => route('catalog.service-scope-category', ['categorySlug' => $category->slug, 'serviceSlug' => $s->slug]),
+                    'url' => null, // Страниц serviceScope для категорий у нас нет
                 ];
             })->toArray();
         }
@@ -30,7 +31,8 @@ class PriceController extends Controller
         $defects = Defect::where('is_active', true)->get();
         $reviews = Review::where('is_published', true)->orderByDesc('published_at')->get();
         $cases = DeviceCase::where('is_published', true)->latest()->get();
+        $banners = Banner::where('is_active', true)->orderBy('sort_order')->get();
 
-        return view('prices', compact('categorizedServices', 'defects', 'reviews', 'cases'));
+        return view('prices', compact('categorizedServices', 'defects', 'reviews', 'cases', 'banners'));
     }
 }

@@ -175,7 +175,7 @@ class DatabaseSeeder extends Seeder
             'remont-telefonov' => [
                 'name' => 'Телефоны',
                 'brands' => [
-                    'apple' => ['name' => 'iPhone (Apple)', 'models' => [
+                    'apple' => ['name' => 'Apple', 'models' => [
                         'iphone-11' => 'iPhone 11',
                         'iphone-11-pro' => 'iPhone 11 Pro',
                         'iphone-11-pro-max' => 'iPhone 11 Pro Max',
@@ -225,7 +225,7 @@ class DatabaseSeeder extends Seeder
                         'galaxy-s26-plus' => 'Galaxy S26+',
                         'galaxy-s26-ultra' => 'Galaxy S26 Ultra',
                     ]],
-                    'xiaomi-poco' => ['name' => 'Xiaomi/POCO', 'models' => [
+                    'xiaomi' => ['name' => 'Xiaomi', 'models' => [
                         'xiaomi-13' => 'Xiaomi 13',
                         'xiaomi-13-pro' => 'Xiaomi 13 Pro',
                         'xiaomi-14' => 'Xiaomi 14',
@@ -241,7 +241,7 @@ class DatabaseSeeder extends Seeder
                         'poco-x6-pro' => 'POCO X6 Pro',
                         'poco-f5' => 'POCO F5',
                     ]],
-                    'huawei-honor' => ['name' => 'Huawei/Honor', 'models' => [
+                    'huawei' => ['name' => 'Huawei', 'models' => [
                         'huawei-p50-pro' => 'Huawei P50 Pro',
                         'huawei-p60-pro' => 'Huawei P60 Pro',
                         'huawei-mate-50-pro' => 'Huawei Mate 50 Pro',
@@ -255,7 +255,7 @@ class DatabaseSeeder extends Seeder
             'remont-planshetov' => [
                 'name' => 'Планшеты',
                 'brands' => [
-                    'ipad' => ['name' => 'iPad (Apple)', 'models' => [
+                    'apple' => ['name' => 'Apple', 'models' => [
                         'ipad-9-10-2' => 'iPad 9 (10.2)',
                         'ipad-10-10-9' => 'iPad 10 (10.9)',
                         'ipad-air-4' => 'iPad Air 4',
@@ -281,7 +281,7 @@ class DatabaseSeeder extends Seeder
             'remont-noutbukov' => [
                 'name' => 'Ноутбуки',
                 'brands' => [
-                    'apple-macbook' => ['name' => 'Apple MacBook', 'models' => [
+                    'apple' => ['name' => 'Apple', 'models' => [
                         'macbook-air-m1-2020' => 'MacBook Air M1 (2020)',
                         'macbook-air-m2-2022' => 'MacBook Air M2 (2022)',
                         'macbook-air-m3-2024' => 'MacBook Air M3 (2024)',
@@ -309,7 +309,7 @@ class DatabaseSeeder extends Seeder
             'remont-smart-chasov' => [
                 'name' => 'Смарт-часы',
                 'brands' => [
-                    'apple-watch' => ['name' => 'Apple Watch', 'models' => [
+                    'apple' => ['name' => 'Apple', 'models' => [
                         'apple-watch-series-7' => 'Apple Watch Series 7',
                         'apple-watch-series-8' => 'Apple Watch Series 8',
                         'apple-watch-series-9' => 'Apple Watch Series 9',
@@ -317,7 +317,7 @@ class DatabaseSeeder extends Seeder
                         'apple-watch-ultra' => 'Apple Watch Ultra',
                         'apple-watch-ultra-2' => 'Apple Watch Ultra 2',
                     ]],
-                    'samsung-galaxy-watch' => ['name' => 'Samsung Galaxy Watch', 'models' => [
+                    'samsung' => ['name' => 'Samsung', 'models' => [
                         'galaxy-watch-4' => 'Galaxy Watch 4',
                         'galaxy-watch-5' => 'Galaxy Watch 5',
                         'galaxy-watch-6' => 'Galaxy Watch 6',
@@ -327,24 +327,7 @@ class DatabaseSeeder extends Seeder
             ]
         ];
 
-        // "Другие устройства" заводим просто как категории (согласно структуре ЧПУ)
-        $otherCategories = [
-            'remont-komputerov' => 'Ремонт компьютеров',
-            'remont-monitorov' => 'Ремонт мониторов',
-            'remont-monoblokov' => 'Ремонт моноблоков',
-            'remont-televizorov' => 'Ремонт телевизоров',
-            'remont-pristavok' => 'Ремонт игровых приставок',
-            'remont-dzhojstikov' => 'Ремонт джойстиков и геймпадов',
-            'remont-naushnikov' => 'Ремонт наушников',
-            'remont-portativnyh-kolonok' => 'Ремонт портативных колонок',
-            'remont-fotoapparatov' => 'Ремонт фотоаппаратов',
-            'remont-obektivov' => 'Ремонт объективов',
-            'remont-fotovspyshek' => 'Ремонт фотовспышек',
-            'remont-elektronnyh-knig' => 'Ремонт электронных книг',
-            'remont-kvadrokopterov' => 'Ремонт квадрокоптеров и дронов',
-            'remont-robotov-pylesosov' => 'Ремонт роботов-пылесосов',
-            'remont-terminalov-sbora-dannyh' => 'Ремонт терминалов сбора данных',
-        ];
+        // Удалены "Другие устройства" по требованию ТЗ
 
         // ─── 4. Запускаем циклы генерации ───
         
@@ -416,18 +399,7 @@ class DatabaseSeeder extends Seeder
                 }
             }
 
-            // Добавляем другие категории без брендов/моделей
-            foreach ($otherCategories as $slug => $name) {
-                Category::updateOrCreate(
-                    ['slug' => $slug],
-                    [
-                        'name' => $name,
-                        'seo_title' => "{$name} в Екатеринбурге — цены, сроки, гарантия",
-                        'seo_h1' => $name,
-                        'status' => 'active',
-                    ]
-                );
-            }
+
 
             DB::commit();
             $this->command->info('Все модели и посадочные страницы успешно сгенерированы!');

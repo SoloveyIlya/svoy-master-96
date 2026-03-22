@@ -105,4 +105,8 @@
             </form>
         </div>
     </section>
+    
+    <div class="mt-8">
+        <x-banners-slider :banners="$banners ?? collect()" />
+    </div>
 @endsection

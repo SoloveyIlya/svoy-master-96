@@ -24,10 +24,10 @@
     @if($otherModels->count() > 0)
         <section class="py-10 max-w-7xl mx-auto px-4">
             <h2 class="text-2xl font-bold mb-6 text-center">Другие модели {{ $brand->name }}</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="flex flex-wrap justify-center gap-3 md:gap-4">
                 @foreach($otherModels as $m)
                     <a href="{{ route('catalog.model', [$category->slug, $brand->slug, $m->slug]) }}" 
-                       class="border border-gray-100 rounded-xl p-4 text-center hover:shadow-md transition-shadow bg-white hover:bg-[#2AC0D5]/5 font-medium text-gray-700">
+                       class="border border-gray-100 rounded-xl px-6 py-4 text-center hover:shadow-md transition-shadow bg-white hover:bg-[#2AC0D5]/5 font-medium text-gray-700">
                         {{ $m->name }}
                     </a>
                 @endforeach
@@ -35,9 +35,9 @@
         </section>
     @endif
 
-    <x-steps-block />
-    <x-cases-block :cases="$cases" />
+    <x-workflow-block />
     <x-reviews-block :reviews="$reviews" />
     <x-defects-block :defects="$defects" />
     <x-contact-form />
+    <x-banners-slider :banners="$banners ?? collect()" />
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Defect;
@@ -20,6 +21,7 @@ class CatalogController extends Controller
             'defects' => Defect::where('is_active', true)->get(),
             'reviews' => Review::where('is_published', true)->orderByDesc('published_at')->get(),
             'cases' => DeviceCase::where('is_published', true)->latest()->get(),
+            'banners' => Banner::where('is_active', true)->orderBy('sort_order')->get(),
         ];
     }
 
@@ -44,7 +46,7 @@ class CatalogController extends Controller
             ];
         })->toArray();
 
-        return view('catalog.category', compact('category', 'brands', 'defects', 'reviews', 'cases', 'priceRows'));
+        return view('catalog.category', compact('category', 'brands', 'defects', 'reviews', 'cases', 'banners', 'priceRows'));
     }
 
     public function brand(string $categorySlug, string $brandSlug)
@@ -69,7 +71,7 @@ class CatalogController extends Controller
             ];
         })->toArray();
 
-        return view('catalog.brand', compact('category', 'brand', 'models', 'defects', 'reviews', 'cases', 'priceRows'));
+        return view('catalog.brand', compact('category', 'brand', 'models', 'defects', 'reviews', 'cases', 'banners', 'priceRows'));
     }
 
     public function model(string $categorySlug, string $brandSlug, string $modelSlug)
@@ -94,7 +96,7 @@ class CatalogController extends Controller
             ];
         })->toArray();
 
-        return view('catalog.model', compact('category', 'brand', 'model', 'landingPages', 'defects', 'reviews', 'cases', 'priceRows'));
+        return view('catalog.model', compact('category', 'brand', 'model', 'landingPages', 'defects', 'reviews', 'cases', 'banners', 'priceRows'));
     }
 
     public function landing(string $categorySlug, string $brandSlug, string $modelSlug, string $serviceSlug)
@@ -113,7 +115,7 @@ class CatalogController extends Controller
         extract($this->getGlobals());
         $priceRows = [];
 
-        return view('catalog.landing', compact('category', 'brand', 'model', 'service', 'landing', 'seo', 'defects', 'reviews', 'cases', 'priceRows'));
+        return view('catalog.landing', compact('category', 'brand', 'model', 'service', 'landing', 'seo', 'defects', 'reviews', 'cases', 'banners', 'priceRows'));
     }
 
     public function serviceScopeCategory(string $categorySlug, string $serviceSlug)
@@ -144,7 +146,7 @@ class CatalogController extends Controller
             ];
         })->toArray();
 
-        return view('catalog.category-service', compact('category', 'service', 'scope', 'seo', 'defects', 'reviews', 'cases', 'priceRows'));
+        return view('catalog.category-service', compact('category', 'service', 'scope', 'seo', 'defects', 'reviews', 'cases', 'banners', 'priceRows'));
     }
 
     public function serviceScopeBrand(string $categorySlug, string $brandSlug, string $serviceSlug)
@@ -178,6 +180,6 @@ class CatalogController extends Controller
             ];
         })->toArray();
 
-        return view('catalog.brand-service', compact('category', 'brand', 'service', 'scope', 'seo', 'defects', 'reviews', 'cases', 'priceRows'));
+        return view('catalog.brand-service', compact('category', 'brand', 'service', 'scope', 'seo', 'defects', 'reviews', 'cases', 'banners', 'priceRows'));
     }
 }

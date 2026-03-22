@@ -34,16 +34,30 @@ class LandingPageResource extends Resource
                         ->relationship('category', 'name')
                         ->required()
                         ->searchable()
-                        ->preload(),
+                        ->preload()
+                        ->live(),
                     Forms\Components\Select::make('brand_id')
                         ->label('Бренд')
                         ->relationship('brand', 'name')
                         ->required()
                         ->searchable()
-                        ->preload(),
+                        ->preload()
+                        ->live(),
                     Forms\Components\Select::make('model_id')
                         ->label('Модель')
-                        ->relationship('deviceModel', 'name')
+                        ->relationship(
+                            name: 'deviceModel',
+                            titleAttribute: 'name',
+                            modifyQueryUsing: function (\Illuminate\Database\Eloquent\Builder $query, \Filament\Forms\Get $get) {
+                                if ($get('category_id')) {
+                                    $query->where('category_id', $get('category_id'));
+                                }
+                                if ($get('brand_id')) {
+                                    $query->where('brand_id', $get('brand_id'));
+                                }
+                                return $query;
+                            }
+                        )
                         ->required()
                         ->searchable()
                         ->preload(),

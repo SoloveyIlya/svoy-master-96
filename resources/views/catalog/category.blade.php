@@ -9,11 +9,18 @@
     @if($brands->count() > 0)
         <section class="py-10 max-w-7xl mx-auto px-4">
             <h2 class="text-3xl font-bold mb-6 text-center">Выберите бренд</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <div class="flex flex-wrap justify-center gap-4">
                 @foreach($brands as $b)
                     <a href="{{ route('catalog.brand', [$category->slug, $b->slug]) }}" 
-                       class="border border-gray-100 rounded-xl p-4 text-center hover:shadow-md transition-shadow bg-white hover:bg-[#2AC0D5]/5 font-semibold text-gray-800">
-                        {{ $b->name }}
+                       class="w-36 sm:w-40 md:w-48 flex flex-col items-center justify-center gap-4 border border-gray-100 rounded-2xl p-6 text-center hover:shadow-lg hover:border-[#2AC0D5] transition-all bg-white group">
+                        <div class="h-12 w-full flex items-center justify-center">
+                            <img src="{{ asset('images/brands/' . $b->slug . '.png') }}" 
+                                 alt="{{ $b->name }}" 
+                                 class="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform" 
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                            <span class="hidden font-bold text-xl text-gray-300">{{ mb_substr($b->name, 0, 1) }}</span>
+                        </div>
+                        <span class="font-bold text-[#1A1A1A] group-hover:text-[#0678A8] transition-colors">{{ $b->name }}</span>
                     </a>
                 @endforeach
             </div>
@@ -25,9 +32,9 @@
     </div>
     <x-price-table :rows="$priceRows" />
 
-    <x-steps-block />
-    <x-cases-block :cases="$cases" />
+    <x-workflow-block />
     <x-reviews-block :reviews="$reviews" />
     <x-defects-block :defects="$defects" />
     <x-contact-form />
+    <x-banners-slider :banners="$banners ?? collect()" />
 @endsection

@@ -15,7 +15,7 @@
             {{ $subtitle }}
         </p>
         <button type="button" 
-                class="js-open-modal inline-block bg-white hover:bg-[#FFD12A] text-[#0678A8] hover:text-[#1A1A1A] font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-lg"
+                class="js-open-modal inline-block bg-white hover:bg-cyan-50 text-[#0678A8] font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-lg"
                 data-cta-title="{{ $title }}">
             Оставить заявку
         </button>

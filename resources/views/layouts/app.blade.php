@@ -154,7 +154,7 @@
                                 @foreach($xiaomiModels->chunk(ceil($xiaomiModels->count() / 4)) as $chunk)
                                     <ul class="space-y-2 text-sm">
                                         @foreach($chunk as $model)
-                                            <li><a href="{{ route('catalog.model', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'xiaomi-poco', 'modelSlug' => $model->slug]) }}" class="hover:text-[#2AC0D5] transition">{{ $model->name }}</a></li>
+                                            <li><a href="{{ route('catalog.model', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'xiaomi', 'modelSlug' => $model->slug]) }}" class="hover:text-[#2AC0D5] transition">{{ $model->name }}</a></li>
                                         @endforeach
                                     </ul>
                                 @endforeach

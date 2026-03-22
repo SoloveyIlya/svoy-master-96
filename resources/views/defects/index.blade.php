@@ -28,4 +28,6 @@
     </section>
     
     <x-contact-form />
+    <x-banners-slider :banners="$banners ?? collect()" />
+    <x-workflow-block />
 @endsection

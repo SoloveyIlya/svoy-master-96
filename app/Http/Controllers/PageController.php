@@ -31,12 +31,12 @@ class PageController extends Controller
             ->where('status', 'active')
             ->whereHas('models', function($q) {
                 $q->where('status', 'active')
-                  ->whereHas('category', fn($c) => $c->where('slug', 'remont-telefonov'));
+                    ->whereHas('category', fn($c) => $c->whereIn('slug', ['remont-telefonov', 'remont-planshetov', 'remont-smart-chasov']));
             })
             ->with(['models' => function($q) {
                 $q->where('status', 'active')
-                  ->whereHas('category', fn($c) => $c->where('slug', 'remont-telefonov'))
-                  ->limit(12);
+                    ->whereHas('category', fn($c) => $c->whereIn('slug', ['remont-telefonov', 'remont-planshetov', 'remont-smart-chasov']))
+                    ->limit(12);
             }])
             ->get();
 
