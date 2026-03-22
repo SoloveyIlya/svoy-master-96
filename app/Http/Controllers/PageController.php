@@ -29,11 +29,11 @@ class PageController extends Controller
 
         $brands = Brand::query()
             ->where('status', 'active')
-            ->whereHas('deviceModels', function($q) {
+            ->whereHas('models', function($q) {
                 $q->where('status', 'active')
                   ->whereHas('category', fn($c) => $c->where('slug', 'remont-telefonov'));
             })
-            ->with(['deviceModels' => function($q) {
+            ->with(['models' => function($q) {
                 $q->where('status', 'active')
                   ->whereHas('category', fn($c) => $c->where('slug', 'remont-telefonov'))
                   ->limit(12);

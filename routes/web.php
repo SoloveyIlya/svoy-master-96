@@ -19,6 +19,9 @@ Route::post('/leads', [LeadController::class, 'store'])
 Route::get('/polomki', [DefectController::class, 'index'])->name('defects.index');
 Route::get('/polomki/{slug}', [DefectController::class, 'show'])->name('defects.show');
 
+// Маршрут цен
+Route::get('/ceny', [App\Http\Controllers\PriceController::class, 'index'])->name('prices');
+
 // Маршруты со словом "/service/" размещены выше динамических брендов/моделей
 Route::get('/{categorySlug}/service/{serviceSlug}', [CatalogController::class, 'serviceScopeCategory'])
     ->name('catalog.service-scope-category');

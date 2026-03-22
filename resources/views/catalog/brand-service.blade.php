@@ -1,32 +1,20 @@
 @extends('layouts.app')
 
-@section('title', $seo['title'] ?? $service->name . ' — ' . $brand->name)
-@section('meta_description', $seo['description'] ?? '')
-
 @section('content')
-    <section class="page-container catalog-page">
-        <div class="catalog-card space-y-4">
-            <div class="flex flex-wrap items-center gap-3 text-sm">
-                <a href="{{ route('catalog.brand', [$category->slug, $brand->slug]) }}" class="text-[#0678A8] hover:text-[#2AC0D5] transition">← Назад к бренду</a>
-                <span class="text-gray-300">|</span>
-                <a href="{{ route('catalog.category', [$category->slug]) }}" class="text-[#0678A8] hover:text-[#2AC0D5] transition">К категории</a>
-                <span class="text-gray-300">|</span>
-                <a href="{{ route('home') }}" class="text-[#0678A8] hover:text-[#2AC0D5] transition">На главную</a>
-            </div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-[#1A1A1A]">{{ $seo['h1'] ?? $service->name }}</h1>
-        </div>
+    <x-hero-banner 
+        :title="isset($seo) && $seo->seo_h1 ? $seo->seo_h1 : $service->name . ' ' . $brand->name"
+        :subtitle="isset($seo) && $seo->seo_description ? $seo->seo_description : 'Профессиональное решение проблемы с гарантией'"
+    />
 
-        @if($seo['intro'])
-            <div class="catalog-card mt-6 prose-content">{!! $seo['intro'] !!}</div>
-        @endif
+    <div class="max-w-7xl mx-auto px-4 mb-4">
+        <h2 class="text-3xl font-bold mt-10 text-center">Стоимость работы по моделям</h2>
+    </div>
 
-        <div class="catalog-card mt-6">
-            <h2 class="text-xl sm:text-2xl font-bold text-[#1A1A1A] mb-4">Debug: Переменные</h2>
-            <pre class="text-xs bg-gray-50 p-4 rounded-xl overflow-auto">Category: {{ $category->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-            <pre class="text-xs bg-gray-50 p-4 rounded-xl overflow-auto mt-3">Brand: {{ $brand->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-            <pre class="text-xs bg-gray-50 p-4 rounded-xl overflow-auto mt-3">Service: {{ $service->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-            <pre class="text-xs bg-gray-50 p-4 rounded-xl overflow-auto mt-3">Scope: {{ $scope->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-            <pre class="text-xs bg-gray-50 p-4 rounded-xl overflow-auto mt-3">SEO Data: {{ json_encode($seo, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
-        </div>
-    </section>
+    <x-price-table :rows="$priceRows" />
+
+    <x-steps-block />
+    <x-cases-block :cases="$cases" />
+    <x-reviews-block :reviews="$reviews" />
+    <x-defects-block :defects="$defects" />
+    <x-contact-form />
 @endsection

@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('layouts.app', function ($view) {
             $phoneBrands = Brand::where('status', 'active')
-                ->whereHas('deviceModels', function($q) {
+                ->whereHas('models', function($q) {
                     $q->where('status', 'active')
                       ->whereHas('category', fn($c) => $c->where('slug', 'remont-telefonov'));
                 })->get();
@@ -44,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
                 ->get();
 
             $laptopBrands = Brand::where('status', 'active')
-                ->whereHas('deviceModels', function($q) {
+                ->whereHas('models', function($q) {
                     $q->where('status', 'active')
                       ->whereHas('category', fn($c) => $c->where('slug', 'remont-noutbukov'));
                 })->get();

@@ -25,7 +25,7 @@ class Brand extends Model
         ];
     }
 
-    public function deviceModels(): HasMany
+    public function models(): HasMany
     {
         return $this->hasMany(DeviceModel::class);
     }

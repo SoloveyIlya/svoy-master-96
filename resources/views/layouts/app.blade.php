@@ -18,6 +18,12 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
+    <style>
+        /* FIX FOR BUTTON CURSORS GLOBAL */
+        button, .js-open-modal, .slider-dot, .faq-btn, a, .brand-tab {
+            cursor: pointer !important;
+        }
+    </style>
 </head>
 <body class="bg-white text-gray-800 antialiased overflow-x-hidden">
 
@@ -42,7 +48,7 @@
                                     <div>
                                         <h3 class="font-bold mb-4 text-[#0678A8]">{{ $brand->name }}</h3>
                                         <ul class="space-y-1 text-sm">
-                                            @foreach($brand->deviceModels->where('category.slug', 'remont-telefonov')->take(5) as $model)
+                                            @foreach($brand->models->where('category.slug', 'remont-telefonov')->take(5) as $model)
                                                 <li><a href="{{ route('catalog.model', ['categorySlug' => 'remont-telefonov', 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug]) }}" class="hover:text-[#2AC0D5] transition">{{ $model->name }}</a></li>
                                             @endforeach
                                             <li><a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => $brand->slug]) }}" class="text-[#2AC0D5] hover:underline font-semibold block mt-1">Все модели →</a></li>
@@ -168,6 +174,7 @@
     </main>
 
     <x-footer />
+    <x-modal-form />
 
     @stack('scripts')
     
@@ -263,6 +270,43 @@
                         }
                     }
                 });
+            });
+
+            // 4. Глобальное модальное окно (CTA)
+            const modal = document.getElementById('global-cta-modal');
+            const modalTitle = document.getElementById('modal-title');
+            
+            const openModal = (title = 'Оставить заявку') => {
+                if (!modal) return;
+                if (modalTitle) modalTitle.textContent = title;
+                modal.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            };
+
+            const closeModal = () => {
+                if (!modal) return;
+                modal.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            };
+
+            // Слушатель для всех кнопок с классом .js-open-modal
+            document.addEventListener('click', (e) => {
+                const target = e.target.closest('.js-open-modal');
+                if (target) {
+                    e.preventDefault();
+                    const title = target.getAttribute('data-cta-title') || 'Оставить заявку';
+                    openModal(title);
+                }
+            });
+
+            // Закрытие модалки
+            document.querySelectorAll('[data-modal-close]').forEach(el => {
+                el.addEventListener('click', closeModal);
+            });
+
+            // Закрытие по Esc
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
             });
         });
     </script>

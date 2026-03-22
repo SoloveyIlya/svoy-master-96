@@ -10,6 +10,7 @@ use App\Models\LandingPage;
 use App\Models\Lead;
 use App\Models\Review;
 use App\Models\Service;
+use App\Models\ServiceScope;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -435,6 +436,28 @@ class DatabaseSeeder extends Seeder
             $this->command->error('Ошибка при генерации каталога: ' . $e->getMessage());
         }
 
+        // ─── 4.5. Генерация SEO-срезов (ServiceScopes) ───
+        $this->command->info('Создаем логические срезы (ServiceScopes) для брендов и услуг...');
+
+        $brandsWithModels = Brand::has('models')->get();
+        $allServices = Service::all();
+
+        foreach ($brandsWithModels as $b) {
+            foreach ($allServices as $s) {
+                ServiceScope::updateOrCreate(
+                    [
+                        'scope_type' => 'brand',
+                        'scope_id'   => $b->id,
+                        'service_id' => $s->id,
+                    ],
+                    [
+                        'seo_title' => "{$s->name} на {$b->name} в Екатеринбурге — цены, адреса",
+                        'seo_h1'    => "{$s->name} {$b->name}",
+                    ]
+                );
+            }
+        }
+
         // ─── 5. Тестовые Лиды ───
         Lead::updateOrCreate(
             ['phone' => '+7 (912) 345-67-89'],
@@ -475,6 +498,45 @@ class DatabaseSeeder extends Seeder
                 'rating' => 5,
                 'is_published' => true,
                 'published_at' => now()->subDays(3)->toDateString(),
+            ]
+        );
+
+        // ─── 7. Примеры работ (DeviceCases) ───
+        $this->command->info('Создаем примеры работ (Cases)...');
+
+        \App\Models\DeviceCase::updateOrCreate(
+            ['title' => 'Замена стекла iPhone 13 Pro'],
+            [
+                'description' => 'Упал на асфальт, экран работал исправно, но стекло было в паутине. Поменяли стекло с сохранением оригинальной матрицы.',
+                'image_before' => 'https://placehold.co/600x400/EEE/31343C?text=iPhone+До',
+                'image_after' => 'https://placehold.co/600x400/EEE/31343C?text=iPhone+После',
+                'price' => 7500,
+                'duration' => '1.5 часа',
+                'is_published' => true,
+            ]
+        );
+
+        \App\Models\DeviceCase::updateOrCreate(
+            ['title' => 'Замена аккумулятора Samsung S22 Ultra'],
+            [
+                'description' => 'Телефон быстро садился и выключался на холоде. Установили оригинальный аккумулятор, восстановили влагозащиту.',
+                'image_before' => 'https://placehold.co/600x400/EEE/31343C?text=Samsung+До',
+                'image_after' => 'https://placehold.co/600x400/EEE/31343C?text=Samsung+После',
+                'price' => 4200,
+                'duration' => '40 минут',
+                'is_published' => true,
+            ]
+        );
+
+        \App\Models\DeviceCase::updateOrCreate(
+            ['title' => 'Восстановление MacBook Pro M1 после залития'],
+            [
+                'description' => 'Пролили кофе на клавиатуру. Ноутбук перестал включаться. Произвели чистку в ультразвуковой ванне и пайку цепей питания.',
+                'image_before' => 'https://placehold.co/600x400/EEE/31343C?text=MacBook+До',
+                'image_after' => 'https://placehold.co/600x400/EEE/31343C?text=MacBook+После',
+                'price' => 15000,
+                'duration' => '2 дня',
+                'is_published' => true,
             ]
         );
     }

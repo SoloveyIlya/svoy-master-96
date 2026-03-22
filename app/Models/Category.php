@@ -25,9 +25,14 @@ class Category extends Model
         ];
     }
 
-    public function deviceModels(): HasMany
+    public function models(): HasMany
     {
         return $this->hasMany(DeviceModel::class);
+    }
+
+    public function brands()
+    {
+        // Пока пусто
     }
 
     public function landingPages(): HasMany

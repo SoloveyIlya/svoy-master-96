@@ -245,7 +245,7 @@
                 <div class="mt-6 border-t border-white/20 pt-6">
                     @foreach($brands as $index => $brand)
                     <div id="models-{{ $brand->slug }}" class="models-grid {{ $index === 0 ? '' : 'hidden' }} grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                        @foreach($brand->deviceModels as $model)
+                        @foreach($brand->models as $model)
                             <a href="{{ route('catalog.landing', ['categorySlug' => 'remont-telefonov', 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug, 'serviceSlug' => 'zamena-stekla']) }}" class="text-sm text-white/90 hover:text-white hover:underline transition">
                                 {{ $model->name }}
                             </a>
@@ -551,32 +551,33 @@
                     <p class="flex items-center gap-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> remont@svoymaster96.ru</p>
                     <p class="flex items-center gap-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> г. Екатеринбург, Антона Валека, 13, офис 200</p>
                 </div>
-                <div class="w-full h-[300px] lg:h-[400px] rounded-2xl overflow-hidden shadow-lg relative">
-                    <iframe
-                        src="https://yandex.ru/map-widget/v1/?ll=60.589708%2C56.838908&mode=search&oid=155446185701&ol=biz&z=16.49"
-                        width="100%"
-                        height="100%"
-                        frameborder="0"
-                        allowfullscreen="true"
-                        style="position:relative; z-index:10;"
-                    >
-                    </iframe>
-                    <div class="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center z-0">
-                        <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    </div>
-                </div>
+                <x-map-block />
             </div>
 
-            <div class="relative z-10 bg-white/10 p-5 sm:p-8 rounded-[1rem] backdrop-blur-sm">
-                <h3 class="text-xl font-bold mb-4 text-center">Оставьте заявку на бесплатную диагностику</h3>
-                <p class="text-white/80 text-sm text-center mb-6">Откроем форму и перезвоним, чтобы уточнить симптомы и назвать ориентир по стоимости.</p>
-                <button
-                    type="button"
-                    class="js-open-modal w-full bg-[#2AC0D5] hover:bg-white hover:text-[#0678A8] text-white font-bold rounded-full py-4 transition shadow-md"
-                    data-cta-title="Оставьте заявку на бесплатную диагностику"
-                >
-                    Оставить заявку
-                </button>
+            <div class="relative z-10 bg-white p-5 sm:p-8 rounded-[1rem] shadow-2xl text-[#1A1A1A]">
+                <h3 class="text-xl sm:text-2xl font-bold mb-6 text-center">Оставьте заявку</h3>
+                <form action="{{ route('leads.store') }}" method="POST" class="space-y-4">
+                    @csrf
+                    <input type="hidden" name="page_url" value="{{ request()->fullUrl() }}">
+
+                    <input type="text" name="name" placeholder="Имя" class="w-full border border-gray-300 rounded-full px-5 py-3 focus:outline-none focus:border-[#2AC0D5] transition">
+                    <input type="tel" name="phone" required placeholder="+7 (___) ___-__-__" class="w-full border border-gray-300 rounded-full px-5 py-3 focus:outline-none focus:border-[#2AC0D5] transition">
+                    <textarea name="comment" rows="2" placeholder="Комментарий" class="w-full border border-gray-300 rounded-2xl px-5 py-3 focus:outline-none focus:border-[#2AC0D5] transition resize-none"></textarea>
+
+                    <label class="inline-flex items-start gap-2 text-sm text-gray-700">
+                        <input type="checkbox" name="agree" value="1" class="mt-1" required>
+                        <span>Согласен на обработку данных</span>
+                    </label>
+
+                    <button type="submit" class="w-full bg-[#2AC0D5] hover:bg-[#0678A8] text-white font-bold rounded-full py-4 transition shadow-md cursor-pointer">
+                        Отправить
+                    </button>
+
+                    <p class="text-xs text-center text-gray-500">
+                        Нажимая кнопку, вы соглашаетесь с
+                        <a href="{{ route('privacy') }}" target="_blank" class="underline hover:text-[#0678A8]">политикой конфиденциальности</a>
+                    </p>
+                </form>
             </div>
         </div>
     </section>
