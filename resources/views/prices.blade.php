@@ -17,6 +17,8 @@
         @endforeach
     </div>
 
+    <x-advantages-block />
+
     <x-defects-block :defects="$defects" />
     <x-workflow-block />
     <x-reviews-block :reviews="$reviews" />

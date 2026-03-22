@@ -12,6 +12,8 @@
     
     <x-price-table :rows="$priceRows" />
 
+    <x-advantages-block />
+
     @php
         $otherModels = \App\Models\DeviceModel::where('brand_id', $brand->id)
             ->where('category_id', $category->id)

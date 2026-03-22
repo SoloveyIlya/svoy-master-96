@@ -12,6 +12,8 @@
 
     <x-price-table :rows="$priceRows" />
 
+    <x-advantages-block />
+
     <x-workflow-block />
     <x-reviews-block :reviews="$reviews" />
     <x-defects-block :defects="$defects" />
