@@ -24,7 +24,7 @@
     <section class="max-w-[87.5rem] mx-auto px-4 py-16">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div>
-                <h2 class="text-3xl sm:text-4xl font-bold text-[#1A1A1A] mb-6">Информация о компании</h2>
+                <h2 class="text-3xl sm:text-4xl font-bold text-[#1A1A1A] mb-6">О нас</h2>
                 <div class="space-y-4 text-gray-600 leading-relaxed">
                     <p>
                         Мы работаем на рынке ремонта цифровой техники более 7 лет. Наша команда состоит из опытных мастеров, 
@@ -60,6 +60,41 @@
                         <h3 class="text-xl font-bold text-[#1A1A1A] mb-2">Гарантия</h3>
                         <p class="text-3xl font-bold text-[#0678A8]">До 2 лет</p>
                         <p class="text-sm text-gray-600 mt-1">На все выполняемые работы</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- О КОМПАНИИ И СОТРУДНИКИ --}}
+    <section class="bg-gray-50 py-16">
+        <div class="max-w-[87.5rem] mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                {{-- О компании --}}
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-[#1A1A1A]">Информация о компании</h2>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Сервисный центр «Свой Мастер» специализируется на компонентном и модульном ремонте цифровой техники любой сложности. Мы ответственно подходим к каждому заказу, обеспечивая надежный результат.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed">
+                        Наш главный приоритет — честность и качество. Мы используем только проверенные комплектующие, а наши инженеры имеют профильное образование и многолетний опыт восстановления даже «безнадежных» устройств.
+                    </p>
+                </div>
+
+                {{-- Сотрудники --}}
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-[#1A1A1A]">Наши специалисты</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="bg-white p-4 rounded-[1rem] shadow-sm text-center">
+                            <img src="{{ asset('images/oleg.jpg') }}" alt="Мастер Иван" loading="lazy" class="w-24 h-24 rounded-full mx-auto mb-3 object-cover bg-gray-200">
+                            <h4 class="font-bold text-[#1A1A1A]">Олег Валерьевич Егоров</h4>
+                            <p class="text-xs text-gray-500">Мастер по ремонту телефонов и планшетов, сметчик</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-[1rem] shadow-sm text-center">
+                            <img src="{{ asset('images/kate.jpg') }}" alt="Мастер Алексей" loading="lazy" class="w-24 h-24 rounded-full mx-auto mb-3 object-cover bg-gray-200">
+                            <h4 class="font-bold text-[#1A1A1A]">Екатерина Сергеевна Сыропятова</h4>
+                            <p class="text-xs text-gray-500">Администратор, мастер по ремонту телефонов и планшетов, системный администратор</p>
+                        </div>
                     </div>
                 </div>
             </div>
