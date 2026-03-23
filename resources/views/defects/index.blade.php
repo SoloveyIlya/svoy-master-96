@@ -1,8 +1,14 @@
 @extends('layouts.app')
 
 @section('title', 'Частые поломки и неисправности')
+@section('seo_description', 'Симптомы, причины и решения для самых популярных неисправностей вашей техники')
+@section('og_title', 'Частые поломки и неисправности - Svoy Master')
+@section('og_description', 'Узнайте о распространённых поломках оборудования и получите рекомендации мастеров')
+@section('og_image', asset('images/logo.png'))
 
 @section('content')
+    <x-breadcrumbs :links="['Частые поломки' => null]" />
+
     <x-hero-banner 
         title="Частые поломки"
         subtitle="Симптомы, причины и решения для самых популярных неисправностей вашей техники"

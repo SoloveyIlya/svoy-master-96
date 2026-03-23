@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('title', $seo['title'] ?? $service->name . ' ' . $model->name)
-@section('meta_description', $seo['description'] ?? '')
+@section('seo_description', $seo['description'] ?? 'Профессиональный ' . mb_strtolower($service->name) . ' ' . mb_strtolower($model->name) . ' в Екатеринбурге')
+@section('og_title', $seo['title'] ?? $service->name . ' ' . $model->name . ' в Екатеринбурге')
+@section('og_description', $seo['description'] ?? 'Профессиональный ' . mb_strtolower($service->name) . ' для ' . $model->name . ' с гарантией')
+@section('og_image', asset('images/logo.png'))
+@section('og_url', route('catalog.landing', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug, 'serviceSlug' => $service->slug]))
 
 @if($seo['canonical_url'])
     @section('canonical', $seo['canonical_url'])
@@ -12,6 +16,8 @@
 @endif
 
 @section('content')
+    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => 'Ремонт ' . $category->name, route('catalog.brand', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug]) => $brand->name, route('catalog.model', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug]) => $model->name, route('catalog.landing', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug, 'serviceSlug' => $service->slug]) => $service->name]" />
+
     <section class="page-container catalog-page">
         <div class="catalog-card space-y-4">
             <div class="flex flex-wrap items-center gap-3 text-sm">

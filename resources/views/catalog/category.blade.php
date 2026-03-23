@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
+@section('title', $category->seo_title ?? 'Ремонт ' . $category->name . ' в Екатеринбурге')
+@section('seo_description', $category->seo_description ?? 'Профессиональный ремонт ' . mb_strtolower($category->name) . ' в Екатеринбурге с гарантией')
+@section('og_title', $category->seo_title ?? 'Ремонт ' . $category->name)
+@section('og_description', $category->seo_description ?? 'Профессиональный ремонт ' . mb_strtolower($category->name) . ' в Екатеринбурге с гарантией')
+@section('og_image', asset('images/logo.png'))
+@section('og_url', route('catalog.category', ['categorySlug' => $category->slug]))
+
 @section('content')
+    <x-breadcrumbs :links="['Ремонт ' . $category->name => null]" />
+
     <x-hero-banner 
         :title="$category->seo_h1 ?: $category->name"
         :subtitle="'Профессиональный ремонт ' . mb_strtolower($category->name) . ' в Екатеринбурге с гарантией'"

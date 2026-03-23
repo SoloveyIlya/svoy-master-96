@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
+@section('title', $model->seo_title ?? 'Ремонт ' . $model->name . ' в Екатеринбурге')
+@section('seo_description', $model->seo_description ?? 'Ремонт ' . $model->name . ' в Екатеринбурге: оригинальные запчасти, гарантия до 2 лет')
+@section('og_title', $model->seo_title ?? 'Ремонт ' . $model->name)
+@section('og_description', $model->seo_description ?? 'Ремонт ' . $model->name . ' с бесплатной диагностикой и гарантией')
+@section('og_image', asset('images/logo.png'))
+@section('og_url', route('catalog.model', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug]))
+
 @section('content')
+    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => 'Ремонт ' . $category->name, route('catalog.brand', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug]) => $brand->name, route('catalog.model', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug]) => $model->name]" />
+
     <x-hero-banner 
         :title="$model->seo_h1 ?: 'Ремонт ' . $model->name"
         :subtitle="'Закажите ремонт ' . $model->name . ' с бесплатной диагностикой'"

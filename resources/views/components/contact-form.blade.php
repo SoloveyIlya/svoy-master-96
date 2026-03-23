@@ -16,7 +16,19 @@
         
         <div class="relative z-10 bg-white p-5 sm:p-8 rounded-[1rem] shadow-2xl text-[#1A1A1A]">
             <h3 class="text-xl sm:text-2xl font-bold mb-6 text-center">Оставьте заявку</h3>
-            <form action="{{ route('leads.store') }}" method="POST" class="space-y-6" x-data="{ isSubmitting: false }" @submit="isSubmitting = true">
+            
+            <!-- Success Message -->
+            <div id="success-message" class="hidden mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+                <div class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    <div>
+                        <h4 class="font-bold text-emerald-900">Заявка отправлена!</h4>
+                        <p class="text-sm text-emerald-800 mt-1">Спасибо за обращение. Наш менеджер свяжется с вами в ближайшее время.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <form id="contact-form" action="{{ route('leads.store') }}" method="POST" class="space-y-6" x-data="{ isSubmitting: false }" @submit="isSubmitting = true">
                 @csrf
                 <input type="hidden" name="page_url" value="{{ request()->fullUrl() }}">
 
@@ -47,3 +59,48 @@
         </div>
     </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contact-form');
+    const successMessage = document.getElementById('success-message');
+    
+    if (!form) return;
+    
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(form);
+        
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            });
+            
+            if (response.ok) {
+                // Show success message
+                successMessage.classList.remove('hidden');
+                
+                // Reset form
+                form.reset();
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Auto-hide after 5 seconds
+                setTimeout(function() {
+                    successMessage.classList.add('hidden');
+                }, 5000);
+            } else {
+                console.error('Form submission failed:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
+    });
+});
+</script>

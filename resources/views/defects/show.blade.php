@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
-@section('title', $defect->name)
+@section('title', $defect->name . ' - Поломки')
+@section('seo_description', $defect->name . ': ' . $defect->description)
+@section('og_title', $defect->name)
+@section('og_description', $defect->name . ' - частые поломки оборудования и способы их решения')
+@section('og_image', asset('images/logo.png'))
 
 @section('content')
     <x-hero-banner 

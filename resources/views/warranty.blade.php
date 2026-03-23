@@ -1,8 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Гарантия')
+@section('title', 'Гарантия на ремонт')
+@section('seo_description', 'Условия гарантии на ремонт техники в Екатеринбурге. Гарантия до 2 лет на все оригинальные запчасти.')
+@section('og_title', 'Гарантия - Svoy Master')
+@section('og_description', 'Условия гарантии на ремонт. Мы гарантируем надежность и качество')
+@section('og_image', asset('images/logo.png'))
 
 @section('content')
+    <x-breadcrumbs :links="['Гарантия' => null]" />
+
     <section class="page-container catalog-page">
         <div class="catalog-card space-y-4">
             <h1 class="text-2xl sm:text-3xl font-bold text-[#1A1A1A]">Гарантия</h1>

@@ -1,8 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Контакты')
+@section('title', 'Контакты - Svoy Master')
+@section('seo_description', 'Адрес, телефон и мессенджеры сервисного центра. Г. Екатеринбург, открыты пн-вс: 9:00-22:00')
+@section('og_title', 'Контакты - Svoy Master')
+@section('og_description', 'Свяжитесь с нами: +7 (343) 226-46-22, г. Екатеринбург, Антона Валека, 13')
+@section('og_image', asset('images/logo.png'))
 
 @section('content')
+    <x-breadcrumbs :links="['Контакты' => null]" />
+
     <x-hero-banner 
         title="Контакты"
         subtitle="Мы всегда на связи. Приезжайте в наш сервисный центр или закажите выезд мастера."

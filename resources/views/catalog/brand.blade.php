@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
+@section('title', $brand->seo_title ?? 'Ремонт ' . $brand->name . ' в Екатеринбурге')
+@section('seo_description', $brand->seo_description ?? 'Ремонт ' . $brand->name . ' в Екатеринбурге: смартфонов, ноутбуков, планшетов с гарантией')
+@section('og_title', $brand->seo_title ?? 'Ремонт ' . $brand->name)
+@section('og_description', $brand->seo_description ?? 'Ремонт ' . $brand->name . ' с гарантией и честными ценами')
+@section('og_image', asset('images/logo.png'))
+@section('og_url', route('catalog.brand', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug]))
+
 @section('content')
+    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => 'Ремонт ' . $category->name, route('catalog.brand', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug]) => $brand->name]" />
+
     <x-hero-banner 
         :title="$brand->seo_h1 ?: 'Ремонт ' . $brand->name"
         :subtitle="'Честные цены и гарантия на ремонт устройств ' . $brand->name"

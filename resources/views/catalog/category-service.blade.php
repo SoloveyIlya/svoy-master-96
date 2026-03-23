@@ -1,9 +1,18 @@
 @extends('layouts.app')
 
+@section('title', $seo['title'] ?? $service->name . ' в ' . $category->name)
+@section('seo_description', $seo['description'] ?? $service->name . ' различных устройств в Екатеринбурге')
+@section('og_title', $seo['title'] ?? $service->name . ' в ' . $category->name)
+@section('og_description', $seo['description'] ?? $service->name . ' с честными ценами и гарантией')
+@section('og_image', asset('images/logo.png'))
+@section('og_url', route('catalog.service-scope-category', ['categorySlug' => $category->slug, 'serviceSlug' => $service->slug]))
+
 @section('content')
+    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => 'Ремонт ' . $category->name, route('catalog.service-scope-category', ['categorySlug' => $category->slug, 'serviceSlug' => $service->slug]) => $service->name]" />
+
     <x-hero-banner 
-        :title="isset($seo) && $seo->seo_h1 ? $seo->seo_h1 : $service->name . ' ' . (isset($brand) ? $brand->name : $category->name)"
-        :subtitle="isset($seo) && $seo->seo_description ? $seo->seo_description : 'Гарантия качества и честные цены'"
+        :title="isset($seo) && $seo['h1'] ? $seo['h1'] : $service->name . ' ' . (isset($brand) ? $brand->name : $category->name)"
+        :subtitle="isset($seo) && $seo['description'] ? $seo['description'] : 'Гарантия качества и честные цены'"
     />
 
     <div class="max-w-7xl mx-auto px-4 mb-4">

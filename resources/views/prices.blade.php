@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
+@section('title', 'Цены на ремонт')
+@section('seo_description', 'Прозрачный прайс-лист на все основные услуги по ремонту. Бесплатная диагностика.')
+@section('og_title', 'Цены на ремонт - Svoy Master')
+@section('og_description', 'Экономные и прозрачные цены на ремонт. Нет скрытых доплат')
+@section('og_image', asset('images/logo.png'))
+
 @section('content')
+    <x-breadcrumbs :links="['Цены на ремонт' => null]" />
+
     <x-hero-banner 
         title="Цены на ремонт"
         subtitle="Прозрачный прайс-лист без скрытых доплат. Выберите категорию вашего устройства."
