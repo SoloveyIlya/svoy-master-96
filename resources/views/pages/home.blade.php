@@ -216,13 +216,16 @@
         <h2 class="text-2xl font-bold text-center mb-10 text-[#1A1A1A]">Ремонтируем популярные устройства</h2>
         <div class="flex flex-wrap justify-center items-center gap-12 md:gap-20 transition duration-500">
             @foreach($brands as $brand)
-                <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => $brand->slug]) }}" 
+                @php
+                    $categorySlug = $brand->models->first()->category->slug ?? 'remont-telefonov';
+                @endphp
+                <a href="{{ route('catalog.brand', ['categorySlug' => $categorySlug, 'brandSlug' => $brand->slug]) }}" 
                    class="hover:scale-110 transition-transform block"
                    title="{{ $brand->name }}">
                     <img src="{{ asset('images/brands/' . $brand->slug . '.png') }}" 
                          alt="{{ $brand->name }}" 
                          loading="lazy"
-                         class="h-10 object-contain transition" 
+                         class="h-12 object-contain transition" 
                          onerror="this.onerror=null; this.outerHTML='<span class=\'font-bold text-xl text-gray-400\'>{{ $brand->name }}</span>'" />
                 </a>
             @endforeach

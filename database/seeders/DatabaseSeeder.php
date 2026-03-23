@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         // ─── 1. Admin ───
         User::updateOrCreate(
             ['email' => 'admin@svoymaster.ru'],
-            ['name' => 'Admin', 'password' => bcrypt('password')]
+            ['name' => 'Admin', 'password' => bcrypt('AdmSM2025!@#')]
         );
 
         $this->command->info('Создаем услуги (Services)...');

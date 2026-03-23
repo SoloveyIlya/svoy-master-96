@@ -36,6 +36,7 @@ class PageController extends Controller
             ->with(['models' => function($q) {
                 $q->where('status', 'active')
                     ->whereHas('category', fn($c) => $c->whereIn('slug', ['remont-telefonov', 'remont-planshetov', 'remont-smart-chasov', 'remont-noutbukov']))
+                    ->with('category')
                     ->limit(12);
             }])
             ->get();
