@@ -101,7 +101,7 @@ class DatabaseSeeder extends Seeder
             'remont-telefonov' => [
                 'name' => 'Телефоны',
                 'brands' => [
-                    'apple' => ['name' => 'iPhone (Apple)', 'models' => [
+                    'apple' => ['name' => 'Apple', 'models' => [
                         'iphone-se'=>'iPhone SE','iphone-11'=>'iPhone 11','iphone-11-pro'=>'iPhone 11 Pro','iphone-11-pro-max'=>'iPhone 11 Pro Max','iphone-12'=>'iPhone 12','iphone-12-mini'=>'iPhone 12 mini','iphone-12-pro'=>'iPhone 12 Pro','iphone-12-pro-max'=>'iPhone 12 Pro Max','iphone-13'=>'iPhone 13','iphone-13-mini'=>'iPhone 13 mini','iphone-13-pro'=>'iPhone 13 Pro','iphone-13-pro-max'=>'iPhone 13 Pro Max','iphone-14'=>'iPhone 14','iphone-14-plus'=>'iPhone 14 Plus','iphone-14-pro'=>'iPhone 14 Pro','iphone-14-pro-max'=>'iPhone 14 Pro Max','iphone-15'=>'iPhone 15','iphone-15-plus'=>'iPhone 15 Plus','iphone-15-pro'=>'iPhone 15 Pro','iphone-15-pro-max'=>'iPhone 15 Pro Max','iphone-16e'=>'iPhone 16e','iphone-16'=>'iPhone 16','iphone-16-plus'=>'iPhone 16 Plus','iphone-16-pro'=>'iPhone 16 Pro','iphone-16-pro-max'=>'iPhone 16 Pro Max','iphone-17e'=>'iPhone 17e','iphone-17'=>'iPhone 17','iphone-17-air'=>'iPhone 17 Air','iphone-17-pro'=>'iPhone 17 Pro','iphone-17-pro-max'=>'iPhone 17 Pro Max'
                     ]],
                     'samsung' => ['name' => 'Samsung', 'models' => [
@@ -126,7 +126,7 @@ class DatabaseSeeder extends Seeder
             'remont-planshetov' => [
                 'name' => 'Планшеты',
                 'brands' => [
-                    'ipad' => ['name' => 'iPad (Apple)', 'models' => [
+                    'apple' => ['name' => 'Apple', 'models' => [
                         'ipad-pro-13'=>'iPad Pro 13','ipad-pro-11'=>'iPad Pro 11','ipad-air-13'=>'iPad Air 13','ipad-air-11'=>'iPad Air 11','ipad-air-5'=>'iPad Air 5','ipad-air-4'=>'iPad Air 4','ipad-10'=>'iPad 10','ipad-9'=>'iPad 9','ipad-mini-6'=>'iPad mini 6'
                     ]],
                     'samsung' => ['name' => 'Samsung', 'models' => [
@@ -147,7 +147,7 @@ class DatabaseSeeder extends Seeder
             'remont-noutbukov' => [
                 'name' => 'Ноутбуки',
                 'brands' => [
-                    'apple-macbook' => ['name' => 'Apple MacBook', 'models' => [
+                    'apple' => ['name' => 'Apple', 'models' => [
                         'macbook-pro-16-m3-max'=>'MacBook Pro 16 M3 Max','macbook-pro-16-m3-pro'=>'MacBook Pro 16 M3 Pro','macbook-pro-16-m3'=>'MacBook Pro 16 M3','macbook-pro-14-m3-max'=>'MacBook Pro 14 M3 Max','macbook-pro-14-m3-pro'=>'MacBook Pro 14 M3 Pro','macbook-pro-14-m3'=>'MacBook Pro 14 M3','macbook-air-15-m3'=>'MacBook Air 15 M3','macbook-air-13-m3'=>'MacBook Air 13 M3','macbook-air-13-m2'=>'MacBook Air 13 M2','macbook-air-13-m1'=>'MacBook Air 13 M1'
                     ]],
                     'asus' => ['name' => 'Asus', 'models' => [
@@ -174,16 +174,16 @@ class DatabaseSeeder extends Seeder
             'remont-smart-chasov' => [
                 'name' => 'Смарт-часы',
                 'brands' => [
-                    'apple-watch' => ['name' => 'Apple Watch', 'models' => [
+                    'apple' => ['name' => 'Apple', 'models' => [
                         'ultra-2'=>'Apple Watch Ultra 2','ultra'=>'Apple Watch Ultra','series-9'=>'Apple Watch Series 9','series-8'=>'Apple Watch Series 8','series-7'=>'Apple Watch Series 7','se-2022'=>'Apple Watch SE (2022)','se-2020'=>'Apple Watch SE (2020)'
                     ]],
-                    'samsung-galaxy-watch' => ['name' => 'Samsung Galaxy Watch', 'models' => [
+                    'samsung' => ['name' => 'Samsung', 'models' => [
                         'watch-6-classic'=>'Samsung Galaxy Watch 6 Classic','watch-6'=>'Samsung Galaxy Watch 6','watch-5-pro'=>'Samsung Galaxy Watch 5 Pro','watch-5'=>'Samsung Galaxy Watch 5','watch-4-classic'=>'Samsung Galaxy Watch 4 Classic','watch-4'=>'Samsung Galaxy Watch 4'
                     ]],
-                    'huawei-watch' => ['name' => 'Huawei Watch', 'models' => [
+                    'huawei' => ['name' => 'Huawei', 'models' => [
                         'watch-gt-4'=>'Huawei Watch GT 4','watch-gt-3-pro'=>'Huawei Watch GT 3 Pro','watch-gt-3'=>'Huawei Watch GT 3','watch-4-pro'=>'Huawei Watch 4 Pro','watch-4'=>'Huawei Watch 4'
                     ]],
-                    'xiaomi-mi-band' => ['name' => 'Xiaomi Mi Band', 'models' => [
+                    'xiaomi' => ['name' => 'Xiaomi', 'models' => [
                         'watch-s3'=>'Xiaomi Watch S3','watch-s2'=>'Xiaomi Watch S2','watch-2-pro'=>'Xiaomi Watch 2 Pro','redmi-watch-4'=>'Redmi Watch 4','redmi-watch-3'=>'Redmi Watch 3'
                     ]],
                     'amazfit' => ['name' => 'Amazfit', 'models' => [

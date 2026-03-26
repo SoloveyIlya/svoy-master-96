@@ -119,8 +119,9 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            @forelse($defects as $defect)
-                <a href="{{ route('defects.show', $defect->slug) }}" class="border border-gray-200 rounded-[1rem] p-4 sm:p-6 hover:shadow-lg hover:border-[#2AC0D5] transition cursor-pointer bg-white block">
+            @forelse($defects as $index => $defect)
+                <a href="{{ route('defects.show', $defect->slug) }}" 
+                   class="defect-card border border-gray-200 rounded-[1rem] p-4 sm:p-6 hover:shadow-lg hover:border-[#2AC0D5] transition cursor-pointer bg-white block {{ $index >= 8 ? 'hidden' : '' }}">
                     <h3 class="font-bold text-[#1A1A1A] mb-1">{{ $defect->name }}</h3>
                     <p class="text-sm text-gray-500">{{ $defect->description }}</p>
                 </a>
@@ -130,6 +131,17 @@
                 </div>
             @endforelse
         </div>
+
+        @if(count($defects) > 8)
+        <div class="flex justify-center mb-8">
+            <button type="button" id="toggle-defects" class="text-[#0678A8] font-semibold hover:text-[#2AC0D5] transition flex items-center gap-2">
+                <span>Показать все</span>
+                <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+        </div>
+        @endif
         
         <div class="flex justify-center">
             <button type="button" class="js-open-modal bg-[#2AC0D5] hover:bg-[#0678A8] text-white font-medium py-3 px-8 rounded-[2rem] transition" data-cta-title="Другая поломка">
@@ -571,6 +583,31 @@
             }
 
             setInterval(changeWord, 4000);
+        }
+
+        // 8. ПЕРЕКЛЮЧАТЕЛЬ ПОЛОМОК (ЧТО СЛУЧИЛОСЬ?)
+        const toggleBtn = document.getElementById('toggle-defects');
+        if (toggleBtn) {
+            const extraDefects = document.querySelectorAll('.defect-card.hidden');
+            const btnText = toggleBtn.querySelector('span');
+            const btnIcon = toggleBtn.querySelector('svg');
+            let isExpanded = false;
+
+            toggleBtn.addEventListener('click', () => {
+                isExpanded = !isExpanded;
+                
+                extraDefects.forEach(card => {
+                    card.classList.toggle('hidden');
+                });
+
+                if (isExpanded) {
+                    btnText.textContent = 'Скрыть';
+                    btnIcon.classList.add('rotate-180');
+                } else {
+                    btnText.textContent = 'Показать все';
+                    btnIcon.classList.remove('rotate-180');
+                }
+            });
         }
     });
 </script>
