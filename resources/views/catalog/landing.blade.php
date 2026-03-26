@@ -1,118 +1,85 @@
 @extends('layouts.app')
 
-@section('title', $seo['title'] ?? $service->name . ' ' . $model->name)
-@section('seo_description', $seo['description'] ?? 'Профессиональный ' . mb_strtolower($service->name) . ' ' . mb_strtolower($model->name) . ' в Екатеринбурге')
-@section('og_title', $seo['title'] ?? $service->name . ' ' . $model->name . ' в Екатеринбурге')
-@section('og_description', $seo['description'] ?? 'Профессиональный ' . mb_strtolower($service->name) . ' для ' . $model->name . ' с гарантией')
+@section('title', $seo['title'] ?? ($service->name . ' ' . $model->name))
+@section('seo_description', $seo['description'] ?? ('Профессиональный ремонт ' . $model->name . ' в Екатеринбурге'))
+@section('og_title', $seo['title'] ?? ($service->name . ' ' . $model->name))
+@section('og_description', $seo['description'] ?? ('Профессиональный ремонт ' . $model->name . ' в Екатеринбурге'))
 @section('og_image', asset('images/logo.png'))
-@section('og_url', route('catalog.landing', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug, 'serviceSlug' => $service->slug]))
+@section('og_url', request()->fullUrl())
 
-@if($seo['canonical_url'])
+@if(!empty($seo['canonical_url']))
     @section('canonical', $seo['canonical_url'])
 @endif
 
-@if($seo['noindex'])
+@if(!empty($seo['noindex']))
     @section('noindex', true)
 @endif
 
 @section('content')
-    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => 'Ремонт ' . $category->name, route('catalog.brand', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug]) => $brand->name, route('catalog.model', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug]) => $model->name, route('catalog.landing', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug, 'serviceSlug' => $service->slug]) => $service->name]" />
+    <x-breadcrumbs :links="[
+        route('catalog.category', [$category->slug]) => 'Ремонт ' . $category->name,
+        route('catalog.brand', [$category->slug, $brand->slug]) => $brand->name,
+        route('catalog.model', [$category->slug, $brand->slug, $model->slug]) => $model->name,
+        '' => $service->name
+    ]" />
 
-    <section class="page-container catalog-page">
-        <div class="catalog-card space-y-4">
-            <div class="flex flex-wrap items-center gap-3 text-sm">
-                <a href="{{ route('catalog.model', [$category->slug, $brand->slug, $model->slug]) }}" class="text-[#0678A8] hover:text-[#2AC0D5] transition">← Назад к модели</a>
-                <span class="text-gray-300">|</span>
-                <a href="{{ route('catalog.brand', [$category->slug, $brand->slug]) }}" class="text-[#0678A8] hover:text-[#2AC0D5] transition">К бренду</a>
-                <span class="text-gray-300">|</span>
-                <a href="{{ route('catalog.category', [$category->slug]) }}" class="text-[#0678A8] hover:text-[#2AC0D5] transition">К категории</a>
-                <span class="text-gray-300">|</span>
-                <a href="{{ route('home') }}" class="text-[#0678A8] hover:text-[#2AC0D5] transition">На главную</a>
-            </div>
+    <x-hero-banner 
+        :title="$seo['h1'] ?? ($service->name . ' на ' . $model->name)"
+        subtitle="Профессиональный ремонт в Екатеринбурге с гарантией до 1 года. Используем оригинальные запчасти."
+        :price="$landing->resolvedPriceFrom()"
+        :duration="$service->duration_text"
+    />
 
-            <h1 class="text-2xl sm:text-3xl font-bold text-[#1A1A1A]">{{ $seo['h1'] ?? $service->name . ' ' . $model->name }}</h1>
-            <div class="text-sm text-gray-600 space-y-1">
-                <p><strong>Цена от:</strong> {{ $landing->resolvedPriceFrom() ?? '-' }}</p>
-                <p><strong>Срок ремонта:</strong> {{ $service->duration_text ?? '-' }}</p>
-                <p><strong>Гарантия:</strong> {{ $service->warranty_text ?? '-' }}</p>
-                <p><strong>SEO title:</strong> {{ $seo['title'] ?? '-' }}</p>
-                <p><strong>SEO description:</strong> {{ $seo['description'] ?? '-' }}</p>
-            </div>
-        </div>
+    @if(!empty($seo['intro']))
+        <section class="max-w-5xl mx-auto px-4 sm:px-6 mt-12 prose-content">
+            {!! $seo['intro'] !!}
+        </section>
+    @endif
 
-        @if($seo['intro'])
-            <div class="catalog-card mt-6 prose-content">
-                {!! $seo['intro'] !!}
-            </div>
-        @endif
-
-        @if($seo['body'])
-            <div class="catalog-card mt-6 prose-content">
-                {!! $seo['body'] !!}
-            </div>
-        @endif
-
-        @if($seo['faq'])
-            <div class="catalog-card mt-6">
-                <h2 class="text-xl sm:text-2xl font-bold text-[#1A1A1A] mb-4">FAQ</h2>
-                <div class="space-y-3">
-                    @foreach($seo['faq'] as $item)
-                        <details class="border border-gray-200 rounded-xl px-4 py-3">
-                            <summary class="font-semibold cursor-pointer">{{ $item['question'] }}</summary>
-                            <p class="text-sm text-gray-600 mt-2">{{ $item['answer'] }}</p>
-                        </details>
-                    @endforeach
-                </div>
-            </div>
-        @endif
-
-        <div class="catalog-card mt-6">
-            <h2 class="text-xl sm:text-2xl font-bold text-[#1A1A1A] mb-4">Оставить заявку</h2>
-            @if(session('success'))
-                <p class="mb-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 text-sm">{{ session('success') }}</p>
-            @endif
-
-            <form action="{{ route('leads.store') }}" method="POST" class="space-y-4">
-                @csrf
-                <input type="hidden" name="landing_page_id" value="{{ $landing->id }}">
-                <input type="hidden" name="page_url" value="{{ request()->fullUrl() }}">
-
-                <div>
-                    <label for="name" class="block text-sm font-medium mb-1">Имя</label>
-                    <input id="name" type="text" name="name" value="{{ old('name') }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#2AC0D5]">
-                </div>
-
-                <div>
-                    <label for="phone" class="block text-sm font-medium mb-1">Телефон *</label>
-                    <input id="phone" type="text" name="phone" value="{{ old('phone') }}" required class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#2AC0D5]">
-                    @error('phone')
-                        <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div>
-                    <label for="comment" class="block text-sm font-medium mb-1">Комментарий</label>
-                    <textarea id="comment" name="comment" rows="4" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#2AC0D5]">{{ old('comment') }}</textarea>
-                </div>
-
-                <div>
-                    <label class="inline-flex items-start gap-2 text-sm text-gray-700">
-                        <input type="checkbox" name="agree" value="1" {{ old('agree') ? 'checked' : '' }} class="mt-1">
-                        <span>Согласен на обработку персональных данных</span>
-                    </label>
-                    @error('agree')
-                        <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <button type="submit" class="w-full sm:w-auto bg-[#2AC0D5] hover:bg-[#0678A8] text-white font-semibold px-6 py-3 rounded-full transition">
-                    Отправить заявку
-                </button>
-            </form>
-        </div>
+    <section class="max-w-5xl mx-auto px-4 sm:px-6 mt-16 -mb-6">
+        <h2 class="text-2xl sm:text-3xl font-bold text-[#1A1A1A] text-center">Цены на другие услуги для {{ $model->name }}</h2>
     </section>
     
-    <div class="mt-8">
+    <x-price-table :rows="$priceRows" :activeSlug="$activeSlug" />
+
+    <x-advantages-block />
+
+    <x-defects-block :defects="$defects" />
+
+    @if(!empty($seo['body']))
+        <section class="max-w-5xl mx-auto px-4 sm:px-6 my-16 prose-content">
+            {!! $seo['body'] !!}
+        </section>
+    @endif
+
+    <x-workflow-block />
+
+    <x-reviews-block :reviews="$reviews" />
+
+    <x-contact-form title="Оставить заявку на ремонт" />
+
+    @if(!empty($seo['faq']) && is_array($seo['faq']))
+         <section class="max-w-5xl mx-auto px-4 sm:px-6 py-16">
+            <h2 class="text-2xl sm:text-3xl font-bold text-[#1A1A1A] mb-10 text-center">Часто задаваемые вопросы</h2>
+            <div class="space-y-4">
+                @foreach($seo['faq'] as $item)
+                    <details class="group bg-white border border-gray-200 rounded-2xl p-6 transition-all hover:shadow-md">
+                        <summary class="flex justify-between items-center font-bold text-lg cursor-pointer list-none">
+                            {{ $item['question'] }}
+                            <span class="text-[#2AC0D5] group-open:rotate-180 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-4 text-gray-600 leading-relaxed border-t border-gray-100 pt-4">
+                            {{ $item['answer'] }}
+                        </div>
+                    </details>
+                @endforeach
+            </div>
+         </section>
+    @endif
+
+    <div class="mb-12">
         <x-banners-slider :banners="$banners ?? collect()" />
     </div>
 @endsection

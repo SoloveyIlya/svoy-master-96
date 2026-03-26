@@ -11,6 +11,7 @@ Route::get('/contacts', [PageController::class, 'contacts'])->name('contacts');
 Route::view('/about', 'about')->name('about');
 Route::view('/warranty', 'warranty')->name('warranty');
 Route::view('/privacy', 'privacy')->name('privacy');
+Route::get('/otzyvy', [PageController::class, 'reviews'])->name('reviews');
 
 Route::post('/leads', [LeadController::class, 'store'])
     ->name('leads.store')
@@ -23,6 +24,9 @@ Route::get('/polomki/{slug}', [DefectController::class, 'show'])->name('defects.
 Route::get('/ceny', [App\Http\Controllers\PriceController::class, 'index'])->name('prices');
 
 // Маршруты со словом "/service/" размещены выше динамических брендов/моделей
+Route::get('/{categorySlug}/polomka/{defectSlug}', [CatalogController::class, 'defect'])
+    ->name('catalog.defect');
+
 Route::get('/{categorySlug}/service/{serviceSlug}', [CatalogController::class, 'serviceScopeCategory'])
     ->name('catalog.service-scope-category');
 

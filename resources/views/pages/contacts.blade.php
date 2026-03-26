@@ -7,7 +7,7 @@
 @section('og_image', asset('images/logo.png'))
 
 @section('content')
-    <x-breadcrumbs :links="['Контакты' => null]" />
+    <x-breadcrumbs :links="['' => 'Контакты']" />
 
     <x-hero-banner 
         title="Контакты"
@@ -16,15 +16,31 @@
 
     <section class="max-w-[87.5rem] mx-auto px-4 py-12">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
-            <div class="space-y-4">
-                <h2 class="text-2xl font-bold text-[#1A1A1A]">Наш офис</h2>
+            <div class="space-y-6">
+                <h2 class="text-2xl font-bold text-[#1A1A1A]">Наши филиалы</h2>
+                
+                {{-- Филиал 1 --}}
                 <div class="space-y-3">
+                    <h3 class="font-bold text-[#0678A8]">Центральный офис</h3>
                     <p class="flex items-center gap-3 text-gray-700">
-                        <svg class="w-6 h-6 text-[#0678A8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <svg class="w-6 h-6 text-[#0678A8] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         г. Екатеринбург, Антона Валека, 13, офис 200
                     </p>
                     <p class="flex items-center gap-3 text-gray-700">
-                        <svg class="w-6 h-6 text-[#0678A8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <svg class="w-6 h-6 text-[#0678A8] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Пн - Вс: 09:00 - 22:00
+                    </p>
+                </div>
+
+                {{-- Филиал 2 --}}
+                <div class="space-y-3">
+                    <h3 class="font-bold text-[#0678A8]">Филиал ЖБИ</h3>
+                    <p class="flex items-center gap-3 text-gray-700">
+                        <svg class="w-6 h-6 text-[#0678A8] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        г. Екатеринбург, Рассветная улица, 8/1
+                    </p>
+                    <p class="flex items-center gap-3 text-gray-700">
+                        <svg class="w-6 h-6 text-[#0678A8] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         Пн - Вс: 09:00 - 22:00
                     </p>
                 </div>

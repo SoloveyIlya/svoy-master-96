@@ -1,6 +1,6 @@
 <div {{ $attributes->merge(['class' => 'w-full h-[300px] lg:h-[400px] rounded-2xl overflow-hidden shadow-lg relative']) }}>
     <iframe
-        src="https://yandex.ru/map-widget/v1/?ll=60.589708%2C56.838908&mode=search&oid=155446185701&ol=biz&z=16.49"
+        src="https://yandex.ru/map-widget/v1/?ll=60.641972%2C56.838727&mode=search&z=11&pt=60.592641,56.838908;pm2dbm~60.691303,56.838547;pm2dbm"
         width="100%"
         height="100%"
         frameborder="0"

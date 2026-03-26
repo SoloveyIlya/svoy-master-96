@@ -7,7 +7,7 @@
 @section('og_image', asset('images/logo.png'))
 
 @section('content')
-    <x-breadcrumbs :links="['Гарантия' => null]" />
+    <x-breadcrumbs :links="['' => 'Гарантия']" />
 
     <section class="page-container catalog-page">
         <div class="catalog-card space-y-4">

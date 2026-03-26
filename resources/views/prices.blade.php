@@ -7,7 +7,7 @@
 @section('og_image', asset('images/logo.png'))
 
 @section('content')
-    <x-breadcrumbs :links="['Цены на ремонт' => null]" />
+    <x-breadcrumbs :links="['' => 'Цены на ремонт']" />
 
     <x-hero-banner 
         title="Цены на ремонт"

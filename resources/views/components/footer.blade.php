@@ -25,7 +25,6 @@
                 <li><a href="{{ route('catalog.category', ['categorySlug' => 'remont-noutbukov']) }}" class="hover:text-[#2AC0D5] transition">Ремонт ноутбуков</a></li>
                 <li><a href="{{ route('catalog.category', ['categorySlug' => 'remont-planshetov']) }}" class="hover:text-[#2AC0D5] transition">Ремонт планшетов</a></li>
                 <li><a href="{{ route('catalog.category', ['categorySlug' => 'remont-smart-chasov']) }}" class="hover:text-[#2AC0D5] transition">Ремонт смарт-часов</a></li>
-                <li><a href="{{ route('catalog.category', ['categorySlug' => 'remont-komputerov']) }}" class="hover:text-[#2AC0D5] transition">Другие устройства</a></li>
             </ul>
         </div>
 
@@ -34,7 +33,7 @@
             <h4 class="font-bold text-[#1A1A1A] mb-4">Информация</h4>
             <ul class="space-y-2 text-sm text-gray-600">
                 <li><a href="{{ route('about') }}" class="hover:text-[#2AC0D5] transition">О компании</a></li>
-                <li><a href="https://yandex.by/maps/org/svoy_master/155446185701/?ll=60.589708%2C56.838908&z=16.49" target="_blank" rel="noopener noreferrer" class="hover:text-[#2AC0D5] transition">Отзывы</a></li>
+                <li><a href="{{ route('reviews') }}" class="hover:text-[#2AC0D5] transition">Отзывы</a></li>
                 <li><a href="{{ route('contacts') }}" class="hover:text-[#2AC0D5] transition">Контакты</a></li>
                 <li><a href="{{ route('privacy') }}" target="_blank" rel="noopener noreferrer" class="hover:text-[#2AC0D5] transition">Политика конфиденциальности</a></li>
             </ul>
@@ -43,8 +42,18 @@
         {{-- Колонка 4: Адрес, рейтинг, оплата --}}
         <div>
             <h4 class="font-bold text-[#1A1A1A] mb-4">Ждем вас</h4>
-            <p class="text-sm text-gray-600 mb-1">г. Екатеринбург, ул. Антона Валека, 13</p>
-            <p class="text-sm text-gray-600 mb-4">Пн-Вс: 09:00 - 22:00</p>
+            <div class="space-y-4">
+                <div>
+                    <p class="text-[13px] font-bold text-[#0678A8]">Центр</p>
+                    <p class="text-sm text-gray-600">ул. Антона Валека, 13</p>
+                    <p class="text-xs text-gray-400">Пн-Вс: 09:00 - 22:00</p>
+                </div>
+                <div>
+                    <p class="text-[13px] font-bold text-[#0678A8]">ЖБИ</p>
+                    <p class="text-sm text-gray-600">ул. Рассветная, 8/1</p>
+                    <p class="text-xs text-gray-400">Пн-Вс: 09:00 - 22:00</p>
+                </div>
+            </div>
 
             <a href="https://yandex.by/maps/org/svoy_master/155446185701/?ll=60.589708%2C56.838908&z=16.49" target="_blank" rel="noopener noreferrer" class="bg-gray-50 p-3 rounded-lg flex items-center gap-3 mb-4 w-max border border-gray-200 hover:border-[#2AC0D5] transition">
                 <span class="text-2xl font-bold text-[#1A1A1A]">4.9</span>

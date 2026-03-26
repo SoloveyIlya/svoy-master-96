@@ -7,6 +7,14 @@
 @section('og_image', asset('images/logo.png'))
 
 @section('content')
+    @php
+        $breadcrumbs = [
+            route('defects.index') => 'Поломки',
+            '' => $defect->name
+        ];
+    @endphp
+    <x-breadcrumbs :links="$breadcrumbs" />
+
     <x-hero-banner 
         :title="$defect->name"
         subtitle="Разбираем причины и предлагаем решения"

@@ -143,8 +143,10 @@
             <div class="pt-6 border-t border-gray-200 space-y-3">
                 <h3 class="text-sm uppercase tracking-wide text-gray-500 mb-2">Контакты</h3>
                 <a href="tel:+73432264622" class="block text-lg font-semibold text-[#0678A8]">+7 (343) 226-46-22</a>
-                <p class="text-gray-600">г. Екатеринбург, Антона Валека, 13, офис 200</p>
+                <p class="text-sm font-bold text-[#0678A8]">Центр: <span class="font-normal text-gray-600">ул. Антона Валека, 13</span></p>
+                <p class="text-sm font-bold text-[#0678A8]">ЖБИ: <span class="font-normal text-gray-600">ул. Рассветная, 8/1</span></p>
                 <p class="text-gray-600">Пн - Вс 09:00 - 22:00</p>
             </div>
         </div>
     </div>
+</header>

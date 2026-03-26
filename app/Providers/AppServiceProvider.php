@@ -27,34 +27,40 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer('layouts.app', function ($view) {
-            $phoneBrands = Brand::where('status', 'active')
-                ->whereHas('models', function($q) {
-                    $q->where('status', 'active')
-                      ->whereHas('category', fn($c) => $c->where('slug', 'remont-telefonov'));
-                })->get();
+            $navData = \Illuminate\Support\Facades\Cache::remember('nav_data', 3600, function () {
+                $mainSlugs = ['remont-telefonov', 'remont-planshetov', 'remont-noutbukov', 'remont-smart-chasov'];
+                
+                $mainCategories = \App\Models\Category::whereIn('slug', $mainSlugs)
+                    ->where('status', 'active')
+                    ->get()
+                    ->sortBy(function($category) use ($mainSlugs) {
+                        return array_search($category->slug, $mainSlugs);
+                    })->values();
+                    
+                foreach ($mainCategories as $category) {
+                    $category->navBrands = \App\Models\Brand::whereHas('models', function($q) use ($category) {
+                        $q->where('category_id', $category->id)->where('status', 'active');
+                    })->where('status', 'active')->orderBy('name')->get();
+                    
+                    foreach ($category->navBrands as $brand) {
+                        $brand->navModels = \App\Models\DeviceModel::where('category_id', $category->id)
+                            ->where('brand_id', $brand->id)
+                            ->where('status', 'active')
+                            ->orderBy('name')
+                            ->take(6)
+                            ->get();
+                    }
+                }
+                
+                $otherCategories = \App\Models\Category::whereNotIn('slug', $mainSlugs)
+                    ->where('status', 'active')
+                    ->orderBy('name')
+                    ->get();
+                    
+                return compact('mainCategories', 'otherCategories');
+            });
 
-            $appleModels = DeviceModel::where('status', 'active')
-                ->whereHas('brand', fn($q) => $q->where('slug', 'apple'))
-                ->whereHas('category', fn($q) => $q->where('slug', 'remont-telefonov'))
-                ->get();
-
-            $samsungModels = DeviceModel::where('status', 'active')
-                ->whereHas('brand', fn($q) => $q->where('slug', 'samsung'))
-                ->whereHas('category', fn($q) => $q->where('slug', 'remont-telefonov'))
-                ->get();
-
-            $laptopBrands = Brand::where('status', 'active')
-                ->whereHas('models', function($q) {
-                    $q->where('status', 'active')
-                      ->whereHas('category', fn($c) => $c->where('slug', 'remont-noutbukov'));
-                })->get();
-
-            $xiaomiModels = DeviceModel::where('status', 'active')
-                ->whereHas('brand', fn($q) => $q->where('slug', 'xiaomi'))
-                ->whereHas('category', fn($q) => $q->where('slug', 'remont-telefonov'))
-                ->get();
-
-            $view->with(compact('phoneBrands', 'appleModels', 'samsungModels', 'laptopBrands', 'xiaomiModels'));
+            $view->with($navData);
         });
     }
 }

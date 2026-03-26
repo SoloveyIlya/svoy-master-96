@@ -27,25 +27,53 @@ class PageController extends Controller
             ->limit(9)
             ->get();
 
-        $brands = Brand::query()
+        $popularBrands = Brand::query()
             ->where('status', 'active')
+            ->whereNotIn('slug', [
+                'ipad', 'apple-macbook', 'apple-watch', 
+                'samsung-galaxy-watch', 'huawei-watch', 
+                'xiaomi-mi-band', 'honor-watch', 'realme-watch'
+            ])
             ->whereHas('models', function($q) {
                 $q->where('status', 'active')
                     ->whereHas('category', fn($c) => $c->whereIn('slug', ['remont-telefonov', 'remont-planshetov', 'remont-smart-chasov', 'remont-noutbukov']));
             })
             ->with(['models' => function($q) {
                 $q->where('status', 'active')
-                    ->whereHas('category', fn($c) => $c->whereIn('slug', ['remont-telefonov', 'remont-planshetov', 'remont-smart-chasov', 'remont-noutbukov']))
+                    ->with('category')
+                    ->limit(1);
+            }])
+            ->get();
+
+        $phoneBrands = Brand::query()
+            ->where('status', 'active')
+            ->whereHas('models', function($q) {
+                $q->where('status', 'active')
+                    ->whereHas('category', fn($c) => $c->where('slug', 'remont-telefonov'));
+            })
+            ->with(['models' => function($q) {
+                $q->where('status', 'active')
+                    ->whereHas('category', fn($c) => $c->where('slug', 'remont-telefonov'))
                     ->with('category')
                     ->limit(12);
             }])
             ->get();
 
-        return view('pages.home', compact('banners', 'defects', 'reviews', 'brands'));
+        return view('pages.home', compact('banners', 'defects', 'reviews', 'popularBrands', 'phoneBrands'));
     }
 
     public function contacts()
     {
         return view('pages.contacts');
+    }
+
+    public function reviews()
+    {
+        $reviews = Review::query()
+            ->where('is_published', true)
+            ->orderByRaw('COALESCE(published_at, created_at) DESC')
+            ->get();
+
+        return view('pages.reviews', compact('reviews'));
     }
 }

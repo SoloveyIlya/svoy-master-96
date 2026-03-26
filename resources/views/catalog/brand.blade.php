@@ -8,7 +8,7 @@
 @section('og_url', route('catalog.brand', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug]))
 
 @section('content')
-    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => 'Ремонт ' . $category->name, route('catalog.brand', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug]) => $brand->name]" />
+    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => 'Ремонт ' . $category->name, '' => $brand->name]" />
 
     <x-hero-banner 
         :title="$brand->seo_h1 ?: 'Ремонт ' . $brand->name"
