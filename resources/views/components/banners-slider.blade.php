@@ -7,7 +7,7 @@
             @if(isset($banners) && $banners->count() > 0)
                 {{-- Динамические баннеры из БД --}}
                 @foreach($banners as $banner)
-                    <div class="slider-item w-[92%] sm:w-[88%] md:w-[85%] lg:w-[60rem] flex-shrink-0 rounded-[2rem] overflow-hidden h-[16.5rem] sm:h-[18rem] md:h-[22rem]">
+                    <div class="slider-item w-[92%] sm:w-[88%] md:w-[85%] lg:w-[60rem] flex-shrink-0 rounded-[2rem] overflow-hidden" style="aspect-ratio: 1920 / 704;">
                         <img src="{{ Str::startsWith($banner->image_path, 'http') ? $banner->image_path : Storage::url($banner->image_path) }}" alt="Баннер" class="w-full h-full rounded-[2rem] object-cover" />
                     </div>
                 @endforeach

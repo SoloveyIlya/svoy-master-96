@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Brand;
+use App\Models\BrandCategorySeoText;
 use App\Models\Category;
 use App\Models\Defect;
 use App\Models\DeviceModel;
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
         // ─── 0. Очистка каталожных таблиц ───
         $this->command->info('Очищаем каталожные таблицы...');
         \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
+        BrandCategorySeoText::truncate();
         LandingPage::truncate();
         ServiceScope::truncate();
         DeviceModel::truncate();
@@ -716,14 +718,31 @@ class DatabaseSeeder extends Seeder
 </ol>
 <p>Обращение в «Свой Мастер» гарантирует, что ваше устройство попадет в руки опытных специалистов, владеющих информацией об особенностях моделей Honor и применяющих проверенные методики.</p>';
 
+        // Категории — оставляем в поле seo_bottom_text на самой модели (без категориальной привязки)
         Category::where('slug', 'remont-telefonov')->update(['seo_bottom_text' => $phonesText]);
         Category::where('slug', 'remont-planshetov')->update(['seo_bottom_text' => $tabletsText]);
-        Brand::where('slug', 'apple')->update(['seo_bottom_text' => $appleText]);
-        Brand::where('slug', 'samsung')->update(['seo_bottom_text' => $samsungText]);
-        Brand::where('slug', 'xiaomi')->update(['seo_bottom_text' => $xiaomiText]);
-        Brand::where('slug', 'honor')->update(['seo_bottom_text' => $honorText]);
 
-        $this->command->info('  ✓ SEO-тексты добавлены для 2 категорий и 4 брендов');
+        // Бренды — тексты привязаны к категории remont-telefonov через отдельную таблицу
+        $phoneCategoryId = Category::where('slug', 'remont-telefonov')->value('id');
+
+        $brandSeoTexts = [
+            'apple'   => $appleText,
+            'samsung' => $samsungText,
+            'xiaomi'  => $xiaomiText,
+            'honor'   => $honorText,
+        ];
+
+        foreach ($brandSeoTexts as $brandSlug => $text) {
+            $brandId = Brand::where('slug', $brandSlug)->value('id');
+            if ($brandId && $phoneCategoryId) {
+                BrandCategorySeoText::updateOrCreate(
+                    ['brand_id' => $brandId, 'category_id' => $phoneCategoryId],
+                    ['seo_bottom_text' => $text]
+                );
+            }
+        }
+
+        $this->command->info('  ✓ SEO-тексты добавлены: 2 категории + 4 бренда (категория: Телефоны)');
 
         // ─── Итого ───
         $this->command->info('');

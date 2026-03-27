@@ -13,11 +13,20 @@ class ImportRun extends Model
         'status' => 'running',
     ];
 
+    protected $fillable = [
+        'started_at',
+        'finished_at',
+        'status',
+        'stats_json',
+        'initiated_by',
+        'seed_url',
+    ];
+
     protected function casts(): array
     {
         return [
-            'stats_json' => 'array',
-            'started_at' => 'datetime',
+            'stats_json'  => 'array',
+            'started_at'  => 'datetime',
             'finished_at' => 'datetime',
         ];
     }

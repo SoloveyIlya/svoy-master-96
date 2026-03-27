@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use App\Models\Brand;
+use App\Models\BrandCategorySeoText;
 use App\Models\Category;
 use App\Models\Defect;
 use App\Models\DeviceCase;
@@ -179,7 +180,11 @@ class CatalogController extends Controller
 
         $defects = $this->resolveDefects($category, $brand);
 
-        return view('catalog.brand', compact('category', 'brand', 'models', 'defects', 'reviews', 'cases', 'banners', 'priceRows'));
+        $seoBottomText = BrandCategorySeoText::where('brand_id', $brand->id)
+            ->where('category_id', $category->id)
+            ->value('seo_bottom_text');
+
+        return view('catalog.brand', compact('category', 'brand', 'models', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'seoBottomText'));
     }
 
     // ─── Страница модели (/remont-telefonov/apple/iphone-17) ───

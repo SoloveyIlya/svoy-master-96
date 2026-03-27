@@ -1,0 +1,49 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: svoymaster_app
+    restart: unless-stopped
+    volumes:
+      - .:/var/www/html
+      - ./storage:/var/www/html/storage
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+    depends_on: []
+    networks:
+      - svoymaster
+
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: svoymaster_nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - svoymaster
+
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: svoymaster_queue
+    restart: unless-stopped
+    command: php artisan queue:work --queue=parser,default --tries=3 --timeout=120 --sleep=3
+    volumes:
+      - .:/var/www/html
+      - ./storage:/var/www/html/storage
+    environment:
+      - APP_ENV=local
+    networks:
+      - svoymaster
+
+networks:
+  svoymaster:
+    driver: bridge

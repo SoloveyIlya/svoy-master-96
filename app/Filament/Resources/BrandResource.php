@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\BrandResource\Pages;
+use App\Filament\Resources\BrandResource\RelationManagers\SeoTextsRelationManager;
 use App\Models\Brand;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -71,9 +72,6 @@ class BrandResource extends Resource
                         ->maxLength(500),
                     Forms\Components\Toggle::make('noindex')
                         ->label('Noindex'),
-                    Forms\Components\RichEditor::make('seo_bottom_text')
-                        ->label('SEO Текст (внизу страницы)')
-                        ->columnSpanFull(),
                 ]),
             ])->columnSpanFull(),
         ]);
@@ -103,6 +101,13 @@ class BrandResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            SeoTextsRelationManager::class,
+        ];
     }
 
     public static function getPages(): array
