@@ -47,6 +47,12 @@
     <x-workflow-block />
     <x-reviews-block :reviews="$reviews" />
     <x-defects-block :defects="$defects" />
+    @if(!empty($category->seo_bottom_text))
+        <div class="max-w-[87.5rem] mx-auto px-4 py-12 prose prose-lg max-w-none text-gray-600 prose-headings:text-[#0678A8] prose-a:text-[#2AC0D5]">
+            {!! $category->seo_bottom_text !!}
+        </div>
+    @endif
+
     <x-contact-form />
     <x-banners-slider :banners="$banners ?? collect()" />
 @endsection

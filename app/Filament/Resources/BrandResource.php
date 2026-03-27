@@ -71,6 +71,9 @@ class BrandResource extends Resource
                         ->maxLength(500),
                     Forms\Components\Toggle::make('noindex')
                         ->label('Noindex'),
+                    Forms\Components\RichEditor::make('seo_bottom_text')
+                        ->label('SEO Текст (внизу страницы)')
+                        ->columnSpanFull(),
                 ]),
             ])->columnSpanFull(),
         ]);
