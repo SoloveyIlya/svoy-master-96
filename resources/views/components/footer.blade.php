@@ -8,10 +8,10 @@
             <a href="tel:+73432264622" class="block text-lg font-bold text-[#1A1A1A] mb-1 hover:text-[#2AC0D5] transition">+7 (343) 226-46-22</a>
             <a href="mailto:remont@svoymaster96.ru" class="block text-sm text-[#0678A8] mb-4 hover:underline">remont@svoymaster96.ru</a>
             <div class="flex items-center gap-3">
-                <a href="{{ route('contacts') }}" class="w-10 h-10 rounded-full bg-gradient-to-r from-[#0678A8] to-[#029DBF] flex items-center justify-center hover:opacity-90 transition shadow-sm hover:shadow-md">
+                <a href="https://t.me/sme0001" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gradient-to-r from-[#0678A8] to-[#029DBF] flex items-center justify-center hover:opacity-90 transition shadow-sm hover:shadow-md">
                     <img src="{{ asset('images/TG.svg') }}" alt="Telegram" loading="lazy" class="w-5 h-5 object-contain" />
                 </a>
-                <a href="{{ route('contacts') }}" class="w-10 h-10 rounded-full bg-gradient-to-r from-[#0678A8] to-[#029DBF] flex items-center justify-center hover:opacity-90 transition shadow-sm hover:shadow-md">
+                <a href="https://wa.me/73432264622" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gradient-to-r from-[#0678A8] to-[#029DBF] flex items-center justify-center hover:opacity-90 transition shadow-sm hover:shadow-md">
                     <img src="{{ asset('images/WA.svg') }}" alt="WhatsApp" loading="lazy" class="w-5 h-5 object-contain" />
                 </a>
             </div>
