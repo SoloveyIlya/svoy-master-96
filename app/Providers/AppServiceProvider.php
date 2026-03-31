@@ -43,12 +43,22 @@ class AppServiceProvider extends ServiceProvider
                     })->where('status', 'active')->orderBy('name')->get();
                     
                     foreach ($category->navBrands as $brand) {
-                        $brand->navModels = \App\Models\DeviceModel::where('category_id', $category->id)
+                        $models = \App\Models\DeviceModel::where('category_id', $category->id)
                             ->where('brand_id', $brand->id)
                             ->where('status', 'active')
-                            ->orderByDesc('id')
-                            ->take(6)
                             ->get();
+
+                        // Сортировка актуальных моделей по числу в названии (например, 15 > 14 > 13)
+                        $brand->navModels = $models
+                            ->sortByDesc(function ($model) {
+                                if (preg_match('/(\d+)/', $model->name, $m)) {
+                                    return (int) $m[1];
+                                }
+                                // Модели без числа отправляем в конец, сохраняя ид-шник как вторичный критерий
+                                return -INF;
+                            })
+                            ->values()
+                            ->take(6);
                     }
                 }
                 

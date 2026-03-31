@@ -16,6 +16,21 @@ use App\Models\ServiceScope;
 
 class CatalogController extends Controller
 {
+    /**
+     * Отсортировать коллекцию моделей по числу в названии (15 > 14 > 13 ...),
+     * модели без числа отправляем в конец.
+     */
+    private function sortModelsByNumber($models)
+    {
+        return $models
+            ->sortByDesc(function ($model) {
+                if (preg_match('/(\d+)/', $model->name, $m)) {
+                    return (int) $m[1];
+                }
+                return -INF;
+            })
+            ->values();
+    }
     private function getGlobals()
     {
         return [
@@ -140,8 +155,12 @@ class CatalogController extends Controller
         $category = Category::where('slug', $categorySlug)->where('status', 'active')->firstOrFail();
         $brand = Brand::where('slug', $brandSlug)->where('status', 'active')->firstOrFail();
 
-        $models = DeviceModel::where('category_id', $category->id)->where('brand_id', $brand->id)
-            ->where('status', 'active')->orderByDesc('id')->get();
+        $models = DeviceModel::where('category_id', $category->id)
+            ->where('brand_id', $brand->id)
+            ->where('status', 'active')
+            ->get();
+
+        $models = $this->sortModelsByNumber($models);
 
         abort_if($models->isEmpty(), 404);
 
@@ -277,6 +296,14 @@ class CatalogController extends Controller
                 $q->where('category_id', $category->id)->where('status', 'active');
             })->with(['model', 'model.brand'])->get();
 
+        // Сортируем модели по номеру в названии
+        $landings = $landings->sortByDesc(function ($l) {
+            if ($l->model && preg_match('/(\d+)/', $l->model->name, $m)) {
+                return (int) $m[1];
+            }
+            return -INF;
+        });
+
         $priceRows = $landings->map(function ($l) use ($category, $service) {
             return [
                 'name'     => $l->model->name,
@@ -314,6 +341,14 @@ class CatalogController extends Controller
             ->whereHas('model', function($q) use ($category, $brand) {
                 $q->where('category_id', $category->id)->where('brand_id', $brand->id)->where('status', 'active');
             })->with('model')->get();
+
+        // Сортируем модели по номеру в названии
+        $landings = $landings->sortByDesc(function ($l) {
+            if ($l->model && preg_match('/(\d+)/', $l->model->name, $m)) {
+                return (int) $m[1];
+            }
+            return -INF;
+        });
 
         $priceRows = $landings->map(function ($l) use ($category, $brand, $service) {
             return [

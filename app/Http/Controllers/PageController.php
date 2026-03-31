@@ -62,11 +62,22 @@ class PageController extends Controller
             ->with(['models' => function($q) {
                 $q->where('status', 'active')
                     ->whereHas('category', fn($c) => $c->where('slug', 'remont-telefonov'))
-                    ->with('category')
-                    ->orderByDesc('id')
-                    ->limit(12);
+                    ->with('category');
             }])
             ->get();
+
+        // Сортируем модели по числу в названии (iPhone 17 > 16 > 15 и т.п.)
+        foreach ($phoneBrands as $brand) {
+            $brand->models = $brand->models
+                ->sortByDesc(function ($model) {
+                    if (preg_match('/(\d+)/', $model->name, $m)) {
+                        return (int) $m[1];
+                    }
+                    return -INF;
+                })
+                ->values()
+                ->take(12); // показываем только 12 самых свежих моделей
+        }
 
         return view('pages.home', compact('banners', 'defects', 'reviews', 'popularBrands', 'phoneBrands', 'defectCategories'));
     }
