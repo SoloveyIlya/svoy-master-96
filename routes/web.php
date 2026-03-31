@@ -18,7 +18,7 @@ Route::post('/leads', [LeadController::class, 'store'])
     ->middleware('throttle:leads');
 
 Route::get('/polomki', [DefectController::class, 'index'])->name('defects.index');
-Route::get('/polomki/{slug}', [DefectController::class, 'show'])->name('defects.show');
+Route::get('/polomki/{slug}', [DefectController::class, 'legacyShow'])->name('defects.show');
 
 // Маршрут цен
 Route::get('/ceny', [App\Http\Controllers\PriceController::class, 'index'])->name('prices');

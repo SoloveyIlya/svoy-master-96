@@ -46,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
                         $brand->navModels = \App\Models\DeviceModel::where('category_id', $category->id)
                             ->where('brand_id', $brand->id)
                             ->where('status', 'active')
-                            ->orderBy('name')
+                            ->orderByDesc('id')
                             ->take(6)
                             ->get();
                     }

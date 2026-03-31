@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Контакты - Svoy Master')
-@section('seo_description', 'Адрес, телефон и мессенджеры сервисного центра. Г. Екатеринбург, открыты пн-вс: 9:00-22:00')
+@section('seo_description', 'Адрес, телефон и мессенджеры сервисного центра. Г. Екатеринбург, открыты пн-вс: 10:00-20:00')
 @section('og_title', 'Контакты - Svoy Master')
 @section('og_description', 'Свяжитесь с нами: +7 (343) 226-46-22, г. Екатеринбург, Антона Валека, 13')
 @section('og_image', asset('images/logo.png'))
@@ -28,7 +28,7 @@
                     </p>
                     <p class="flex items-center gap-3 text-gray-700">
                         <svg class="w-6 h-6 text-[#0678A8] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        Пн - Вс: 09:00 - 22:00
+                        Пн - Вс: 10:00 - 20:00
                     </p>
                 </div>
 
@@ -41,7 +41,7 @@
                     </p>
                     <p class="flex items-center gap-3 text-gray-700">
                         <svg class="w-6 h-6 text-[#0678A8] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        Пн - Вс: 09:00 - 22:00
+                        Пн - Вс: 10:00 - 20:00
                     </p>
                 </div>
             </div>
@@ -74,7 +74,8 @@
         </div>
     </section>
 
-    <div class="max-w-[87.5rem] mx-auto px-4 pb-20">
-        <x-map-block class="h-[400px] lg:h-[600px]" />
+    {{-- Карта с интерактивными метками --}}
+    <div id="map" class="max-w-[87.5rem] mx-auto px-4 pb-20">
+        <x-map-block style="height: 520px;" />
     </div>
 @endsection

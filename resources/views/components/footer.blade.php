@@ -46,12 +46,12 @@
                 <div>
                     <p class="text-[13px] font-bold text-[#0678A8]">Центр</p>
                     <p class="text-sm text-gray-600">ул. Антона Валека, 13</p>
-                    <p class="text-xs text-gray-400">Пн-Вс: 09:00 - 22:00</p>
+                    <p class="text-xs text-gray-400">Пн-Вс: 10:00 - 20:00</p>
                 </div>
                 <div>
                     <p class="text-[13px] font-bold text-[#0678A8]">ЖБИ</p>
                     <p class="text-sm text-gray-600">ул. Рассветная, 8/1</p>
-                    <p class="text-xs text-gray-400">Пн-Вс: 09:00 - 22:00</p>
+                    <p class="text-xs text-gray-400">Пн-Вс: 10:00 - 20:00</p>
                 </div>
             </div>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Defect;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class DefectController extends Controller
@@ -10,6 +11,7 @@ class DefectController extends Controller
     public function index(): View
     {
         $defects = Defect::query()
+            ->with('category')
             ->where('is_active', true)
             ->orderBy('name')
             ->get();
@@ -17,13 +19,23 @@ class DefectController extends Controller
         return view('defects.index', compact('defects'));
     }
 
-    public function show(string $slug): View
+    /**
+     * Старый URL /polomki/{slug}: при однозначном совпадении редирект на страницу поломки в каталоге.
+     */
+    public function legacyShow(string $slug): RedirectResponse
     {
-        $defect = Defect::query()
+        $defects = Defect::query()
+            ->with('category')
             ->where('slug', $slug)
             ->where('is_active', true)
-            ->firstOrFail();
+            ->get();
 
-        return view('defects.show', compact('defect'));
+        if ($defects->count() === 1) {
+            $d = $defects->first();
+
+            return redirect()->route('catalog.defect', [$d->category->slug, $d->slug], 301);
+        }
+
+        abort(404);
     }
 }

@@ -42,54 +42,53 @@ class CatalogController extends Controller
         foreach ($defects as $defect) {
             $defect->resolved_url = null;
 
-            if (!$defect->service_id || !$defect->service) {
-                continue;
+            if ($defect->service_id && $defect->service) {
+                $serviceSlug = $defect->service->slug;
+
+                // Контекст модели → ищем LandingPage
+                if ($model && $brand) {
+                    $landing = LandingPage::where('model_id', $model->id)
+                        ->where('service_id', $defect->service_id)
+                        ->where('status', 'active')
+                        ->first();
+
+                    if ($landing) {
+                        $defect->resolved_url = route('catalog.landing', [
+                            $category->slug, $brand->slug, $model->slug, $serviceSlug,
+                        ]);
+                    }
+                } elseif ($brand) {
+                    // Контекст бренда → ищем ServiceScope по бренду
+                    $scope = ServiceScope::forBrand($brand->id)
+                        ->where('service_id', $defect->service_id)
+                        ->where('status', 'active')
+                        ->first();
+
+                    if ($scope) {
+                        $defect->resolved_url = route('catalog.service-scope-brand', [
+                            $category->slug, $brand->slug, $serviceSlug,
+                        ]);
+                    }
+                } elseif ($category) {
+                    // Контекст категории → ищем ServiceScope по категории
+                    $scope = ServiceScope::forCategory($category->id)
+                        ->where('service_id', $defect->service_id)
+                        ->where('status', 'active')
+                        ->first();
+
+                    if ($scope) {
+                        $defect->resolved_url = route('catalog.service-scope-category', [
+                            $category->slug, $serviceSlug,
+                        ]);
+                    }
+                }
             }
 
-            $serviceSlug = $defect->service->slug;
-
-            // Контекст модели → ищем LandingPage
-            if ($model && $brand) {
-                $landing = LandingPage::where('model_id', $model->id)
-                    ->where('service_id', $defect->service_id)
-                    ->where('status', 'active')
-                    ->first();
-
-                if ($landing) {
-                    $defect->resolved_url = route('catalog.landing', [
-                        $category->slug, $brand->slug, $model->slug, $serviceSlug,
-                    ]);
-                }
-                continue;
-            }
-
-            // Контекст бренда → ищем ServiceScope по бренду
-            if ($brand) {
-                $scope = ServiceScope::forBrand($brand->id)
-                    ->where('service_id', $defect->service_id)
-                    ->where('status', 'active')
-                    ->first();
-
-                if ($scope) {
-                    $defect->resolved_url = route('catalog.service-scope-brand', [
-                        $category->slug, $brand->slug, $serviceSlug,
-                    ]);
-                }
-                continue;
-            }
-
-            // Контекст категории → ищем ServiceScope по категории
-            if ($category) {
-                $scope = ServiceScope::forCategory($category->id)
-                    ->where('service_id', $defect->service_id)
-                    ->where('status', 'active')
-                    ->first();
-
-                if ($scope) {
-                    $defect->resolved_url = route('catalog.service-scope-category', [
-                        $category->slug, $serviceSlug,
-                    ]);
-                }
+            if ($defect->resolved_url === null) {
+                $defect->resolved_url = route('catalog.defect', [
+                    $category->slug,
+                    $defect->slug,
+                ]);
             }
         }
 
@@ -142,7 +141,7 @@ class CatalogController extends Controller
         $brand = Brand::where('slug', $brandSlug)->where('status', 'active')->firstOrFail();
 
         $models = DeviceModel::where('category_id', $category->id)->where('brand_id', $brand->id)
-            ->where('status', 'active')->orderBy('name')->get();
+            ->where('status', 'active')->orderByDesc('id')->get();
 
         abort_if($models->isEmpty(), 404);
 
@@ -334,7 +333,10 @@ class CatalogController extends Controller
     public function defect(string $categorySlug, string $defectSlug)
     {
         $category = Category::where('slug', $categorySlug)->where('status', 'active')->firstOrFail();
-        $defect = Defect::where('slug', $defectSlug)->where('category_slug', $categorySlug)->where('is_active', true)->firstOrFail();
+        $defect = Defect::where('slug', $defectSlug)
+            ->where('category_id', $category->id)
+            ->where('is_active', true)
+            ->firstOrFail();
 
         $brands = Brand::whereHas('models', function ($q) use ($category) {
                 $q->where('category_id', $category->id)->where('status', 'active');

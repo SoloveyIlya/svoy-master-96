@@ -51,4 +51,9 @@ class Category extends Model
     {
         return $this->belongsToMany(Service::class, 'category_service');
     }
+
+    public function defects(): HasMany
+    {
+        return $this->hasMany(Defect::class);
+    }
 }

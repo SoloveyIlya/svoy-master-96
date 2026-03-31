@@ -384,54 +384,7 @@ class DatabaseSeeder extends Seeder
         // ═══════════════════════════════════════════════════════════
         $this->command->info('Создаем поломки (Defects)...');
 
-        $defectsData = [
-            // Телефоны
-            ['name'=>'Разбитое стекло', 'slug'=>'razbitoe-steklo', 'service'=>'zamena-stekla', 'cat'=>'remont-telefonov'],
-            ['name'=>'Не заряжается', 'slug'=>'ne-zaryazhaetsya', 'service'=>'zamena-razema-zaryadki', 'cat'=>'remont-telefonov'],
-            ['name'=>'Быстро разряжается', 'slug'=>'bystro-razryazhaetsya', 'service'=>'zamena-akkumulyatora', 'cat'=>'remont-telefonov'],
-            ['name'=>'Попала вода', 'slug'=>'popala-voda', 'service'=>'remont-posle-zalitiya', 'cat'=>'remont-telefonov'],
-            ['name'=>'Нет сети', 'slug'=>'net-seti', 'service'=>null, 'cat'=>'remont-telefonov'],
-            ['name'=>'Не работает Wi-Fi', 'slug'=>'ne-rabotaet-wi-fi', 'service'=>null, 'cat'=>'remont-telefonov'],
-            ['name'=>'Не работает камера', 'slug'=>'ne-rabotaet-kamera', 'service'=>'zamena-kamery', 'cat'=>'remont-telefonov'],
-            ['name'=>'Не работает звук', 'slug'=>'ne-rabotaet-zvuk', 'service'=>'zamena-dinamika', 'cat'=>'remont-telefonov'],
-            ['name'=>'Не включается', 'slug'=>'ne-vklyuchaetsya', 'service'=>null, 'cat'=>'remont-telefonov'],
-            ['name'=>'Тормозит', 'slug'=>'tormozit', 'service'=>'proshivka-po', 'cat'=>'remont-telefonov'],
-            ['name'=>'Глючит сенсор', 'slug'=>'glyuchit-sensor', 'service'=>'zamena-ekrana', 'cat'=>'remont-telefonov'],
-            ['name'=>'Не работает кнопка включения', 'slug'=>'ne-rabotaet-knopka-vklyucheniya', 'service'=>null, 'cat'=>'remont-telefonov'],
-            ['name'=>'Не видит SIM-карту', 'slug'=>'ne-vidit-sim-kartu', 'service'=>null, 'cat'=>'remont-telefonov'],
-            ['name'=>'Завис на логотипе', 'slug'=>'zavis-na-logotipe', 'service'=>'proshivka-po', 'cat'=>'remont-telefonov'],
-            ['name'=>'Не работает динамик', 'slug'=>'ne-rabotaet-dinamik', 'service'=>'zamena-dinamika', 'cat'=>'remont-telefonov'],
-            ['name'=>'Не работает микрофон', 'slug'=>'ne-rabotaet-mikrofon', 'service'=>'zamena-mikrofona', 'cat'=>'remont-telefonov'],
-            ['name'=>'Разбита задняя крышка', 'slug'=>'razbita-zadnyaya-kryshka', 'service'=>'zamena-zadnej-kryshki', 'cat'=>'remont-telefonov'],
-            ['name'=>'Не работает Face ID', 'slug'=>'ne-rabotaet-face-id', 'service'=>null, 'cat'=>'remont-telefonov'],
-            ['name'=>'Не работает сканер отпечатка', 'slug'=>'ne-rabotaet-skaner-otpechatka', 'service'=>null, 'cat'=>'remont-telefonov'],
-
-            // Планшеты (Уникальные)
-            ['name'=>'Не работает кнопка', 'slug'=>'ne-rabotaet-knopka', 'service'=>null, 'cat'=>'remont-planshetov'],
-            ['name'=>'Не работает разъем наушников', 'slug'=>'ne-rabotaet-razem-naushnikov', 'service'=>null, 'cat'=>'remont-planshetov'],
-
-            // Ноутбуки
-            ['name'=>'Разбита матрица', 'slug'=>'razbita-matrica', 'service'=>'zamena-matricy', 'cat'=>'remont-noutbukov'],
-            ['name'=>'Не работает клавиатура', 'slug'=>'ne-rabotaet-klaviatura', 'service'=>'zamena-klaviatury', 'cat'=>'remont-noutbukov'],
-            ['name'=>'Сильно греется', 'slug'=>'silno-greetsya', 'service'=>'chistka-ot-pyli', 'cat'=>'remont-noutbukov'],
-            ['name'=>'Сильно шумит', 'slug'=>'silno-shumit', 'service'=>'chistka-ot-pyli', 'cat'=>'remont-noutbukov'],
-            ['name'=>'Зависает', 'slug'=>'zavisaet', 'service'=>'ustanovka-windows', 'cat'=>'remont-noutbukov'],
-            ['name'=>'Не работает тачпад', 'slug'=>'ne-rabotaet-tachpad', 'service'=>'zamena-tachpada', 'cat'=>'remont-noutbukov'],
-            ['name'=>'Не видит жесткий диск', 'slug'=>'ne-vidit-zhestkij-disk', 'service'=>'zamena-hdd-ssd', 'cat'=>'remont-noutbukov'],
-            ['name'=>'Сломан разъем зарядки', 'slug'=>'sloman-razem-zaryadki', 'service'=>'zamena-razema-zaryadki', 'cat'=>'remont-noutbukov'],
-            ['name'=>'Не включается экран', 'slug'=>'ne-vklyuchaetsya-ekran', 'service'=>'zamena-matricy', 'cat'=>'remont-noutbukov'],
-            ['name'=>'Трещина на корпусе', 'slug'=>'treshhina-na-korpuse', 'service'=>'zamena-korpusa', 'cat'=>'remont-noutbukov'],
-            ['name'=>'Сломаны петли крышки', 'slug'=>'slomany-petli-kryshki', 'service'=>'zamena-petel', 'cat'=>'remont-noutbukov'],
-
-            // Смарт-часы
-            ['name'=>'Нет связи с телефоном', 'slug'=>'net-svyazi-s-telefonom', 'service'=>null, 'cat'=>'remont-smart-chasov'],
-            ['name'=>'Не работают датчики', 'slug'=>'ne-rabotayut-datchiki', 'service'=>null, 'cat'=>'remont-smart-chasov'],
-            ['name'=>'Не обновляются', 'slug'=>'ne-obnovlyayutsya', 'service'=>'proshivka-po', 'cat'=>'remont-smart-chasov'],
-            ['name'=>'Не работает вибрация', 'slug'=>'ne-rabotaet-vibraciya', 'service'=>'remont-vibromotora', 'cat'=>'remont-smart-chasov'],
-            ['name'=>'Слетело крепление ремешка', 'slug'=>'sletelo-kreplenie-remeshka', 'service'=>'zamena-remeshka', 'cat'=>'remont-smart-chasov'],
-        ];
-
-        // Обновляем $serviceMap на случай, если otherDevices добавили новые сервисы
+        $defectsData = require __DIR__.'/data/defects_data.php';
         $allServices = Service::all()->keyBy('slug');
         $allCategories = Category::all()->keyBy('slug');
 
@@ -449,7 +402,8 @@ class DatabaseSeeder extends Seeder
             Defect::create([
                 'name'          => $d['name'],
                 'slug'          => $d['slug'],
-                'description'   => $d['name'], // description = name (по ТЗ нет отдельного)
+                'description'   => $d['name'],
+                'icon_svg'      => $d['icon'] ?? null,
                 'service_id'    => $serviceId,
                 'category_id'   => $categoryId,
                 'is_active'     => true,

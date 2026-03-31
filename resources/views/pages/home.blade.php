@@ -111,44 +111,8 @@
     {{-- PROMO SLIDER SECTION --}}
     <x-banners-slider :banners="$banners ?? collect()" />
 
-    {{-- ТРОУБЛШУТИНГ (ЧТО СЛУЧИЛОСЬ?) --}}
-    <section class="max-w-[87.5rem] mx-auto px-4 py-16">
-        <div class="text-center mb-10">
-            <h2 class="text-2xl sm:text-3xl font-bold mb-3 text-[#1A1A1A]">Что случилось?</h2>
-            <p class="text-gray-500">Выберите проблему — подскажем решение и примерную стоимость</p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            @forelse($defects as $index => $defect)
-                <a href="{{ route('defects.show', $defect->slug) }}" 
-                   class="defect-card border border-gray-200 rounded-[1rem] p-4 sm:p-6 hover:shadow-lg hover:border-[#2AC0D5] transition cursor-pointer bg-white block {{ $index >= 8 ? 'hidden' : '' }}">
-                    <h3 class="font-bold text-[#1A1A1A] mb-1">{{ $defect->name }}</h3>
-                    <p class="text-sm text-gray-500">{{ $defect->description }}</p>
-                </a>
-            @empty
-                <div class="col-span-full border border-dashed border-gray-300 rounded-[1rem] p-6 text-center text-gray-500">
-                    Поломки скоро появятся.
-                </div>
-            @endforelse
-        </div>
-
-        @if(count($defects) > 8)
-        <div class="flex justify-center mb-8">
-            <button type="button" id="toggle-defects" class="text-[#0678A8] font-semibold hover:text-[#2AC0D5] transition flex items-center gap-2">
-                <span>Показать все</span>
-                <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-            </button>
-        </div>
-        @endif
-        
-        <div class="flex justify-center">
-            <button type="button" class="js-open-modal bg-[#2AC0D5] hover:bg-[#0678A8] text-white font-medium py-3 px-8 rounded-[2rem] transition" data-cta-title="Другая поломка">
-                Другая поломка
-            </button>
-        </div>
-    </section>
+    {{-- ПОЛОМКИ (с табами по категориям) --}}
+    <x-defects-block :categories="$defectCategories ?? collect()" />
 
     {{-- ЗАМЕНА СТЕКЛА (С ТАБАМИ МАРКИ) --}}
     <section class="max-w-[87.5rem] mx-auto px-4 py-8">
@@ -182,12 +146,18 @@
 
                 <div class="mt-6 border-t border-white/20 pt-6">
                     @foreach($phoneBrands as $index => $brand)
-                    <div id="models-{{ $brand->slug }}" class="models-grid {{ $index === 0 ? '' : 'hidden' }} grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                        @foreach($brand->models as $model)
-                            <a href="{{ route('catalog.landing', ['categorySlug' => 'remont-telefonov', 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug, 'serviceSlug' => 'zamena-stekla']) }}" class="text-sm text-white/90 hover:text-white hover:underline transition">
-                                {{ $model->name }}
-                            </a>
-                        @endforeach
+                    <div id="models-{{ $brand->slug }}" class="models-grid {{ $index === 0 ? '' : 'hidden' }}">
+                        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-4">
+                            @foreach($brand->models as $model)
+                                <a href="{{ route('catalog.landing', ['categorySlug' => 'remont-telefonov', 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug, 'serviceSlug' => 'zamena-stekla']) }}" class="text-sm text-white/90 hover:text-white hover:underline transition">
+                                    {{ $model->name }}
+                                </a>
+                            @endforeach
+                        </div>
+                        <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => $brand->slug]) }}"
+                            class="inline-flex items-center gap-1 text-sm text-white/70 hover:text-white border border-white/30 hover:border-white rounded-full px-4 py-1.5 transition mt-1">
+                            Другая модель →
+                        </a>
                     </div>
                     @endforeach
                 </div>
@@ -345,6 +315,34 @@
                     @endfor
                 @endif
             </div>
+        </div>
+
+        {{-- Плашки с отзывами на платформах --}}
+        <div class="flex flex-wrap justify-center gap-4 mt-8">
+        <a href="https://yandex.by/maps/org/svoy_master/155446185701/?ll=60.589708%2C56.838908&z=16.49" target="_blank" rel="noopener noreferrer"
+            class="flex items-center gap-3 bg-white border border-gray-200 rounded-xl px-5 py-3 hover:border-[#2AC0D5] hover:shadow-md transition">
+            <span class="text-2xl font-bold text-[#1A1A1A]">4.9</span>
+            <div>
+                <div class="flex text-[#FFD12A] text-sm leading-none">★★★★★</div>
+                <span class="text-xs text-gray-500">Яндекс Карты</span>
+            </div>
+        </a>
+        <a href="https://2gis.ru/ekaterinburg/firm/70000001007219338/tab/reviews" target="_blank" rel="noopener noreferrer"
+            class="flex items-center gap-3 bg-white border border-gray-200 rounded-xl px-5 py-3 hover:border-[#2AC0D5] hover:shadow-md transition">
+            <span class="text-2xl font-bold text-[#1A1A1A]">4.9</span>
+            <div>
+                <div class="flex text-[#FFD12A] text-sm leading-none">★★★★★</div>
+                <span class="text-xs text-gray-500">2ГИС</span>
+            </div>
+        </a>
+        <a href="https://ekaterinburg.flamp.ru/firm/svojj_master_torgovo_servisnaya_kompaniya-70000001007219338" target="_blank" rel="noopener noreferrer"
+            class="flex items-center gap-3 bg-white border border-gray-200 rounded-xl px-5 py-3 hover:border-[#2AC0D5] hover:shadow-md transition">
+            <span class="text-2xl font-bold text-[#1A1A1A]">5.0</span>
+            <div>
+                <div class="flex text-[#FFD12A] text-sm leading-none">★★★★★</div>
+                <span class="text-xs text-gray-500">Flamp</span>
+            </div>
+        </a>
         </div>
     </section>
 

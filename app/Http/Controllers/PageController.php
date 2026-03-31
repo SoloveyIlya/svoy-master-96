@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Defect;
 use App\Models\Review;
 
@@ -20,6 +21,13 @@ class PageController extends Controller
             ->with('service')
             ->where('is_active', true)
             ->get();
+
+        $tabSlugs = ['remont-telefonov', 'remont-planshetov', 'remont-noutbukov', 'remont-smart-chasov'];
+        $defectCategories = Category::whereIn('slug', $tabSlugs)
+            ->with(['defects' => fn($q) => $q->where('is_active', true)->with('service')])
+            ->get()
+            ->sortBy(fn($c) => array_search($c->slug, $tabSlugs))
+            ->values();
 
         $reviews = Review::query()
             ->where('is_published', true)
@@ -55,11 +63,12 @@ class PageController extends Controller
                 $q->where('status', 'active')
                     ->whereHas('category', fn($c) => $c->where('slug', 'remont-telefonov'))
                     ->with('category')
+                    ->orderByDesc('id')
                     ->limit(12);
             }])
             ->get();
 
-        return view('pages.home', compact('banners', 'defects', 'reviews', 'popularBrands', 'phoneBrands'));
+        return view('pages.home', compact('banners', 'defects', 'reviews', 'popularBrands', 'phoneBrands', 'defectCategories'));
     }
 
     public function contacts()

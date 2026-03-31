@@ -20,7 +20,7 @@
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach ($defects as $defect)
-                    <a href="{{ route('defects.show', $defect->slug) }}" class="block bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md hover:border-[#2AC0D5] transition-all group">
+                    <a href="{{ route('catalog.defect', [$defect->category->slug, $defect->slug]) }}" class="block bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md hover:border-[#2AC0D5] transition-all group">
                         <h3 class="text-xl font-bold text-[#1A1A1A] mb-3 group-hover:text-[#0678A8] transition-colors">{{ $defect->name }}</h3>
                         <p class="text-gray-600 text-sm line-clamp-3">{{ $defect->description }}</p>
                         <span class="inline-flex items-center text-[#2AC0D5] font-semibold mt-4 text-sm group-hover:text-[#0678A8] transition-colors">

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&display=swap" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>@yield('title', 'Свой Мастер - Ремонт цифровой техники')</title>
@@ -46,6 +49,7 @@
 </head>
 <body class="bg-white text-gray-800 antialiased overflow-x-hidden">
 
+    <div class="sticky top-0 z-50 shadow-md">
     <x-header />
 <nav class="hidden lg:block w-full bg-[#0678A8] text-white shadow-md relative z-20 overflow-visible">
     <ul class="w-max min-w-full mx-auto px-4 flex items-center justify-start sm:justify-center lg:justify-evenly gap-5 lg:gap-8 py-3.5 text-sm font-medium whitespace-nowrap">
@@ -90,10 +94,8 @@
             {{-- Другие устройства --}}
             @if(isset($otherCategories) && $otherCategories->count() > 0)
                 <li class="nav__item--has-dropdown flex items-center group static">
-                    <span class="flex items-center text-white/90">
+                    <button type="button" class="js-mega-menu-trigger flex items-center gap-1 text-white/90 hover:text-[#2AC0D5] transition" data-target="mega-menu-others">
                         Другие устройства
-                    </span>
-                    <button type="button" class="js-mega-menu-trigger ml-1 px-1 h-full py-2 -my-2 text-white/50 hover:text-white transition" data-target="mega-menu-others">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     
@@ -113,6 +115,7 @@
             @endif
         </ul>
     </nav>
+    </div>
 
     <main>
         @yield('content')

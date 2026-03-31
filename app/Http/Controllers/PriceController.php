@@ -4,35 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use App\Models\Category;
-use App\Models\Defect;
 use App\Models\DeviceCase;
 use App\Models\Review;
-use App\Models\Service;
 
 class PriceController extends Controller
 {
     public function index()
     {
-        $categories = Category::where('status', 'active')->get();
-        $services = Service::where('status', 'active')->get();
-        
-        $categorizedServices = [];
-        foreach ($categories as $category) {
-            $categorizedServices[$category->name] = $services->map(function ($s) use ($category) {
-                return [
-                    'name' => $s->name,
-                    'price' => $s->price_from,
-                    'duration' => $s->duration_text,
-                    'url' => null, // Страниц serviceScope для категорий у нас нет
-                ];
-            })->toArray();
-        }
+        $mainSlugs = ['remont-telefonov', 'remont-planshetov', 'remont-noutbukov', 'remont-smart-chasov'];
 
-        $defects = Defect::where('is_active', true)->get();
+        $mainCategories = Category::whereIn('slug', $mainSlugs)
+            ->where('status', 'active')
+            ->with(['services' => function ($q) {
+                $q->where('status', 'active');
+            }])
+            ->get()
+            ->sortBy(fn ($c) => array_search($c->slug, $mainSlugs))
+            ->values();
+
+        $otherCategories = Category::whereNotIn('slug', $mainSlugs)
+            ->where('status', 'active')
+            ->orderBy('name')
+            ->get();
+
+        $tabSlugs = ['remont-telefonov', 'remont-planshetov', 'remont-noutbukov', 'remont-smart-chasov'];
+        $defectCategories = Category::whereIn('slug', $tabSlugs)
+            ->where('status', 'active')
+            ->with(['defects' => fn ($q) => $q->where('is_active', true)->with('service')])
+            ->get()
+            ->sortBy(fn ($c) => array_search($c->slug, $tabSlugs))
+            ->values();
+
         $reviews = Review::where('is_published', true)->orderByDesc('published_at')->get();
         $cases = DeviceCase::where('is_published', true)->latest()->get();
         $banners = Banner::where('is_active', true)->orderBy('sort_order')->get();
 
-        return view('prices', compact('categorizedServices', 'defects', 'reviews', 'cases', 'banners'));
+        return view('prices', compact('mainCategories', 'otherCategories', 'defectCategories', 'reviews', 'cases', 'banners'));
     }
 }

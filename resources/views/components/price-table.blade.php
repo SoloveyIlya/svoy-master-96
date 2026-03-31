@@ -1,14 +1,19 @@
-@props(['rows', 'activeSlug' => null])
+@props(['rows', 'activeSlug' => null, 'collapseAfter' => null, 'collapseGroupId' => null])
 
 @if(!empty($rows) && count($rows) > 0)
+@php
+    $hasCollapsed = $collapseAfter !== null && $collapseGroupId && count($rows) > $collapseAfter;
+    $moreCount = $hasCollapsed ? count($rows) - (int) $collapseAfter : 0;
+@endphp
 <div class="max-w-5xl mx-auto my-10 px-4 sm:px-6">
     <div class="bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden">
         <ul class="divide-y divide-gray-100">
             @foreach($rows as $row)
                 @php
                     $isActive = isset($row['slug']) && $row['slug'] === $activeSlug;
+                    $isCollapsedRow = $hasCollapsed && $loop->index >= (int) $collapseAfter;
                 @endphp
-                <li class="flex flex-col md:flex-row items-start md:items-center justify-between p-5 sm:p-6 hover:bg-[#2AC0D5]/5 transition-colors group {{ $isActive ? 'bg-blue-50/50 border-l-4 border-[#0678A8]' : '' }}">
+                <li @if($isCollapsedRow) data-price-collapsed="{{ $collapseGroupId }}" @endif class="flex flex-col md:flex-row items-start md:items-center justify-between p-5 sm:p-6 hover:bg-[#2AC0D5]/5 transition-colors group {{ $isActive ? 'bg-blue-50/50 border-l-4 border-[#0678A8]' : '' }} {{ $isCollapsedRow ? 'hidden' : '' }}">
                     <div class="flex-grow pr-4 mb-4 md:mb-0 w-full md:w-auto">
                         @if(!$isActive && !empty($row['url']))
                             <a href="{{ $row['url'] }}" class="block text-lg font-bold text-gray-900 mb-1 group-hover:text-[#0678A8] transition-colors hover:underline">
@@ -37,6 +42,21 @@
                 </li>
             @endforeach
         </ul>
+        @if($hasCollapsed)
+        <div class="price-show-more-footer border-t border-gray-100 py-4 px-4 flex justify-center">
+            <button
+                type="button"
+                id="price-show-more-btn-{{ $collapseGroupId }}"
+                class="price-show-more-btn flex items-center gap-2 text-[#0678A8] font-semibold hover:text-[#2AC0D5] transition"
+                data-slug="{{ $collapseGroupId }}"
+            >
+                <span>Показать все услуги (ещё {{ $moreCount }})</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+        </div>
+        @endif
     </div>
 </div>
 @endif

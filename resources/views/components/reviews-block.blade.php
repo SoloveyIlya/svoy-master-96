@@ -38,6 +38,34 @@
         </div>
     </div>
     
+    {{-- Platform badges --}}
+    <div class="flex flex-wrap justify-center gap-4 mt-6">
+        <a href="https://yandex.by/maps/org/svoy_master/155446185701/?ll=60.589708%2C56.838908&z=16.49" target="_blank" rel="noopener noreferrer"
+            class="flex items-center gap-3 bg-white border border-gray-200 rounded-xl px-5 py-3 hover:border-[#2AC0D5] hover:shadow-md transition">
+            <span class="text-2xl font-bold text-[#1A1A1A]">4.9</span>
+            <div>
+                <div class="flex text-[#FFD12A] text-sm leading-none">★★★★★</div>
+                <span class="text-xs text-gray-500">Яндекс Карты</span>
+            </div>
+        </a>
+        <a href="https://2gis.ru/ekaterinburg/firm/70000001007219338/tab/reviews" target="_blank" rel="noopener noreferrer"
+            class="flex items-center gap-3 bg-white border border-gray-200 rounded-xl px-5 py-3 hover:border-[#2AC0D5] hover:shadow-md transition">
+            <span class="text-2xl font-bold text-[#1A1A1A]">4.9</span>
+            <div>
+                <div class="flex text-[#FFD12A] text-sm leading-none">★★★★★</div>
+                <span class="text-xs text-gray-500">2ГИС</span>
+            </div>
+        </a>
+        <a href="https://ekaterinburg.flamp.ru/firm/svojj_master_torgovo_servisnaya_kompaniya-70000001007219338" target="_blank" rel="noopener noreferrer"
+            class="flex items-center gap-3 bg-white border border-gray-200 rounded-xl px-5 py-3 hover:border-[#2AC0D5] hover:shadow-md transition">
+            <span class="text-2xl font-bold text-[#1A1A1A]">5.0</span>
+            <div>
+                <div class="flex text-[#FFD12A] text-sm leading-none">★★★★★</div>
+                <span class="text-xs text-gray-500">Flamp</span>
+            </div>
+        </a>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const track = document.getElementById('comp-reviews-track');
