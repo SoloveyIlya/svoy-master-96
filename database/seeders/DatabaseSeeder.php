@@ -86,9 +86,11 @@ class DatabaseSeeder extends Seeder
 
         foreach ($servicesData as $svc) {
             $service = Service::create([
-                'name'   => $svc['name'],
-                'slug'   => $svc['slug'],
-                'status' => 'active',
+                'name'          => $svc['name'],
+                'slug'          => $svc['slug'],
+                'price_from'    => '1000',
+                'duration_text' => '30 минут',
+                'status'        => 'active',
             ]);
             $serviceMap[$svc['slug']] = $service;
             $serviceCats[$svc['slug']] = $svc['cats'];
@@ -107,19 +109,24 @@ class DatabaseSeeder extends Seeder
                         'iphone-se'=>'iPhone SE','iphone-11'=>'iPhone 11','iphone-11-pro'=>'iPhone 11 Pro','iphone-11-pro-max'=>'iPhone 11 Pro Max','iphone-12'=>'iPhone 12','iphone-12-mini'=>'iPhone 12 mini','iphone-12-pro'=>'iPhone 12 Pro','iphone-12-pro-max'=>'iPhone 12 Pro Max','iphone-13'=>'iPhone 13','iphone-13-mini'=>'iPhone 13 mini','iphone-13-pro'=>'iPhone 13 Pro','iphone-13-pro-max'=>'iPhone 13 Pro Max','iphone-14'=>'iPhone 14','iphone-14-plus'=>'iPhone 14 Plus','iphone-14-pro'=>'iPhone 14 Pro','iphone-14-pro-max'=>'iPhone 14 Pro Max','iphone-15'=>'iPhone 15','iphone-15-plus'=>'iPhone 15 Plus','iphone-15-pro'=>'iPhone 15 Pro','iphone-15-pro-max'=>'iPhone 15 Pro Max','iphone-16e'=>'iPhone 16e','iphone-16'=>'iPhone 16','iphone-16-plus'=>'iPhone 16 Plus','iphone-16-pro'=>'iPhone 16 Pro','iphone-16-pro-max'=>'iPhone 16 Pro Max','iphone-17e'=>'iPhone 17e','iphone-17'=>'iPhone 17','iphone-17-air'=>'iPhone 17 Air','iphone-17-pro'=>'iPhone 17 Pro','iphone-17-pro-max'=>'iPhone 17 Pro Max'
                     ]],
                     'samsung' => ['name' => 'Samsung', 'models' => [
-                        'galaxy-a12'=>'Galaxy A12','galaxy-a13'=>'Galaxy A13','galaxy-a14'=>'Galaxy A14','galaxy-a15'=>'Galaxy A15','galaxy-a25'=>'Galaxy A25','galaxy-a35'=>'Galaxy A35','galaxy-a55'=>'Galaxy A55','galaxy-s21'=>'Galaxy S21','galaxy-s21-plus'=>'Galaxy S21 Plus','galaxy-s21-ultra'=>'Galaxy S21 Ultra','galaxy-s22'=>'Galaxy S22','galaxy-s22-plus'=>'Galaxy S22 Plus','galaxy-s22-ultra'=>'Galaxy S22 Ultra','galaxy-s23'=>'Galaxy S23','galaxy-s23-plus'=>'Galaxy S23 Plus','galaxy-s23-ultra'=>'Galaxy S23 Ultra','galaxy-s24'=>'Galaxy S24','galaxy-s24-plus'=>'Galaxy S24 Plus','galaxy-s24-ultra'=>'Galaxy S24 Ultra','galaxy-z-flip4'=>'Galaxy Z Flip4','galaxy-z-flip5'=>'Galaxy Z Flip5','galaxy-z-flip6'=>'Galaxy Z Flip6','galaxy-z-fold4'=>'Galaxy Z Fold4','galaxy-z-fold5'=>'Galaxy Z Fold5','galaxy-z-fold6'=>'Galaxy Z Fold6'
+                        'galaxy-a12'=>'Galaxy A12','galaxy-a13'=>'Galaxy A13','galaxy-a14'=>'Galaxy A14','galaxy-a15'=>'Galaxy A15','galaxy-a25'=>'Galaxy A25','galaxy-a35'=>'Galaxy A35','galaxy-a55'=>'Galaxy A55','galaxy-s21'=>'Galaxy S21','galaxy-s21-plus'=>'Galaxy S21 Plus','galaxy-s21-ultra'=>'Galaxy S21 Ultra','galaxy-s22'=>'Galaxy S22','galaxy-s22-plus'=>'Galaxy S22 Plus','galaxy-s22-ultra'=>'Galaxy S22 Ultra','galaxy-s23'=>'Galaxy S23','galaxy-s23-plus'=>'Galaxy S23 Plus','galaxy-s23-ultra'=>'Galaxy S23 Ultra','galaxy-s24'=>'Galaxy S24','galaxy-s24-plus'=>'Galaxy S24 Plus','galaxy-s24-ultra'=>'Galaxy S24 Ultra','galaxy-z-flip4'=>'Galaxy Z Flip4','galaxy-z-flip5'=>'Galaxy Z Flip5','galaxy-z-flip6'=>'Galaxy Z Flip6','galaxy-z-fold4'=>'Galaxy Z Fold4','galaxy-z-fold5'=>'Galaxy Z Fold5','galaxy-z-fold6'=>'Galaxy Z Fold6',
+                        'galaxy-s20'=>'Galaxy S20','galaxy-s20-plus'=>'Galaxy S20 Plus','galaxy-s20-ultra'=>'Galaxy S20 Ultra','galaxy-s20-fe'=>'Galaxy S20 FE','galaxy-note-20'=>'Galaxy Note 20','galaxy-note-20-ultra'=>'Galaxy Note 20 Ultra','galaxy-z-flip'=>'Galaxy Z Flip','galaxy-z-fold-2'=>'Galaxy Z Fold 2','galaxy-a21s'=>'Galaxy A21s','galaxy-a31'=>'Galaxy A31','galaxy-a41'=>'Galaxy A41','galaxy-a51'=>'Galaxy A51','galaxy-a71'=>'Galaxy A71','galaxy-a51-5g'=>'Galaxy A51 5G','galaxy-a71-5g'=>'Galaxy A71 5G','galaxy-z-flip-3'=>'Galaxy Z Flip 3','galaxy-z-fold-3'=>'Galaxy Z Fold 3','galaxy-a22-5g'=>'Galaxy A22 5G','galaxy-a32-5g'=>'Galaxy A32 5G','galaxy-a52'=>'Galaxy A52','galaxy-a52-5g'=>'Galaxy A52 5G','galaxy-a52s-5g'=>'Galaxy A52s 5G','galaxy-a72'=>'Galaxy A72','galaxy-s21-fe'=>'Galaxy S21 FE','galaxy-z-flip-4'=>'Galaxy Z Flip 4','galaxy-z-fold-4'=>'Galaxy Z Fold 4','galaxy-a33-5g'=>'Galaxy A33 5G','galaxy-a53-5g'=>'Galaxy A53 5G','galaxy-a73-5g'=>'Galaxy A73 5G','galaxy-s23-fe'=>'Galaxy S23 FE','galaxy-z-flip-5'=>'Galaxy Z Flip 5','galaxy-z-fold-5'=>'Galaxy Z Fold 5','galaxy-a14-5g'=>'Galaxy A14 5G','galaxy-a24'=>'Galaxy A24','galaxy-a34-5g'=>'Galaxy A34 5G','galaxy-a54-5g'=>'Galaxy A54 5G','galaxy-a04s'=>'Galaxy A04s','galaxy-s24-fe'=>'Galaxy S24 FE','galaxy-z-flip-6'=>'Galaxy Z Flip 6','galaxy-z-fold-6'=>'Galaxy Z Fold 6','galaxy-a15-5g'=>'Galaxy A15 5G','galaxy-a25-5g'=>'Galaxy A25 5G','galaxy-a35-5g'=>'Galaxy A35 5G','galaxy-a55-5g'=>'Galaxy A55 5G','galaxy-a16-5g'=>'Galaxy A16 5G','galaxy-s25'=>'Galaxy S25','galaxy-s25-plus'=>'Galaxy S25 Plus','galaxy-s25-ultra'=>'Galaxy S25 Ultra','galaxy-z-flip-7'=>'Galaxy Z Flip 7','galaxy-z-fold-7'=>'Galaxy Z Fold 7','galaxy-a17-5g'=>'Galaxy A17 5G','galaxy-a26-5g'=>'Galaxy A26 5G','galaxy-a36-5g'=>'Galaxy A36 5G','galaxy-a56-5g'=>'Galaxy A56 5G','galaxy-s26'=>'Galaxy S26','galaxy-s26-plus'=>'Galaxy S26 Plus','galaxy-s26-ultra'=>'Galaxy S26 Ultra','galaxy-a37-5g'=>'Galaxy A37 5G','galaxy-a57-5g'=>'Galaxy A57 5G'
                     ]],
                     'xiaomi' => ['name' => 'Xiaomi', 'models' => [
-                        'redmi-note-10'=>'Redmi Note 10','redmi-note-10-pro'=>'Redmi Note 10 Pro','redmi-note-11'=>'Redmi Note 11','redmi-note-11-pro'=>'Redmi Note 11 Pro','redmi-note-12'=>'Redmi Note 12','redmi-note-12-pro'=>'Redmi Note 12 Pro','redmi-note-13'=>'Redmi Note 13','redmi-note-13-pro'=>'Redmi Note 13 Pro','redmi-12c'=>'Redmi 12C','redmi-13c'=>'Redmi 13C','poco-x3-pro'=>'Poco X3 Pro','poco-x5-pro'=>'Poco X5 Pro','poco-f5'=>'Poco F5','mi-11'=>'Mi 11','mi-11-lite'=>'Mi 11 Lite','xiaomi-12'=>'Xiaomi 12','xiaomi-12-pro'=>'Xiaomi 12 Pro','xiaomi-13'=>'Xiaomi 13','xiaomi-13-pro'=>'Xiaomi 13 Pro','xiaomi-14'=>'Xiaomi 14','xiaomi-14-ultra'=>'Xiaomi 14 Ultra'
+                        'redmi-note-10'=>'Redmi Note 10','redmi-note-10-pro'=>'Redmi Note 10 Pro','redmi-note-11'=>'Redmi Note 11','redmi-note-11-pro'=>'Redmi Note 11 Pro','redmi-note-12'=>'Redmi Note 12','redmi-note-12-pro'=>'Redmi Note 12 Pro','redmi-note-13'=>'Redmi Note 13','redmi-note-13-pro'=>'Redmi Note 13 Pro','redmi-12c'=>'Redmi 12C','redmi-13c'=>'Redmi 13C','poco-x3-pro'=>'Poco X3 Pro','poco-x5-pro'=>'Poco X5 Pro','poco-f5'=>'Poco F5','mi-11'=>'Mi 11','mi-11-lite'=>'Mi 11 Lite','xiaomi-12'=>'Xiaomi 12','xiaomi-12-pro'=>'Xiaomi 12 Pro','xiaomi-13'=>'Xiaomi 13','xiaomi-13-pro'=>'Xiaomi 13 Pro','xiaomi-14'=>'Xiaomi 14','xiaomi-14-ultra'=>'Xiaomi 14 Ultra',
+                        'redmi-note-12s'=>'Redmi Note 12S','redmi-note-12-pro-plus'=>'Redmi Note 12 Pro Plus','redmi-note-12-turbo'=>'Redmi Note 12 Turbo','redmi-12'=>'Redmi 12','redmi-13c-5g'=>'Redmi 13C 5G','poco-x5'=>'POCO X5','poco-m5'=>'POCO M5','xiaomi-13-lite'=>'Xiaomi 13 Lite','xiaomi-13-ultra'=>'Xiaomi 13 Ultra','xiaomi-13t'=>'Xiaomi 13T','xiaomi-13t-pro'=>'Xiaomi 13T Pro','xiaomi-civi-3'=>'Xiaomi Civi 3','redmi-note-13-5g'=>'Redmi Note 13 5G','redmi-note-13-pro-plus'=>'Redmi Note 13 Pro Plus','redmi-k70e'=>'Redmi K70E','redmi-k70'=>'Redmi K70','redmi-k70-pro'=>'Redmi K70 Pro','redmi-k70-ultra'=>'Redmi K70 Ultra','redmi-turbo-3'=>'Redmi Turbo 3','poco-x6'=>'POCO X6','poco-x6-pro'=>'POCO X6 Pro','poco-m6'=>'POCO M6','poco-m6-pro'=>'POCO M6 Pro','poco-f6'=>'POCO F6','poco-f6-pro'=>'POCO F6 Pro','redmi-13-4g'=>'Redmi 13 4G','redmi-13-5g'=>'Redmi 13 5G','redmi-a3'=>'Redmi A3','redmi-a3x'=>'Redmi A3x','redmi-13r-5g'=>'Redmi 13R 5G','redmi-note-13r'=>'Redmi Note 13R','redmi-14c'=>'Redmi 14C','redmi-14c-5g'=>'Redmi 14C 5G','redmi-14r-5g'=>'Redmi 14R 5G','redmi-note-14'=>'Redmi Note 14','redmi-note-14-5g'=>'Redmi Note 14 5G','redmi-note-14-pro'=>'Redmi Note 14 Pro','redmi-note-14-pro-plus'=>'Redmi Note 14 Pro Plus','redmi-note-14s'=>'Redmi Note 14S','poco-c75'=>'POCO C75','poco-c75-5g'=>'POCO C75 5G','poco-m6-plus-5g'=>'POCO M6 Plus 5G','poco-m7-pro'=>'POCO M7 Pro','poco-x7'=>'POCO X7','poco-x7-pro'=>'POCO X7 Pro','xiaomi-14-civi'=>'Xiaomi 14 Civi','xiaomi-14t'=>'Xiaomi 14T','xiaomi-14t-pro'=>'Xiaomi 14T Pro','redmi-turbo-4'=>'Redmi Turbo 4','redmi-turbo-4-pro'=>'Redmi Turbo 4 Pro','redmi-note-15r'=>'Redmi Note 15R','redmi-note-15'=>'Redmi Note 15','redmi-note-15-5g'=>'Redmi Note 15 5G','redmi-note-15-pro'=>'Redmi Note 15 Pro','redmi-note-15-pro-plus'=>'Redmi Note 15 Pro Plus','redmi-15c'=>'Redmi 15C','redmi-15c-5g'=>'Redmi 15C 5G','redmi-15-5g'=>'Redmi 15 5G','redmi-a5'=>'Redmi A5','poco-f7'=>'POCO F7','poco-m7-4g'=>'POCO M7 4G','poco-m7-5g'=>'POCO M7 5G','poco-m8'=>'POCO M8','poco-m8-pro'=>'POCO M8 Pro','xiaomi-15'=>'Xiaomi 15','xiaomi-15-ultra'=>'Xiaomi 15 Ultra','xiaomi-15t'=>'Xiaomi 15T','xiaomi-civi-5-pro'=>'Xiaomi Civi 5 Pro','redmi-k80'=>'Redmi K80','redmi-k80-ultra'=>'Redmi K80 Ultra','redmi-k90'=>'Redmi K90','redmi-turbo-5'=>'Redmi Turbo 5','redmi-turbo-5-max'=>'Redmi Turbo 5 Max','xiaomi-17'=>'Xiaomi 17','xiaomi-17-ultra'=>'Xiaomi 17 Ultra','poco-x8'=>'POCO X8','redmi-note-16-5g'=>'Redmi Note 16 5G'
                     ]],
                     'honor' => ['name' => 'Honor', 'models' => [
-                        'honor-50'=>'Honor 50','honor-50-lite'=>'Honor 50 Lite','honor-70'=>'Honor 70','honor-80'=>'Honor 80','honor-90'=>'Honor 90','honor-90-lite'=>'Honor 90 Lite','honor-200'=>'Honor 200','honor-200-pro'=>'Honor 200 Pro','honor-magic-5-pro'=>'Honor Magic 5 Pro','honor-magic-6-pro'=>'Honor Magic 6 Pro','honor-x7'=>'Honor X7','honor-x8'=>'Honor X8','honor-x9'=>'Honor X9','honor-x9b'=>'Honor X9b'
+                        'honor-50'=>'Honor 50','honor-50-lite'=>'Honor 50 Lite','honor-70'=>'Honor 70','honor-80'=>'Honor 80','honor-90'=>'Honor 90','honor-90-lite'=>'Honor 90 Lite','honor-200'=>'Honor 200','honor-200-pro'=>'Honor 200 Pro','honor-magic-5-pro'=>'Honor Magic 5 Pro','honor-magic-6-pro'=>'Honor Magic 6 Pro','honor-x7'=>'Honor X7','honor-x8'=>'Honor X8','honor-x9'=>'Honor X9','honor-x9b'=>'Honor X9b',
+                        'honor-300'=>'Honor 300','honor-300-pro'=>'Honor 300 Pro','honor-magic-4-pro'=>'Honor Magic 4 Pro','honor-magic-7-pro'=>'Honor Magic 7 Pro','honor-magic-v2'=>'Honor Magic V2','honor-magic-v3'=>'Honor Magic V3','honor-play-40'=>'Honor Play 40','honor-play-50'=>'Honor Play 50','honor-play-60-plus'=>'Honor Play 60 Plus','honor-70-lite'=>'Honor 70 Lite','honor-80-pro'=>'Honor 80 Pro','honor-x7a'=>'Honor X7a','honor-x7b'=>'Honor X7b','honor-x7c'=>'Honor X7c','honor-x8a'=>'Honor X8a','honor-x8b'=>'Honor X8b','honor-x9-5g'=>'Honor X9 5G','honor-x9a'=>'Honor X9a','honor-x9c'=>'Honor X9c','honor-x40-gt'=>'Honor X40 GT','honor-x50'=>'Honor X50','honor-x50-pro'=>'Honor X50 Pro','honor-x50-gt'=>'Honor X50 GT','honor-x50i'=>'Honor X50i','honor-x60'=>'Honor X60','honor-x60-pro'=>'Honor X60 Pro'
                     ]],
                     'huawei' => ['name' => 'Huawei', 'models' => [
-                        'p30'=>'Huawei P30','p30-pro'=>'Huawei P30 Pro','p40'=>'Huawei P40','p40-pro'=>'Huawei P40 Pro','p50'=>'Huawei P50','p50-pro'=>'Huawei P50 Pro','p60'=>'Huawei P60','p60-pro'=>'Huawei P60 Pro','mate-30'=>'Huawei Mate 30','mate-30-pro'=>'Huawei Mate 30 Pro','mate-40-pro'=>'Huawei Mate 40 Pro','mate-50-pro'=>'Huawei Mate 50 Pro','mate-60-pro'=>'Huawei Mate 60 Pro','nova-10'=>'Huawei Nova 10','nova-11'=>'Huawei Nova 11','nova-12'=>'Huawei Nova 12','nova-12-pro'=>'Huawei Nova 12 Pro'
+                        'p30'=>'Huawei P30','p30-pro'=>'Huawei P30 Pro','p40'=>'Huawei P40','p40-pro'=>'Huawei P40 Pro','p50'=>'Huawei P50','p50-pro'=>'Huawei P50 Pro','p60'=>'Huawei P60','p60-pro'=>'Huawei P60 Pro','mate-30'=>'Huawei Mate 30','mate-30-pro'=>'Huawei Mate 30 Pro','mate-40-pro'=>'Huawei Mate 40 Pro','mate-50-pro'=>'Huawei Mate 50 Pro','mate-60-pro'=>'Huawei Mate 60 Pro','nova-10'=>'Huawei Nova 10','nova-11'=>'Huawei Nova 11','nova-12'=>'Huawei Nova 12','nova-12-pro'=>'Huawei Nova 12 Pro',
+                        'enjoy-60'=>'Huawei Enjoy 60','enjoy-70'=>'Huawei Enjoy 70','enjoy-70x'=>'Huawei Enjoy 70X','nova-10-pro'=>'Huawei nova 10 Pro','nova-11-pro'=>'Huawei nova 11 Pro','nova-12-ultra'=>'Huawei nova 12 Ultra','nova-13'=>'Huawei nova 13','nova-13-pro'=>'Huawei nova 13 Pro','nova-14'=>'Huawei nova 14','nova-14-pro'=>'Huawei nova 14 Pro','nova-15'=>'Huawei nova 15','nova-15-pro'=>'Huawei nova 15 Pro','nova-flip'=>'Huawei nova Flip','mate-60'=>'Huawei Mate 60','mate-60-pro-plus'=>'Huawei Mate 60 Pro Plus','mate-70'=>'Huawei Mate 70','mate-70-pro'=>'Huawei Mate 70 Pro','mate-x5'=>'Huawei Mate X5','mate-x6'=>'Huawei Mate X6','mate-xt'=>'Huawei Mate XT','pocket-2'=>'Huawei Pocket 2','pura-70'=>'Huawei Pura 70','pura-70-pro'=>'Huawei Pura 70 Pro','pura-70-ultra'=>'Huawei Pura 70 Ultra','pura-80'=>'Huawei Pura 80','pura-80-pro'=>'Huawei Pura 80 Pro'
                     ]],
                     'google-pixel' => ['name' => 'Google Pixel', 'models' => [
-                        'pixel-6'=>'Pixel 6','pixel-6-pro'=>'Pixel 6 Pro','pixel-7'=>'Pixel 7','pixel-7-pro'=>'Pixel 7 Pro','pixel-8'=>'Pixel 8','pixel-8-pro'=>'Pixel 8 Pro','pixel-9'=>'Pixel 9','pixel-9-pro'=>'Pixel 9 Pro','pixel-9-pro-xl'=>'Pixel 9 Pro XL','pixel-9-pro-fold'=>'Pixel 9 Pro Fold','pixel-10'=>'Pixel 10','pixel-10-pro'=>'Pixel 10 Pro','pixel-10-pro-xl'=>'Pixel 10 Pro XL','pixel-10-pro-fold'=>'Pixel 10 Pro Fold'
+                        'pixel-6'=>'Pixel 6','pixel-6-pro'=>'Pixel 6 Pro','pixel-7'=>'Pixel 7','pixel-7-pro'=>'Pixel 7 Pro','pixel-8'=>'Pixel 8','pixel-8-pro'=>'Pixel 8 Pro','pixel-9'=>'Pixel 9','pixel-9-pro'=>'Pixel 9 Pro','pixel-9-pro-xl'=>'Pixel 9 Pro XL','pixel-9-pro-fold'=>'Pixel 9 Pro Fold','pixel-10'=>'Pixel 10','pixel-10-pro'=>'Pixel 10 Pro','pixel-10-pro-xl'=>'Pixel 10 Pro XL','pixel-10-pro-fold'=>'Pixel 10 Pro Fold',
+                        'pixel-7a'=>'Pixel 7a','pixel-8a'=>'Pixel 8a','pixel-fold'=>'Pixel Fold','pixel-9a'=>'Pixel 9a','pixel-10a'=>'Pixel 10a'
                     ]],
                     // Бренды без моделей
                     'meizu'=>['name'=>'Meizu'],'zte'=>['name'=>'ZTE'],'lenovo'=>['name'=>'Lenovo'],'asus'=>['name'=>'ASUS'],'sony'=>['name'=>'Sony'],'realme'=>['name'=>'realme'],'oppo'=>['name'=>'Oppo'],'vivo'=>['name'=>'Vivo'],'oneplus'=>['name'=>'OnePlus'],'nokia'=>['name'=>'Nokia'],'motorola'=>['name'=>'Motorola'],'lg'=>['name'=>'LG'],'htc'=>['name'=>'HTC'],'tecno'=>['name'=>'Tecno'],'infinix'=>['name'=>'Infinix'],'poco'=>['name'=>'Poco'],'blackview'=>['name'=>'Blackview'],'ulefone'=>['name'=>'Ulefone'],'doogee'=>['name'=>'Doogee'],'cubot'=>['name'=>'Cubot'],'alcatel'=>['name'=>'Alcatel'],'philips'=>['name'=>'Philips'],'fly'=>['name'=>'Fly'],'dexp'=>['name'=>'DEXP'],'bq'=>['name'=>'BQ'],'texet'=>['name'=>'Texet'],'oukitel'=>['name'=>'Oukitel'],'umidigi'=>['name'=>'Umidigi'],'vertu'=>['name'=>'Vertu']
@@ -211,11 +218,19 @@ class DatabaseSeeder extends Seeder
             }
 
             foreach ($catalogData as $catSlug => $catData) {
+                $genitivesMapping = [
+                    'Телефоны'   => 'телефонов',
+                    'Планшеты'   => 'планшетов',
+                    'Ноутбуки'   => 'ноутбуков',
+                    'Смарт-часы' => 'смарт-часов',
+                ];
+                $genitiveName = $genitivesMapping[$catData['name']] ?? mb_strtolower($catData['name']);
+
                 $category = Category::create([
                     'name'      => $catData['name'],
                     'slug'      => $catSlug,
-                    'seo_title' => "Ремонт {$catData['name']} в Екатеринбурге — цены, сроки, гарантия",
-                    'seo_h1'    => "Ремонт {$catData['name']}",
+                    'seo_title' => "Ремонт {$genitiveName} в Екатеринбурге — цены, сроки, гарантия",
+                    'seo_h1'    => "Ремонт {$genitiveName}",
                     'status'    => 'active',
                 ]);
 
@@ -243,6 +258,20 @@ class DatabaseSeeder extends Seeder
                             'status'    => 'active',
                         ]
                     );
+
+                    foreach ($catServices as $svcObj) {
+                        ServiceScope::updateOrCreate(
+                            [
+                                'scope_type' => 'brand',
+                                'scope_id'   => $brand->id,
+                                'service_id' => $svcObj->id,
+                            ],
+                            [
+                                'seo_title' => "{$svcObj->name} {$brand->name} в Екатеринбурге — цены, сроки",
+                                'seo_h1'    => "{$svcObj->name} {$brand->name}",
+                            ]
+                        );
+                    }
 
                     // Создаём модели и LandingPages
                     if (isset($brandData['models'])) {
@@ -340,11 +369,42 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($otherDevicesData as $catSlug => $catData) {
+            $genitivesMapping = [
+                'Телефоны'                      => 'телефонов',
+                'Планшеты'                      => 'планшетов',
+                'Ноутбуки'                      => 'ноутбуков',
+                'Смарт-часы'                    => 'смарт-часов',
+                'Ремонт игровых приставок'      => 'игровых приставок',
+                'Ремонт джойстиков и геймпадов' => 'джойстиков и геймпадов',
+                'Ремонт наушников'              => 'наушников',
+                'Ремонт портативных колонок'    => 'портативных колонок',
+                'Ремонт фотоаппаратов'          => 'фотоаппаратов',
+                'Ремонт объективов'             => 'объективов',
+                'Ремонт фотовспышек'            => 'фотовспышек',
+                'Ремонт электронных книг'       => 'электронных книг',
+                'Ремонт квадрокоптеров и дронов' => 'квадрокоптеров и дронов',
+                'Ремонт роботов-пылесосов'      => 'роботов-пылесосов',
+                'Ремонт терминалов сбора данных' => 'терминалов сбора данных',
+                'Ремонт мониторов'              => 'мониторов',
+                'Ремонт моноблоков'             => 'моноблоков',
+                'Ремонт телевизоров'            => 'телевизоров',
+                'Ремонт компьютеров'            => 'компьютеров',
+            ];
+
+            $categoryName = $catData['name'];
+            $genitiveName = $genitivesMapping[$categoryName] ?? mb_strtolower($categoryName);
+            
+            // Если ключ начинается с "Ремонт", то в genitiveName уже вторая часть.
+            // Нам нужно "Ремонт [genitive]"
+            $seoString = str_starts_with(mb_strtolower($categoryName), 'ремонт') 
+                ? "Ремонт {$genitiveName}" 
+                : "Ремонт " . mb_strtolower($genitiveName);
+
             $category = Category::create([
-                'name'      => $catData['name'],
+                'name'      => $categoryName,
                 'slug'      => $catSlug,
-                'seo_title' => "{$catData['name']} в Екатеринбурге — цены, сроки, гарантия",
-                'seo_h1'    => $catData['name'],
+                'seo_title' => "{$seoString} в Екатеринбурге — цены, сроки, гарантия",
+                'seo_h1'    => $seoString,
                 'status'    => 'active',
             ]);
 
@@ -353,8 +413,10 @@ class DatabaseSeeder extends Seeder
                 $service = Service::firstOrCreate(
                     ['slug' => $svcSlug],
                     [
-                        'name'   => $svcName,
-                        'status' => 'active',
+                        'name'          => $svcName,
+                        'price_from'    => '1000',
+                        'duration_text' => '30 минут',
+                        'status'        => 'active',
                     ]
                 );
 

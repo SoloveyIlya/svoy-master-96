@@ -66,7 +66,7 @@
             <div class="flex items-start gap-2 border-l border-gray-200 pl-8">
                 <svg class="w-5 h-5 text-[#0678A8] mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                 <div class="flex flex-col">
-                    <a href="{{ route('contacts') }}#map" class="font-medium hover:text-[#2AC0D5] transition whitespace-nowrap">г. Екатеринбург</a>
+                    <a href="#callback-form" class="font-medium hover:text-[#2AC0D5] transition whitespace-nowrap scroll-smooth">г. Екатеринбург</a>
                     <div class="flex gap-3 mt-0.5">
                         <a href="{{ route('about') }}" class="text-xs text-gray-500 hover:text-[#0678A8] transition whitespace-nowrap">О компании</a>
                         <a href="{{ route('contacts') }}" class="text-xs text-gray-500 hover:text-[#0678A8] transition whitespace-nowrap">Контакты</a>

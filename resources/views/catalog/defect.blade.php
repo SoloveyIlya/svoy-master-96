@@ -4,7 +4,7 @@
 @section('seo_description', 'Профессиональный ремонт: ' . mb_strtolower($defect->name) . ' в ' . mb_strtolower($category->name) . '. Быстрый ремонт с гарантией.')
 
 @section('content')
-    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => 'Ремонт ' . $category->name, '' => $defect->name]" />
+    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => $categoryLabel, '' => $defect->name]" />
 
     <x-hero-banner 
         :title="$defect->name"
@@ -16,11 +16,19 @@
     @if($brands->count() > 0)
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 mb-6">
         <h2 class="text-3xl font-bold text-center mb-8">Выберите производителя</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+        <div class="flex flex-wrap justify-center gap-4">
             @foreach($brands as $b)
-                <a href="{{ route('catalog.brand', [$category->slug, $b->slug]) }}" 
-                   class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-gray-100 hover:border-[#0678A8] hover:shadow-md transition-all group">
-                    <span class="font-bold text-gray-800 group-hover:text-[#0678A8] transition-colors">{{ $b->name }}</span>
+                <a href="{{ $defect->getBrandUrl($b) }}" 
+                   class="w-36 sm:w-40 md:w-48 flex flex-col items-center justify-center gap-4 border border-gray-100 rounded-2xl p-6 text-center hover:shadow-lg hover:border-[#2AC0D5] transition-all bg-white group">
+                    <div class="h-12 w-full flex items-center justify-center">
+                        <img src="{{ asset('images/brands/' . $b->slug . '.png') }}" 
+                             alt="{{ $b->name }}" 
+                             loading="lazy"
+                             class="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform" 
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                        <span class="hidden font-bold text-xl text-gray-300">{{ mb_substr($b->name, 0, 1) }}</span>
+                    </div>
+                    <span class="font-bold text-[#1A1A1A] group-hover:text-[#0678A8] transition-colors">{{ $b->name }}</span>
                 </a>
             @endforeach
         </div>

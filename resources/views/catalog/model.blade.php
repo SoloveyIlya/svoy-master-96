@@ -8,7 +8,7 @@
 @section('og_url', route('catalog.model', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug]))
 
 @section('content')
-    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => 'Ремонт ' . $category->name, route('catalog.brand', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug]) => $brand->name, '' => $model->name]" />
+    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => $categoryLabel, route('catalog.brand', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug]) => $brand->name, '' => $model->name]" />
 
     <x-hero-banner 
         :title="$model->seo_h1 ?: 'Ремонт ' . $model->name"
@@ -20,6 +20,9 @@
     </div>
     
     <x-price-table :rows="$priceRows" />
+
+    {{-- ЗАДАЧА 2: сначала поломки, потом преимущества --}}
+    <x-defects-block :defects="$defects" :brand="$brand" :model="$model" />
 
     <x-advantages-block />
 
@@ -47,8 +50,11 @@
     @endif
 
     <x-workflow-block />
+
+    {{-- Акции перед отзывами --}}
+    <x-promo-banner :banners="$banners ?? collect()" />
+
     <x-reviews-block :reviews="$reviews" />
-    <x-defects-block :defects="$defects" />
+
     <x-contact-form />
-    <x-banners-slider :banners="$banners ?? collect()" />
 @endsection

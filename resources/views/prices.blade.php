@@ -19,12 +19,7 @@
         {{-- Main categories with service lists --}}
         @foreach($mainCategories as $category)
             @php
-                $allServices = $category->services->map(fn($s) => [
-                    'name'     => $s->name,
-                    'price'    => $s->price_from,
-                    'duration' => $s->duration_text,
-                    'url'      => null,
-                ]);
+                $rows = $priceRowsByCategory[$category->slug] ?? [];
             @endphp
 
             <div class="mb-12">
@@ -45,9 +40,9 @@
                     </a>
                 </div>
 
-                @if($allServices->count() > 0)
+                @if(count($rows) > 0)
                     <x-price-table
-                        :rows="$allServices->toArray()"
+                        :rows="$rows"
                         :collapse-after="10"
                         :collapse-group-id="$category->slug"
                     />

@@ -8,11 +8,13 @@
 @section('og_url', route('catalog.service-scope-brand', ['categorySlug' => $brand->models->first()?->category?->slug ?? 'remont-telefonov', 'brandSlug' => $brand->slug, 'serviceSlug' => $service->slug]))
 
 @section('content')
-    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $brand->models->first()?->category?->slug ?? 'remont-telefonov']) => 'Ремонт ' . ($brand->models->first()?->category?->name ?? 'Услуги'), route('catalog.brand', ['categorySlug' => $brand->models->first()?->category?->slug ?? 'remont-telefonov', 'brandSlug' => $brand->slug]) => $brand->name, '' => $service->name]" />
+    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $brand->models->first()?->category?->slug ?? 'remont-telefonov']) => $categoryLabel, route('catalog.brand', ['categorySlug' => $brand->models->first()?->category?->slug ?? 'remont-telefonov', 'brandSlug' => $brand->slug]) => $brand->name, '' => $service->name]" />
 
     <x-hero-banner 
         :title="isset($seo) && $seo['h1'] ? $seo['h1'] : $service->name . ' ' . $brand->name"
         :subtitle="isset($seo) && $seo['description'] ? $seo['description'] : 'Профессиональное решение проблемы с гарантией'"
+        :price="$scope->resolvedPriceFrom()"
+        :duration="$scope->resolvedDurationText()"
     />
 
     <div class="max-w-7xl mx-auto px-4 mb-4">
@@ -21,11 +23,16 @@
 
     <x-price-table :rows="$priceRows" :active-slug="$activeSlug ?? null" />
 
+    {{-- ЗАДАЧА 2: сначала поломки, потом преимущества --}}
+    <x-defects-block :defects="$defects" :active-slug="$activeSlug ?? null" :brand="$brand" />
+
     <x-advantages-block />
 
     <x-workflow-block />
+
+    {{-- Акции перед отзывами --}}
+    <x-promo-banner :banners="$banners ?? collect()" />
+
     <x-reviews-block :reviews="$reviews" />
-    <x-defects-block :defects="$defects" :active-slug="$activeSlug ?? null" />
     <x-contact-form />
-    <x-banners-slider :banners="$banners ?? collect()" />
 @endsection

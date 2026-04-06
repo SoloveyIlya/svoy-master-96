@@ -8,11 +8,13 @@
 @section('og_url', route('catalog.service-scope-category', ['categorySlug' => $category->slug, 'serviceSlug' => $service->slug]))
 
 @section('content')
-    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => 'Ремонт ' . $category->name, '' => $service->name]" />
+    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => $categoryLabel, '' => $service->name]" />
 
     <x-hero-banner 
         :title="isset($seo) && $seo['h1'] ? $seo['h1'] : $service->name . ' ' . (isset($brand) ? $brand->name : $category->name)"
         :subtitle="isset($seo) && $seo['description'] ? $seo['description'] : 'Гарантия качества и честные цены'"
+        :price="$scope->resolvedPriceFrom()"
+        :duration="$scope->resolvedDurationText()"
     />
 
     <div class="max-w-7xl mx-auto px-4 mb-4">
@@ -21,11 +23,16 @@
 
     <x-price-table :rows="$priceRows" :active-slug="$activeSlug ?? null" />
 
+    {{-- ЗАДАЧА 2: сначала поломки, потом преимущества --}}
+    <x-defects-block :defects="$defects" :active-slug="$activeSlug ?? null" />
+
     <x-advantages-block />
 
     <x-workflow-block />
+
+    {{-- Акции перед отзывами --}}
+    <x-promo-banner :banners="$banners ?? collect()" />
+
     <x-reviews-block :reviews="$reviews" />
-    <x-defects-block :defects="$defects" :active-slug="$activeSlug ?? null" />
     <x-contact-form />
-    <x-banners-slider :banners="$banners ?? collect()" />
 @endsection

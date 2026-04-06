@@ -35,10 +35,29 @@ class PriceController extends Controller
             ->sortBy(fn ($c) => array_search($c->slug, $tabSlugs))
             ->values();
 
-        $reviews = Review::where('is_published', true)->orderByDesc('published_at')->get();
-        $cases = DeviceCase::where('is_published', true)->latest()->get();
-        $banners = Banner::where('is_active', true)->orderBy('sort_order')->get();
+        // priceRows: для каждой главной категории — услуги со ссылками на срез
+        $priceRowsByCategory = [];
+        foreach ($mainCategories as $cat) {
+            $services = $cat->services()->where('status', 'active')->get();
+            $priceRowsByCategory[$cat->slug] = $services->map(function ($s) use ($cat) {
+                $scope = \App\Models\ServiceScope::forCategory($cat->id)
+                    ->where('service_id', $s->id)
+                    ->where('status', 'active')
+                    ->first();
 
-        return view('prices', compact('mainCategories', 'otherCategories', 'defectCategories', 'reviews', 'cases', 'banners'));
+                return [
+                    'name'     => $s->name,
+                    'price'    => $scope && $scope->price_from ? $scope->price_from : $s->price_from,
+                    'duration' => $s->duration_text,
+                    'slug'     => $s->slug,
+                    'url'      => route('catalog.service-scope-category', [$cat->slug, $s->slug]),
+                ];
+            })->toArray();
+        }
+        $reviews = \App\Models\Review::where('is_published', true)->orderByDesc('published_at')->get();
+        $cases = \App\Models\DeviceCase::where('is_published', true)->latest()->get();
+        $banners = \App\Models\Banner::where('is_active', true)->orderBy('sort_order')->get();
+
+        return view('prices', compact('mainCategories', 'otherCategories', 'defectCategories', 'reviews', 'cases', 'banners', 'priceRowsByCategory'));
     }
 }

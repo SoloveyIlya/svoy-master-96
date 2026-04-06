@@ -4,7 +4,7 @@
     $categories  – Collection<Category> with ->defects loaded (главная — с табами)
     $activeSlug  – slug текущей поломки (подсвечивает карточку на catalog-страницах)
 --}}
-@props(['defects' => null, 'categories' => null, 'activeSlug' => null])
+@props(['defects' => null, 'categories' => null, 'activeSlug' => null, 'brand' => null, 'model' => null])
 
 @if($categories && $categories->count() > 0)
 {{-- ═══════════════════════════════════════════════════════
@@ -66,12 +66,7 @@
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
                 @foreach($initial as $defect)
                     @php
-                        $url = $defect->service
-                            ? route('catalog.service-scope-category', [
-                                'categorySlug' => $cat->slug,
-                                'serviceSlug'  => $defect->service->slug,
-                            ])
-                            : route('catalog.defect', [$cat->slug, $defect->slug]);
+                        $url = $defect->getUrl($brand, $model);
                     @endphp
                     <a href="{{ $url }}"
                        class="w-full max-w-[14rem] mx-auto flex flex-col items-center text-center bg-white border border-gray-200 rounded-2xl p-4
@@ -103,12 +98,7 @@
             <div class="hidden defect-extra-cards grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 mt-4">
                 @foreach($more as $defect)
                     @php
-                        $url = $defect->service
-                            ? route('catalog.service-scope-category', [
-                                'categorySlug' => $cat->slug,
-                                'serviceSlug'  => $defect->service->slug,
-                            ])
-                            : route('catalog.defect', [$cat->slug, $defect->slug]);
+                        $url = $defect->getUrl($brand, $model);
                     @endphp
                     <a href="{{ $url }}"
                        class="w-full max-w-[14rem] mx-auto flex flex-col items-center text-center bg-white border border-gray-200 rounded-2xl p-4
@@ -196,7 +186,7 @@
                 @foreach($initial as $defect)
                     @php
                         $isActive = $defect->slug === $activeSlug;
-                        $href = !$isActive && !empty($defect->resolved_url) ? $defect->resolved_url : null;
+                        $href = !$isActive ? $defect->getUrl($brand, $model) : null;
                     @endphp
 
                     @if($href)
@@ -236,7 +226,7 @@
                 @foreach($more as $defect)
                     @php
                         $isActive = $defect->slug === $activeSlug;
-                        $href = !$isActive && !empty($defect->resolved_url) ? $defect->resolved_url : null;
+                        $href = !$isActive ? $defect->getUrl($brand, $model) : null;
                     @endphp
 
                     @if($href)

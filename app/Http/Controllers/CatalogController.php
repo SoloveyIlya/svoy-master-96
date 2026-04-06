@@ -31,6 +31,30 @@ class CatalogController extends Controller
             })
             ->values();
     }
+    /**
+     * Формирует метку категории для хлебных крошек:
+     * если имя не начинается со слова «Ремонт» — добавляем его.
+     */
+    private function categoryLabel(Category $category): string
+    {
+        $overrides = [
+            'Телефоны' => 'Телефонов',
+            'Планшеты' => 'Планшетов',
+            'Ноутбуки' => 'Ноутбуков',
+            'Смарт-часы' => 'Смарт-часов',
+        ];
+        
+        $name = $category->name;
+        if (array_key_exists($name, $overrides)) {
+            $name = $overrides[$name];
+        }
+
+        if (!str_starts_with(mb_strtolower($name), 'ремонт')) {
+            return 'Ремонт ' . $name;
+        }
+        return $name;
+    }
+
     private function getGlobals()
     {
         return [
@@ -55,56 +79,7 @@ class CatalogController extends Controller
             ->get();
 
         foreach ($defects as $defect) {
-            $defect->resolved_url = null;
-
-            if ($defect->service_id && $defect->service) {
-                $serviceSlug = $defect->service->slug;
-
-                // Контекст модели → ищем LandingPage
-                if ($model && $brand) {
-                    $landing = LandingPage::where('model_id', $model->id)
-                        ->where('service_id', $defect->service_id)
-                        ->where('status', 'active')
-                        ->first();
-
-                    if ($landing) {
-                        $defect->resolved_url = route('catalog.landing', [
-                            $category->slug, $brand->slug, $model->slug, $serviceSlug,
-                        ]);
-                    }
-                } elseif ($brand) {
-                    // Контекст бренда → ищем ServiceScope по бренду
-                    $scope = ServiceScope::forBrand($brand->id)
-                        ->where('service_id', $defect->service_id)
-                        ->where('status', 'active')
-                        ->first();
-
-                    if ($scope) {
-                        $defect->resolved_url = route('catalog.service-scope-brand', [
-                            $category->slug, $brand->slug, $serviceSlug,
-                        ]);
-                    }
-                } elseif ($category) {
-                    // Контекст категории → ищем ServiceScope по категории
-                    $scope = ServiceScope::forCategory($category->id)
-                        ->where('service_id', $defect->service_id)
-                        ->where('status', 'active')
-                        ->first();
-
-                    if ($scope) {
-                        $defect->resolved_url = route('catalog.service-scope-category', [
-                            $category->slug, $serviceSlug,
-                        ]);
-                    }
-                }
-            }
-
-            if ($defect->resolved_url === null) {
-                $defect->resolved_url = route('catalog.defect', [
-                    $category->slug,
-                    $defect->slug,
-                ]);
-            }
+            $defect->resolved_url = $defect->getUrl($brand, $model);
         }
 
         return $defects;
@@ -146,7 +121,9 @@ class CatalogController extends Controller
 
         $defects = $this->resolveDefects($category);
 
-        return view('catalog.category', compact('category', 'brands', 'defects', 'reviews', 'cases', 'banners', 'priceRows'));
+        $categoryLabel = $this->categoryLabel($category);
+
+        return view('catalog.category', compact('category', 'brands', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'categoryLabel'));
     }
 
     // ─── Страница бренда (/remont-telefonov/apple) ───
@@ -171,21 +148,27 @@ class CatalogController extends Controller
 
         $priceRows = $services->map(function ($s) use ($category, $brand) {
             // 1. Ищем ServiceScope для этого БРЕНДА
-            $scope = ServiceScope::forBrand($brand->id)
+            $scopeBrand = ServiceScope::forBrand($brand->id)
                 ->where('service_id', $s->id)
                 ->where('status', 'active')
                 ->first();
 
             // 2. Если нет брендового — ищем для КАТЕГОРИИ
-            if (!$scope) {
-                $scope = ServiceScope::forCategory($category->id)
+            $scopeCategory = null;
+            if (!$scopeBrand) {
+                $scopeCategory = ServiceScope::forCategory($category->id)
                     ->where('service_id', $s->id)
                     ->where('status', 'active')
                     ->first();
             }
 
-            $url = route('catalog.service-scope-brand', [$category->slug, $brand->slug, $s->slug]);
-            $price = $scope && $scope->price_from ? $scope->price_from : $s->price_from;
+            // Создаем ссылку только если существует брендовый скоуп (посадочная)
+            $url = $scopeBrand ? route('catalog.service-scope-brand', [$category->slug, $brand->slug, $s->slug]) : null;
+            
+            // Если есть брендовый скоуп - берем его цену, если есть категорийный - его, иначе дефолт
+            $price = $scopeBrand && $scopeBrand->price_from 
+                ? $scopeBrand->price_from 
+                : ($scopeCategory && $scopeCategory->price_from ? $scopeCategory->price_from : $s->price_from);
 
             return [
                 'name'     => $s->name,
@@ -202,7 +185,9 @@ class CatalogController extends Controller
             ->where('category_id', $category->id)
             ->value('seo_bottom_text');
 
-        return view('catalog.brand', compact('category', 'brand', 'models', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'seoBottomText'));
+        $categoryLabel = $this->categoryLabel($category);
+
+        return view('catalog.brand', compact('category', 'brand', 'models', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'seoBottomText', 'categoryLabel'));
     }
 
     // ─── Страница модели (/remont-telefonov/apple/iphone-17) ───
@@ -232,7 +217,9 @@ class CatalogController extends Controller
 
         $defects = $this->resolveDefects($category, $brand, $model);
 
-        return view('catalog.model', compact('category', 'brand', 'model', 'landingPages', 'defects', 'reviews', 'cases', 'banners', 'priceRows'));
+        $categoryLabel = $this->categoryLabel($category);
+
+        return view('catalog.model', compact('category', 'brand', 'model', 'landingPages', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'categoryLabel'));
     }
 
     // ─── Посадочная страница (услуга+модель) ───
@@ -269,9 +256,11 @@ class CatalogController extends Controller
         $defects = $this->resolveDefects($category, $brand, $model);
         $activeSlug = $serviceSlug;
 
+        $categoryLabel = $this->categoryLabel($category);
+
         return view('catalog.landing', compact(
             'category', 'brand', 'model', 'service', 'landing', 'seo',
-            'defects', 'reviews', 'cases', 'banners', 'priceRows', 'activeSlug'
+            'defects', 'reviews', 'cases', 'banners', 'priceRows', 'activeSlug', 'categoryLabel'
         ));
     }
 
@@ -292,13 +281,13 @@ class CatalogController extends Controller
 
         // Если есть LandingPages для этой услуги в данной категории → показываем модели со ссылками
         $landings = LandingPage::where('service_id', $service->id)
-            ->whereHas('model', function($q) use ($category) {
+            ->whereHas('deviceModel', function($q) use ($category) {
                 $q->where('category_id', $category->id)->where('status', 'active');
-            })->with(['model', 'model.brand'])->get();
+            })->with(['deviceModel', 'deviceModel.brand'])->get();
 
         // Сортируем модели по номеру в названии
         $landings = $landings->sortByDesc(function ($l) {
-            if ($l->model && preg_match('/(\d+)/', $l->model->name, $m)) {
+            if ($l->deviceModel && preg_match('/(\d+)/', $l->deviceModel->name, $m)) {
                 return (int) $m[1];
             }
             return -INF;
@@ -306,17 +295,19 @@ class CatalogController extends Controller
 
         $priceRows = $landings->map(function ($l) use ($category, $service) {
             return [
-                'name'     => $l->model->name,
+                'name'     => $l->deviceModel->name,
                 'price'    => $service->price_from,
                 'duration' => $service->duration_text,
-                'url'      => route('catalog.landing', [$category->slug, $l->model->brand->slug, $l->model->slug, $service->slug]),
+                'url'      => route('catalog.landing', [$category->slug, $l->deviceModel->brand->slug, $l->deviceModel->slug, $service->slug]),
             ];
         })->toArray();
 
         $defects = $this->resolveDefects($category);
         $activeSlug = $serviceSlug;
 
-        return view('catalog.category-service', compact('category', 'service', 'scope', 'seo', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'activeSlug'));
+        $categoryLabel = $this->categoryLabel($category);
+
+        return view('catalog.category-service', compact('category', 'service', 'scope', 'seo', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'activeSlug', 'categoryLabel'));
     }
 
     // ─── ServiceScope: бренд + услуга (/remont-telefonov/apple/service/zamena-stekla) ───
@@ -324,27 +315,26 @@ class CatalogController extends Controller
     {
         $category = Category::where('slug', $categorySlug)->where('status', 'active')->firstOrFail();
         $brand = Brand::where('slug', $brandSlug)->where('status', 'active')->firstOrFail();
+        $service = Service::where('slug', $serviceSlug)->where('status', 'active')->firstOrFail();
 
         abort_unless(DeviceModel::where('category_id', $category->id)->where('brand_id', $brand->id)->where('status', 'active')->exists(), 404);
 
-        $scope = ServiceScope::forBrand($brand->id)->where('status', 'active')
-            ->whereHas('service', function ($q) use ($serviceSlug) {
-                $q->where('slug', $serviceSlug)->where('status', 'active');
-            })->with('service')->firstOrFail();
-
-        $service = $scope->service;
+        $scope = ServiceScope::where('scope_type', 'brand')
+            ->where('scope_id', $brand->id)
+            ->where('service_id', $service->id)
+            ->firstOrFail();
         $seo = $scope->getSeoData();
 
         extract($this->getGlobals());
 
         $landings = LandingPage::where('service_id', $service->id)
-            ->whereHas('model', function($q) use ($category, $brand) {
+            ->whereHas('deviceModel', function($q) use ($category, $brand) {
                 $q->where('category_id', $category->id)->where('brand_id', $brand->id)->where('status', 'active');
-            })->with('model')->get();
+            })->with('deviceModel')->get();
 
         // Сортируем модели по номеру в названии
         $landings = $landings->sortByDesc(function ($l) {
-            if ($l->model && preg_match('/(\d+)/', $l->model->name, $m)) {
+            if ($l->deviceModel && preg_match('/(\d+)/', $l->deviceModel->name, $m)) {
                 return (int) $m[1];
             }
             return -INF;
@@ -352,17 +342,19 @@ class CatalogController extends Controller
 
         $priceRows = $landings->map(function ($l) use ($category, $brand, $service) {
             return [
-                'name'     => $l->model->name,
+                'name'     => $l->deviceModel->name,
                 'price'    => $service->price_from,
                 'duration' => $service->duration_text,
-                'url'      => route('catalog.landing', [$category->slug, $brand->slug, $l->model->slug, $service->slug]),
+                'url'      => route('catalog.landing', [$category->slug, $brand->slug, $l->deviceModel->slug, $service->slug]),
             ];
         })->toArray();
 
         $defects = $this->resolveDefects($category, $brand);
         $activeSlug = $serviceSlug;
 
-        return view('catalog.brand-service', compact('category', 'brand', 'service', 'scope', 'seo', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'activeSlug'));
+        $categoryLabel = $this->categoryLabel($category);
+
+        return view('catalog.brand-service', compact('category', 'brand', 'service', 'scope', 'seo', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'activeSlug', 'categoryLabel'));
     }
     // ─── Страница поломки (/remont-telefonov/polomka/ne-vklyuchaetsya) ───
     public function defect(string $categorySlug, string $defectSlug)
@@ -405,6 +397,8 @@ class CatalogController extends Controller
         $defects = $this->resolveDefects($category);
         $activeSlug = $defectSlug;
 
-        return view('catalog.defect', compact('category', 'defect', 'brands', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'activeSlug'));
+        $categoryLabel = $this->categoryLabel($category);
+
+        return view('catalog.defect', compact('category', 'defect', 'brands', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'activeSlug', 'categoryLabel'));
     }
 }

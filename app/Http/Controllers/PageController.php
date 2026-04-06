@@ -96,4 +96,23 @@ class PageController extends Controller
 
         return view('pages.reviews', compact('reviews'));
     }
+
+    public function akcii()
+    {
+        $banners = \App\Models\Banner::where('is_active', true)
+            ->orderBy('sort_order')
+            ->get();
+
+        return view('pages.akcii', compact('banners'));
+    }
+
+    public function garantiya()
+    {
+        return view('pages.garantiya');
+    }
+
+    public function faq()
+    {
+        return view('pages.faq');
+    }
 }

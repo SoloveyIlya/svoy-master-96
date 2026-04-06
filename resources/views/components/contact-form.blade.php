@@ -1,6 +1,6 @@
 @props(['title' => 'Контакты'])
 
-<section class="max-w-[87.5rem] mx-auto px-4 pb-20 mt-10">
+<section id="callback-form" class="max-w-[87.5rem] mx-auto px-4 pb-20 mt-10">
     <div class="bg-[#0678A8] rounded-[2rem] p-5 sm:p-8 md:p-12 text-white grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center relative overflow-hidden shadow-xl">
         <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay z-0"></div>
         

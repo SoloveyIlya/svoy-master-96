@@ -38,9 +38,10 @@
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @stack('styles')
     <style>
-        html { -webkit-text-size-adjust: 100%; }
+        html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
         /* FIX FOR BUTTON CURSORS GLOBAL */
         button, .js-open-modal, .slider-dot, .faq-btn, a, .brand-tab {
             cursor: pointer !important;
@@ -113,6 +114,55 @@
                     </div>
                 </li>
             @endif
+
+        {{-- ═══ Дополнительные пункты меню ═══ --}}
+
+        {{-- Цены --}}
+        <li class="flex items-center">
+            <a href="{{ route('prices') }}" class="text-white/90 hover:text-[#2AC0D5] transition font-medium">Цены</a>
+        </li>
+
+        {{-- О компании (dropdown) --}}
+        <li class="nav__item--has-dropdown flex items-center group static">
+            <a href="{{ route('about') }}" class="text-white/90 hover:text-[#2AC0D5] transition font-medium">О компании</a>
+            <button type="button" class="js-mega-menu-trigger ml-1 px-1 h-full py-2 -my-2 text-white/50 hover:text-white transition" data-target="mega-menu-about">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+
+            {{-- Dropdown О компании --}}
+            <div id="mega-menu-about" class="header-mega-menu absolute top-full left-0 w-full bg-gray-50 border-t-4 border-[#2AC0D5] shadow-2xl transition-all duration-300 opacity-0 invisible z-50 text-gray-800 text-left whitespace-normal cursor-default">
+                <div class="max-w-[87.5rem] mx-auto px-4 py-8">
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                        <div>
+                            <a href="{{ route('about') }}" class="font-bold text-[#0678A8] hover:text-[#2AC0D5] transition block py-1">О компании</a>
+                            <p class="text-sm text-gray-500 mt-1">Наша история, команда и принципы работы</p>
+                        </div>
+                        <div>
+                            <a href="{{ route('reviews') }}" class="font-bold text-[#0678A8] hover:text-[#2AC0D5] transition block py-1">Отзывы</a>
+                            <p class="text-sm text-gray-500 mt-1">Что говорят наши клиенты</p>
+                        </div>
+                        <div>
+                            <a href="{{ route('akcii') }}" class="font-bold text-[#0678A8] hover:text-[#2AC0D5] transition block py-1">Акции</a>
+                            <p class="text-sm text-gray-500 mt-1">Скидки и специальные предложения</p>
+                        </div>
+                        <div>
+                            <a href="{{ route('garantiya') }}" class="font-bold text-[#0678A8] hover:text-[#2AC0D5] transition block py-1">Гарантия</a>
+                            <p class="text-sm text-gray-500 mt-1">Условия гарантии на ремонт</p>
+                        </div>
+                        <div>
+                            <a href="{{ route('faq') }}" class="font-bold text-[#0678A8] hover:text-[#2AC0D5] transition block py-1">Вопрос-ответ</a>
+                            <p class="text-sm text-gray-500 mt-1">Ответы на частые вопросы</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        {{-- Контакты --}}
+        <li class="flex items-center">
+            <a href="{{ route('contacts') }}" class="text-white/90 hover:text-[#2AC0D5] transition font-medium">Контакты</a>
+        </li>
+
         </ul>
     </nav>
     </div>

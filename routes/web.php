@@ -23,24 +23,22 @@ Route::get('/polomki/{slug}', [DefectController::class, 'legacyShow'])->name('de
 // Маршрут цен
 Route::get('/ceny', [App\Http\Controllers\PriceController::class, 'index'])->name('prices');
 
-// Маршруты со словом "/service/" размещены выше динамических брендов/моделей
-Route::get('/{categorySlug}/polomka/{defectSlug}', [CatalogController::class, 'defect'])
-    ->name('catalog.defect');
+// Статические страницы (должны быть ВЫШЕ динамического /{categorySlug})
+Route::get('/akcii', [PageController::class, 'akcii'])->name('akcii');
+Route::get('/garantiya', [PageController::class, 'garantiya'])->name('garantiya');
+Route::get('/voprosy', [PageController::class, 'faq'])->name('faq');
 
-Route::get('/{categorySlug}/service/{serviceSlug}', [CatalogController::class, 'serviceScopeCategory'])
-    ->name('catalog.service-scope-category');
+// 1. Срезы услуг внутри бренда и категории (СТАТИЧЕСКИЙ СЕГМЕНТ "service")
+Route::get('/{categorySlug}/{brandSlug}/service/{serviceSlug}', [CatalogController::class, 'serviceScopeBrand'])->name('catalog.service-scope-brand');
+Route::get('/{categorySlug}/service/{serviceSlug}', [CatalogController::class, 'serviceScopeCategory'])->name('catalog.service-scope-category');
 
-Route::get('/{categorySlug}/{brandSlug}/service/{serviceSlug}', [CatalogController::class, 'serviceScopeBrand'])
-    ->name('catalog.service-scope-brand');
+// 2. Страницы поломок (СТАТИЧЕСКИЙ СЕГМЕНТ "polomka")
+Route::get('/{categorySlug}/polomka/{defectSlug}', [CatalogController::class, 'defect'])->name('catalog.defect');
 
-Route::get('/{categorySlug}/{brandSlug}/{modelSlug}/{serviceSlug}', [CatalogController::class, 'landing'])
-    ->name('catalog.landing');
+// 3. Конечная посадочная страница (Модель + Услуга)
+Route::get('/{categorySlug}/{brandSlug}/{modelSlug}/{serviceSlug}', [CatalogController::class, 'landing'])->name('catalog.landing');
 
-Route::get('/{categorySlug}/{brandSlug}/{modelSlug}', [CatalogController::class, 'model'])
-    ->name('catalog.model');
-
-Route::get('/{categorySlug}/{brandSlug}', [CatalogController::class, 'brand'])
-    ->name('catalog.brand');
-
-Route::get('/{categorySlug}', [CatalogController::class, 'category'])
-    ->name('catalog.category');
+// 4. Динамические страницы каталога (ОБЩИЕ РОУТЫ)
+Route::get('/{categorySlug}/{brandSlug}/{modelSlug}', [CatalogController::class, 'model'])->name('catalog.model');
+Route::get('/{categorySlug}/{brandSlug}', [CatalogController::class, 'brand'])->name('catalog.brand');
+Route::get('/{categorySlug}', [CatalogController::class, 'category'])->name('catalog.category');

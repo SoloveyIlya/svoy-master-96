@@ -34,6 +34,9 @@
             <ul class="space-y-2 text-sm text-gray-600">
                 <li><a href="{{ route('about') }}" class="hover:text-[#2AC0D5] transition">О компании</a></li>
                 <li><a href="{{ route('reviews') }}" class="hover:text-[#2AC0D5] transition">Отзывы</a></li>
+                <li><a href="{{ route('akcii') }}" class="hover:text-[#2AC0D5] transition">Акции</a></li>
+                <li><a href="{{ route('garantiya') }}" class="hover:text-[#2AC0D5] transition">Гарантия</a></li>
+                <li><a href="{{ route('faq') }}" class="hover:text-[#2AC0D5] transition">Вопрос-ответ</a></li>
                 <li><a href="{{ route('contacts') }}" class="hover:text-[#2AC0D5] transition">Контакты</a></li>
                 <li><a href="{{ route('privacy') }}" target="_blank" rel="noopener noreferrer" class="hover:text-[#2AC0D5] transition">Политика конфиденциальности</a></li>
             </ul>

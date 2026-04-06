@@ -17,7 +17,7 @@
 
 @section('content')
     <x-breadcrumbs :links="[
-        route('catalog.category', [$category->slug]) => 'Ремонт ' . $category->name,
+        route('catalog.category', [$category->slug]) => $categoryLabel,
         route('catalog.brand', [$category->slug, $brand->slug]) => $brand->name,
         route('catalog.model', [$category->slug, $brand->slug, $model->slug]) => $model->name,
         '' => $service->name
@@ -27,7 +27,7 @@
         :title="$seo['h1'] ?? ($service->name . ' на ' . $model->name)"
         subtitle="Профессиональный ремонт в Екатеринбурге с гарантией до 1 года. Используем оригинальные запчасти."
         :price="$landing->resolvedPriceFrom()"
-        :duration="$service->duration_text"
+        :duration="$landing->resolvedDurationText()"
     />
 
     @if(!empty($seo['intro']))
@@ -42,9 +42,10 @@
     
     <x-price-table :rows="$priceRows" :activeSlug="$activeSlug" />
 
-    <x-advantages-block />
+    {{-- ЗАДАЧА 2: сначала поломки, потом преимущества --}}
+    <x-defects-block :defects="$defects" :brand="$brand" :model="$model" />
 
-    <x-defects-block :defects="$defects" />
+    <x-advantages-block />
 
     @if(!empty($seo['body']))
         <section class="max-w-5xl mx-auto px-4 sm:px-6 my-16 prose-content">
@@ -53,6 +54,9 @@
     @endif
 
     <x-workflow-block />
+
+    {{-- Акции перед отзывами --}}
+    <x-promo-banner :banners="$banners ?? collect()" />
 
     <x-reviews-block :reviews="$reviews" />
 
@@ -79,7 +83,4 @@
          </section>
     @endif
 
-    <div class="mb-12">
-        <x-banners-slider :banners="$banners ?? collect()" />
-    </div>
 @endsection

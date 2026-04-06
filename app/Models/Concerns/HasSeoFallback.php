@@ -65,11 +65,22 @@ trait HasSeoFallback
 
     public function resolvedPriceFrom(): ?string
     {
+        $overriden = null;
         if (array_key_exists('price_from', $this->getAttributes())) {
-            return $this->price_from ?? $this->service?->price_from;
+            $overriden = $this->price_from;
         }
 
-        return $this->service?->price_from;
+        return (string) ($overriden ?? $this->service?->price_from ?? '');
+    }
+
+    public function resolvedDurationText(): ?string
+    {
+        $overriden = null;
+        if (array_key_exists('duration_text', $this->getAttributes())) {
+            $overriden = $this->duration_text;
+        }
+
+        return (string) ($overriden ?? $this->service?->duration_text ?? '');
     }
 
     public function resolvedCanonicalUrl(): ?string
