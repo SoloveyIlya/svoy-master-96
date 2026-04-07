@@ -66,11 +66,7 @@
             <div class="flex items-start gap-2 border-l border-gray-200 pl-8">
                 <svg class="w-5 h-5 text-[#0678A8] mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                 <div class="flex flex-col">
-                    <a href="#callback-form" class="font-medium hover:text-[#2AC0D5] transition whitespace-nowrap scroll-smooth">г. Екатеринбург</a>
-                    <div class="flex gap-3 mt-0.5">
-                        <a href="{{ route('about') }}" class="text-xs text-gray-500 hover:text-[#0678A8] transition whitespace-nowrap">О компании</a>
-                        <a href="{{ route('contacts') }}" class="text-xs text-gray-500 hover:text-[#0678A8] transition whitespace-nowrap">Контакты</a>
-                    </div>
+                    <a href="{{ route('contacts') }}#contacts-branches" class="font-medium hover:text-[#2AC0D5] transition whitespace-nowrap">г. Екатеринбург</a>
                 </div>
             </div>
 
@@ -138,52 +134,60 @@
                 </button>
             </div>
 
-            <!-- Дальше идет ваш стандартный код меню... -->
             <div class="mb-8 space-y-4">
-                {{-- Category 1 --}}
+                @if(isset($mainCategories))
+                    @foreach($mainCategories as $category)
+                        <div class="mobile-nav__group border-b border-gray-100 pb-2">
+                            <div class="mobile-nav__header flex items-center justify-between cursor-pointer py-2">
+                                <span class="text-lg font-semibold text-[#1A1A1A]">{{ str_replace('Ремонт ', '', $category->name) }}</span>
+                                <svg class="w-5 h-5 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                            <div class="mobile-nav__content hidden pt-2 pb-4 space-y-2 pl-4">
+                                <a href="{{ route('catalog.category', $category->slug) }}" class="block text-[#0678A8] font-medium">Все услуги категории &rarr;</a>
+                                @if($category->navBrands && $category->navBrands->count() > 0)
+                                    @foreach($category->navBrands->take(6) as $brand)
+                                        <a href="{{ route('catalog.brand', [$category->slug, $brand->slug]) }}" class="block text-gray-600 hover:text-[#0678A8]">{{ $brand->name }}</a>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+
+                @if(isset($otherCategories) && $otherCategories->count() > 0)
+                    <div class="mobile-nav__group border-b border-gray-100 pb-2">
+                        <div class="mobile-nav__header flex items-center justify-between cursor-pointer py-2">
+                            <span class="text-lg font-semibold text-[#1A1A1A]">Другие устройства</span>
+                            <svg class="w-5 h-5 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                        <div class="mobile-nav__content hidden pt-2 pb-4 space-y-2 pl-4">
+                            @foreach($otherCategories as $otherCat)
+                                <a href="{{ route('catalog.category', $otherCat->slug) }}" class="block text-gray-600 hover:text-[#0678A8]">{{ $otherCat->name }}</a>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+                <div class="mobile-nav__group border-b border-gray-100 pb-2">
+                    <a href="{{ route('prices') }}" class="block py-2 text-lg font-semibold text-[#1A1A1A]">Цены</a>
+                </div>
+
                 <div class="mobile-nav__group border-b border-gray-100 pb-2">
                     <div class="mobile-nav__header flex items-center justify-between cursor-pointer py-2">
-                        <span class="text-lg font-semibold text-[#1A1A1A]">Ремонт телефонов</span>
+                        <span class="text-lg font-semibold text-[#1A1A1A]">О компании</span>
                         <svg class="w-5 h-5 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                     <div class="mobile-nav__content hidden pt-2 pb-4 space-y-2 pl-4">
-                        <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'apple']) }}" class="block text-gray-600 hover:text-[#0678A8]">Apple</a>
-                        <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'samsung']) }}" class="block text-gray-600 hover:text-[#0678A8]">Samsung</a>
-                        <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'xiaomi']) }}" class="block text-gray-600 hover:text-[#0678A8]">Xiaomi</a>
-                        <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'honor']) }}" class="block text-gray-600 hover:text-[#0678A8]">Honor</a>
-                        <a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="block text-[#0678A8] font-medium pt-2">Все бренды &rarr;</a>
+                        <a href="{{ route('about') }}" class="block text-gray-600 hover:text-[#0678A8]">О компании</a>
+                        <a href="{{ route('reviews') }}" class="block text-gray-600 hover:text-[#0678A8]">Отзывы</a>
+                        <a href="{{ route('akcii') }}" class="block text-gray-600 hover:text-[#0678A8]">Акции</a>
+                        <a href="{{ route('garantiya') }}" class="block text-gray-600 hover:text-[#0678A8]">Гарантия</a>
+                        <a href="{{ route('faq') }}" class="block text-gray-600 hover:text-[#0678A8]">Вопрос-ответ</a>
                     </div>
                 </div>
 
-                {{-- Category 2 --}}
                 <div class="mobile-nav__group border-b border-gray-100 pb-2">
-                    <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'apple']) }}" class="block py-2 text-lg font-semibold text-[#1A1A1A]">Ремонт Apple</a>
-                </div>
-
-                {{-- Category 3 --}}
-                <div class="mobile-nav__group border-b border-gray-100 pb-2">
-                    <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'samsung']) }}" class="block py-2 text-lg font-semibold text-[#1A1A1A]">Ремонт Samsung</a>
-                </div>
-
-                {{-- Category 4 --}}
-                <div class="mobile-nav__group border-b border-gray-100 pb-2">
-                    <div class="mobile-nav__header flex items-center justify-between cursor-pointer py-2">
-                        <span class="text-lg font-semibold text-[#1A1A1A]">Ремонт ноутбуков</span>
-                        <svg class="w-5 h-5 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </div>
-                    <div class="mobile-nav__content hidden pt-2 pb-4 space-y-2 pl-4">
-                        <a href="/" class="block text-gray-600 hover:text-[#0678A8]">Apple MacBook</a>
-                        <a href="/" class="block text-gray-600 hover:text-[#0678A8]">Asus</a>
-                        <a href="/" class="block text-gray-600 hover:text-[#0678A8]">Acer</a>
-                        <a href="/" class="block text-gray-600 hover:text-[#0678A8]">Lenovo</a>
-                        <a href="/" class="block text-gray-600 hover:text-[#0678A8]">HP</a>
-                        <a href="{{ route('catalog.category', ['categorySlug' => 'remont-noutbukov']) }}" class="block text-[#0678A8] font-medium pt-2">Все бренды &rarr;</a>
-                    </div>
-                </div>
-
-                {{-- Category 5 --}}
-                <div class="mobile-nav__group border-b border-gray-100 pb-2">
-                    <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => 'xiaomi']) }}" class="block py-2 text-lg font-semibold text-[#1A1A1A]">Ремонт Xiaomi</a>
+                    <a href="{{ route('contacts') }}" class="block py-2 text-lg font-semibold text-[#1A1A1A]">Контакты</a>
                 </div>
             </div>
 

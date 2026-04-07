@@ -1,7 +1,7 @@
 @props(['reviews', 'title' => 'Отзывы наших клиентов', 'isWhite' => false])
 
 @if($reviews && $reviews->count() > 0)
-<section class="max-w-[87.5rem] mx-auto px-4 py-16 {{ $isWhite ? 'bg-white' : 'bg-gray-50 rounded-[2rem]' }} mb-16">
+<section class="max-w-[87.5rem] mx-auto px-4 py-16 {{ $isWhite ? 'bg-white' : 'bg-gray-50 rounded-[2rem]' }}">
     @if($title)
         <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-10 text-[#1A1A1A]">{{ $title }}</h2>
     @endif

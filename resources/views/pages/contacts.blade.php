@@ -14,7 +14,7 @@
         subtitle="Мы всегда на связи. Приезжайте в наш сервисный центр или закажите выезд мастера."
     />
 
-    <section class="max-w-[87.5rem] mx-auto px-4 py-12">
+    <section id="contacts-branches" class="max-w-[87.5rem] mx-auto px-4 py-12 scroll-mt-32">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
             <div class="space-y-6">
                 <h2 class="text-2xl font-bold text-[#1A1A1A]">Наши филиалы</h2>

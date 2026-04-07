@@ -53,7 +53,7 @@
     <div class="sticky top-0 z-50 shadow-md">
     <x-header />
 <nav class="hidden lg:block w-full bg-[#0678A8] text-white shadow-md relative z-20 overflow-visible">
-    <ul class="w-max min-w-full mx-auto px-4 flex items-center justify-start sm:justify-center lg:justify-evenly gap-5 lg:gap-8 py-3.5 text-sm font-medium whitespace-nowrap">
+    <ul class="max-w-[87.5rem] w-full mx-auto px-4 flex items-center justify-between gap-3 xl:gap-5 py-3.5 text-sm font-medium whitespace-nowrap">
         @if(isset($mainCategories))
             @foreach($mainCategories as $category)
                     <li class="nav__item--has-dropdown flex items-center group static">

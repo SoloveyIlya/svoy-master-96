@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
             return Limit::perMinutes(10, 3)->by($request->ip());
         });
 
-        View::composer('layouts.app', function ($view) {
+        View::composer(['layouts.app', 'components.header'], function ($view) {
             $navData = \Illuminate\Support\Facades\Cache::remember('nav_data', 3600, function () {
                 $mainSlugs = ['remont-telefonov', 'remont-planshetov', 'remont-noutbukov', 'remont-smart-chasov'];
                 
