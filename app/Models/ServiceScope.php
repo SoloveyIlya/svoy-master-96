@@ -11,6 +11,10 @@ class ServiceScope extends Model
 {
     use HasFactory, HasSeoFallback;
 
+    protected $fillable = [
+        'seo_bottom_text',
+    ];
+
     protected $guarded = [];
 
     protected $attributes = [

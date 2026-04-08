@@ -304,10 +304,11 @@ class CatalogController extends Controller
 
         $defects = $this->resolveDefects($category);
         $activeSlug = $serviceSlug;
+        $h1 = $service->name . ' на ' . ($category->name_prepositional ?? $category->name);
 
         $categoryLabel = $this->categoryLabel($category);
 
-        return view('catalog.category-service', compact('category', 'service', 'scope', 'seo', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'activeSlug', 'categoryLabel'));
+        return view('catalog.category-service', compact('category', 'service', 'scope', 'seo', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'activeSlug', 'categoryLabel', 'h1'));
     }
 
     // ─── ServiceScope: бренд + услуга (/remont-telefonov/apple/service/zamena-stekla) ───
@@ -351,10 +352,11 @@ class CatalogController extends Controller
 
         $defects = $this->resolveDefects($category, $brand);
         $activeSlug = $serviceSlug;
+        $h1 = $service->name . ' на ' . ($category->name_prepositional ?? $category->name);
 
         $categoryLabel = $this->categoryLabel($category);
 
-        return view('catalog.brand-service', compact('category', 'brand', 'service', 'scope', 'seo', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'activeSlug', 'categoryLabel'));
+        return view('catalog.brand-service', compact('category', 'brand', 'service', 'scope', 'seo', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'activeSlug', 'categoryLabel', 'h1'));
     }
     // ─── Страница поломки (/remont-telefonov/polomka/ne-vklyuchaetsya) ───
     public function defect(string $categorySlug, string $defectSlug)

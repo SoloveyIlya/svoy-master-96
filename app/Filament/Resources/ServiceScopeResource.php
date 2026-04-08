@@ -88,6 +88,9 @@ class ServiceScopeResource extends Resource
                     Forms\Components\TextInput::make('seo_h1')
                         ->label('H1')
                         ->maxLength(255),
+                    Forms\Components\RichEditor::make('seo_bottom_text')
+                        ->label('SEO Текст (внизу страницы)')
+                        ->columnSpanFull(),
                     Forms\Components\TextInput::make('canonical_url')
                         ->label('Canonical URL')
                         ->url()

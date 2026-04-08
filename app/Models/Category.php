@@ -11,6 +11,10 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name_prepositional',
+    ];
+
     protected $guarded = [];
 
     protected $attributes = [
