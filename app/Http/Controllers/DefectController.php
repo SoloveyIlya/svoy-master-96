@@ -49,12 +49,24 @@ class DefectController extends Controller
             ->where('is_active', true)
             ->get();
 
-        if ($defects->count() === 1) {
-            $d = $defects->first();
-
-            return redirect()->route('catalog.defect', [$d->category->slug, $d->slug], 301);
+        if ($defects->isEmpty()) {
+            abort(404);
         }
 
-        abort(404);
+        if ($defects->count() === 1) {
+            $d = $defects->first();
+        } else {
+            $priority = ['remont-telefonov', 'remont-planshetov', 'remont-noutbukov', 'remont-smart-chasov'];
+            $d = null;
+            foreach ($priority as $categorySlug) {
+                $d = $defects->first(fn (Defect $def) => $def->category->slug === $categorySlug);
+                if ($d) {
+                    break;
+                }
+            }
+            $d = $d ?? $defects->first();
+        }
+
+        return redirect()->route('catalog.defect', [$d->category->slug, $d->slug], 301);
     }
 }

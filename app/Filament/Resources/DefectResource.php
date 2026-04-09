@@ -41,6 +41,9 @@ class DefectResource extends Resource
                 ->label('Описание')
                 ->required()
                 ->maxLength(255),
+            Forms\Components\RichEditor::make('seo_bottom_text')
+                ->label('SEO Текст (внизу страницы)')
+                ->columnSpanFull(),
             Forms\Components\Select::make('service_id')
                 ->label('Привязанная услуга')
                 ->relationship('service', 'name')

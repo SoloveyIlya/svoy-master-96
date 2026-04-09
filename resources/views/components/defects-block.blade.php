@@ -66,7 +66,7 @@
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
                 @foreach($initial as $defect)
                     @php
-                        $url = $defect->getUrl($brand, $model);
+                        $url = route('catalog.defect', ['categorySlug' => $defect->category->slug ?? $cat->slug, 'defectSlug' => $defect->slug]);
                     @endphp
                     <a href="{{ $url }}"
                        class="w-full max-w-[14rem] mx-auto flex flex-col items-center text-center bg-white border border-gray-200 rounded-2xl p-4
@@ -98,7 +98,7 @@
             <div class="hidden defect-extra-cards grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 mt-4">
                 @foreach($more as $defect)
                     @php
-                        $url = $defect->getUrl($brand, $model);
+                        $url = route('catalog.defect', ['categorySlug' => $defect->category->slug ?? $cat->slug, 'defectSlug' => $defect->slug]);
                     @endphp
                     <a href="{{ $url }}"
                        class="w-full max-w-[14rem] mx-auto flex flex-col items-center text-center bg-white border border-gray-200 rounded-2xl p-4
@@ -186,7 +186,9 @@
                 @foreach($initial as $defect)
                     @php
                         $isActive = $defect->slug === $activeSlug;
-                        $href = !$isActive ? $defect->getUrl($brand, $model) : null;
+                        $href = !$isActive
+                            ? route('catalog.defect', ['categorySlug' => $defect->category->slug ?? request()->route('categorySlug'), 'defectSlug' => $defect->slug])
+                            : null;
                     @endphp
 
                     @if($href)
@@ -226,7 +228,9 @@
                 @foreach($more as $defect)
                     @php
                         $isActive = $defect->slug === $activeSlug;
-                        $href = !$isActive ? $defect->getUrl($brand, $model) : null;
+                        $href = !$isActive
+                            ? route('catalog.defect', ['categorySlug' => $defect->category->slug ?? request()->route('categorySlug'), 'defectSlug' => $defect->slug])
+                            : null;
                     @endphp
 
                     @if($href)

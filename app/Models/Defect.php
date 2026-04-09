@@ -14,6 +14,10 @@ class Defect extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'seo_bottom_text',
+    ];
+
     protected $guarded = [];
 
     protected $attributes = [

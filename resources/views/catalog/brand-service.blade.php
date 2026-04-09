@@ -35,7 +35,7 @@
 
     <x-reviews-block :reviews="$reviews" />
 
-    @if(!empty($scope->seo_bottom_text))
+    @if(!empty($seoBottomText))
         <div class="max-w-4xl mx-auto px-4 py-12">
             <div
                 x-data="seoSpoiler()"
@@ -56,7 +56,7 @@
                         transition-all duration-500
                     "
                 >
-                    {!! $scope->seo_bottom_text !!}
+                    {!! $seoBottomText !!}
                 </div>
 
                 <div

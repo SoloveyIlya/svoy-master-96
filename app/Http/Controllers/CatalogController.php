@@ -326,6 +326,14 @@ class CatalogController extends Controller
             ->firstOrFail();
         $seo = $scope->getSeoData();
 
+        // Нижний SEO-текст: если у среза «бренд» пусто — берём с категории (как на /remont-telefonov/service/…).
+        $seoBottomText = blank($scope->seo_bottom_text)
+            ? ServiceScope::forCategory($category->id)
+                ->where('service_id', $service->id)
+                ->where('status', 'active')
+                ->value('seo_bottom_text')
+            : $scope->seo_bottom_text;
+
         extract($this->getGlobals());
 
         $landings = LandingPage::where('service_id', $service->id)
@@ -356,7 +364,7 @@ class CatalogController extends Controller
 
         $categoryLabel = $this->categoryLabel($category);
 
-        return view('catalog.brand-service', compact('category', 'brand', 'service', 'scope', 'seo', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'activeSlug', 'categoryLabel', 'h1'));
+        return view('catalog.brand-service', compact('category', 'brand', 'service', 'scope', 'seo', 'seoBottomText', 'defects', 'reviews', 'cases', 'banners', 'priceRows', 'activeSlug', 'categoryLabel', 'h1'));
     }
     // ─── Страница поломки (/remont-telefonov/polomka/ne-vklyuchaetsya) ───
     public function defect(string $categorySlug, string $defectSlug)
