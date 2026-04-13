@@ -67,6 +67,6 @@ class DefectController extends Controller
             $d = $d ?? $defects->first();
         }
 
-        return redirect()->route('catalog.defect', [$d->category->slug, $d->slug], 301);
+        return redirect()->route('catalog.resolve', [$d->category->slug, $d->slug], 301);
     }
 }

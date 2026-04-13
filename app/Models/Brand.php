@@ -42,6 +42,11 @@ class Brand extends Model
             ->where('scope_type', 'brand');
     }
 
+    public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, 'brand_category');
+    }
+
     public function seoTexts(): HasMany
     {
         return $this->hasMany(BrandCategorySeoText::class);

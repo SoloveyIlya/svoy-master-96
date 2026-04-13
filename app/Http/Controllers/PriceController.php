@@ -50,7 +50,7 @@ class PriceController extends Controller
                     'price'    => $scope && $scope->price_from ? $scope->price_from : $s->price_from,
                     'duration' => $s->duration_text,
                     'slug'     => $s->slug,
-                    'url'      => route('catalog.service-scope-category', [$cat->slug, $s->slug]),
+                    'url'      => url('/' . $cat->slug . '/' . $s->slug),
                 ];
             })->toArray();
         }

@@ -20,7 +20,7 @@
             <h2 class="text-3xl font-bold mb-6 text-center">Выберите бренд</h2>
             <div class="flex flex-wrap justify-center gap-4">
                 @foreach($brands as $b)
-                    <a href="{{ route('catalog.brand', [$category->slug, $b->slug]) }}" 
+                    <a href="{{ route('catalog.resolve', [$category->slug, $b->slug]) }}" 
                        class="w-36 sm:w-40 md:w-48 flex flex-col items-center justify-center gap-4 border border-gray-100 rounded-2xl p-6 text-center hover:shadow-lg hover:border-[#2AC0D5] transition-all bg-white group">
                         <div class="h-12 w-full flex items-center justify-center">
                             <img src="{{ asset('images/brands/' . $b->slug . '.png') }}" 

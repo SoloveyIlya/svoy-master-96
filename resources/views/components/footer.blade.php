@@ -75,7 +75,7 @@
     </div>
 
     <div class="max-w-[87.5rem] mx-auto px-4 text-xs text-gray-400 flex flex-col md:flex-row justify-between pt-4 border-t border-gray-100">
-        <p>© 2024 Свой Мастер. Все права защищены.</p>
+        <p>© 2026 Свой Мастер. Все права защищены.</p>
         <p>ИП Егоров Олег Валерьевич ИНН 661403702400</p>
     </div>
 </footer>

@@ -149,12 +149,12 @@
                     <div id="models-{{ $brand->slug }}" class="models-grid {{ $index === 0 ? '' : 'hidden' }}">
                         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-4">
                             @foreach($brand->models as $model)
-                                <a href="{{ route('catalog.landing', ['categorySlug' => 'remont-telefonov', 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug, 'serviceSlug' => 'zamena-stekla']) }}" class="text-sm text-white/90 hover:text-white hover:underline transition">
+                                <a href="{{ route('catalog.model', ['categorySlug' => 'remont-telefonov', 'brandSlug' => $brand->slug, 'modelSlug' => $model->slug]) }}" class="text-sm text-white/90 hover:text-white hover:underline transition">
                                     {{ $model->name }}
                                 </a>
                             @endforeach
                         </div>
-                        <a href="{{ route('catalog.brand', ['categorySlug' => 'remont-telefonov', 'brandSlug' => $brand->slug]) }}"
+                        <a href="{{ route('catalog.resolve', ['categorySlug' => 'remont-telefonov', 'slug' => $brand->slug]) }}"
                             class="inline-flex items-center gap-1 text-sm text-white/70 hover:text-white border border-white/30 hover:border-white rounded-full px-4 py-1.5 transition mt-1">
                             Другая модель →
                         </a>
@@ -206,7 +206,7 @@
                 @php
                     $categorySlug = $brand->models->first()->category->slug ?? 'remont-telefonov';
                 @endphp
-                <a href="{{ route('catalog.brand', ['categorySlug' => $categorySlug, 'brandSlug' => $brand->slug]) }}" 
+                <a href="{{ route('catalog.resolve', ['categorySlug' => $categorySlug, 'slug' => $brand->slug]) }}" 
                    class="hover:scale-110 transition-transform block"
                    title="{{ $brand->name }}">
                     <img src="{{ asset('images/brands/' . $brand->slug . '.png') }}" 

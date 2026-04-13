@@ -65,27 +65,38 @@
                         </button>
                         
                         {{-- Mega Menu --}}
-                        <div id="mega-menu-{{ $category->id }}" class="header-mega-menu absolute top-full left-0 w-full bg-gray-50 border-t-4 border-[#2AC0D5] shadow-2xl transition-all duration-300 opacity-0 invisible z-50 text-gray-800 text-left whitespace-normal cursor-default">
+                        <div id="mega-menu-{{ $category->id }}" class="header-mega-menu absolute top-full left-0 w-full bg-gray-50 border-t-4 border-[#2AC0D5] shadow-2xl transition-all duration-300 opacity-0 invisible z-50 text-gray-800 text-left whitespace-normal cursor-default max-h-[80vh] overflow-y-auto custom-scrollbar overscroll-contain">
                             <div class="max-w-[87.5rem] mx-auto px-4 py-8">
                                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                                    @if($category->navBrands && $category->navBrands->count() > 0)
-                                        @foreach($category->navBrands as $brand)
-                                            <div>
-                                                <a href="{{ route('catalog.brand', [$category->slug, $brand->slug]) }}" class="font-bold mb-3 text-[#0678A8] block hover:text-[#2AC0D5] transition">{{ $brand->name }}</a>
-                                                <ul class="space-y-2 text-sm">
-                                                    @foreach($brand->navModels as $model)
-                                                        <li><a href="{{ route('catalog.model', [$category->slug, $brand->slug, $model->slug]) }}" class="hover:text-[#2AC0D5] transition text-gray-600 block">{{ $model->name }}</a></li>
-                                                    @endforeach
-                                                    @if($brand->navModels->count() >= 4)
-                                                        <li><a href="{{ route('catalog.brand', [$category->slug, $brand->slug]) }}" class="text-[#2AC0D5] hover:underline font-semibold block mt-3">Все модели →</a></li>
-                                                    @endif
-                                                </ul>
-                                            </div>
-                                        @endforeach
-                                    @else
-                                        <div class="col-span-full py-4 text-center text-gray-500">Нет брендов</div>
-                                    @endif
+                                    @foreach($category->popularBrands as $brand)
+                                        <div>
+                                            <a href="{{ route('catalog.resolve', [$category->slug, $brand->slug]) }}" class="font-bold mb-3 text-[#0678A8] block hover:text-[#2AC0D5] transition">{{ $brand->name }}</a>
+                                            <ul class="space-y-2 text-sm">
+                                                @foreach($brand->navModels as $model)
+                                                    <li><a href="{{ route('catalog.model', [$category->slug, $brand->slug, $model->slug]) }}" class="hover:text-[#2AC0D5] transition text-gray-600 block">{{ $model->name }}</a></li>
+                                                @endforeach
+                                                @if($brand->navModels->count() >= 4)
+                                                    <li><a href="{{ route('catalog.resolve', [$category->slug, $brand->slug]) }}" class="text-[#2AC0D5] hover:underline font-semibold block mt-3">Все модели →</a></li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    @endforeach
                                 </div>
+
+                                @if($category->otherBrands && $category->otherBrands->count() > 0)
+                                    <div class="@if($category->popularBrands->isNotEmpty()) mt-8 pt-6 border-t border-gray-200 @endif">
+                                        <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Другие бренды</div>
+                                        <div class="flex flex-wrap items-center">
+                                            @foreach($category->otherBrands as $brand)
+                                                <a href="{{ route('catalog.resolve', [$category->slug, $brand->slug]) }}" class="text-sm text-gray-600 hover:text-[#2AC0D5] transition block mr-6 mb-2">{{ $brand->name }}</a>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+
+                                @if($category->popularBrands->isEmpty() && $category->otherBrands->isEmpty())
+                                    <div class="py-4 text-center text-gray-500">Нет брендов</div>
+                                @endif
                             </div>
                         </div>
                     </li>
@@ -135,23 +146,18 @@
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                         <div>
                             <a href="{{ route('about') }}" class="font-bold text-[#0678A8] hover:text-[#2AC0D5] transition block py-1">О компании</a>
-                            <p class="text-sm text-gray-500 mt-1">Наша история, команда и принципы работы</p>
                         </div>
                         <div>
                             <a href="{{ route('reviews') }}" class="font-bold text-[#0678A8] hover:text-[#2AC0D5] transition block py-1">Отзывы</a>
-                            <p class="text-sm text-gray-500 mt-1">Что говорят наши клиенты</p>
                         </div>
                         <div>
                             <a href="{{ route('akcii') }}" class="font-bold text-[#0678A8] hover:text-[#2AC0D5] transition block py-1">Акции</a>
-                            <p class="text-sm text-gray-500 mt-1">Скидки и специальные предложения</p>
                         </div>
                         <div>
                             <a href="{{ route('garantiya') }}" class="font-bold text-[#0678A8] hover:text-[#2AC0D5] transition block py-1">Гарантия</a>
-                            <p class="text-sm text-gray-500 mt-1">Условия гарантии на ремонт</p>
                         </div>
                         <div>
                             <a href="{{ route('faq') }}" class="font-bold text-[#0678A8] hover:text-[#2AC0D5] transition block py-1">Вопрос-ответ</a>
-                            <p class="text-sm text-gray-500 mt-1">Ответы на частые вопросы</p>
                         </div>
                     </div>
                 </div>

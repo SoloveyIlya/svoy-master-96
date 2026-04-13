@@ -143,11 +143,23 @@
                                 <svg class="w-5 h-5 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </div>
                             <div class="mobile-nav__content hidden pt-2 pb-4 space-y-2 pl-4">
-                                <a href="{{ route('catalog.category', $category->slug) }}" class="block text-[#0678A8] font-medium">Все услуги категории &rarr;</a>
-                                @if($category->navBrands && $category->navBrands->count() > 0)
-                                    @foreach($category->navBrands->take(6) as $brand)
-                                        <a href="{{ route('catalog.brand', [$category->slug, $brand->slug]) }}" class="block text-gray-600 hover:text-[#0678A8]">{{ $brand->name }}</a>
-                                    @endforeach
+                                <a href="{{ route('catalog.category', $category->slug) }}" class="block text-[#0678A8] font-medium mb-3">Все услуги категории &rarr;</a>
+                                
+                                @if(isset($category->popularBrands) && $category->popularBrands->count() > 0)
+                                    <div class="grid grid-cols-2 gap-2 mb-3">
+                                        @foreach($category->popularBrands as $brand)
+                                            <a href="{{ route('catalog.resolve', [$category->slug, $brand->slug]) }}" class="block text-gray-600 hover:text-[#0678A8] truncate">{{ $brand->name }}</a>
+                                        @endforeach
+                                    </div>
+                                @endif
+
+                                @if(isset($category->otherBrands) && $category->otherBrands->count() > 0)
+                                    <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 mt-4">Другие бренды</div>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        @foreach($category->otherBrands as $brand)
+                                            <a href="{{ route('catalog.resolve', [$category->slug, $brand->slug]) }}" class="block text-gray-400 text-sm hover:text-[#0678A8] truncate">{{ $brand->name }}</a>
+                                        @endforeach
+                                    </div>
                                 @endif
                             </div>
                         </div>

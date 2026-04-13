@@ -28,17 +28,11 @@ Route::get('/akcii', [PageController::class, 'akcii'])->name('akcii');
 Route::get('/garantiya', [PageController::class, 'garantiya'])->name('garantiya');
 Route::get('/voprosy', [PageController::class, 'faq'])->name('faq');
 
-// 1. Срезы услуг внутри бренда и категории (СТАТИЧЕСКИЙ СЕГМЕНТ "service")
-Route::get('/{categorySlug}/{brandSlug}/service/{serviceSlug}', [CatalogController::class, 'serviceScopeBrand'])->name('catalog.service-scope-brand');
-Route::get('/{categorySlug}/service/{serviceSlug}', [CatalogController::class, 'serviceScopeCategory'])->name('catalog.service-scope-category');
-
-// 2. Страницы поломок (СТАТИЧЕСКИЙ СЕГМЕНТ "polomka")
-Route::get('/{categorySlug}/polomka/{defectSlug}', [CatalogController::class, 'defect'])->name('catalog.defect');
-
-// 3. Конечная посадочная страница (Модель + Услуга)
-Route::get('/{categorySlug}/{brandSlug}/{modelSlug}/{serviceSlug}', [CatalogController::class, 'landing'])->name('catalog.landing');
-
-// 4. Динамические страницы каталога (ОБЩИЕ РОУТЫ)
+// 1. Страница модели (Категория / Бренд / Модель)
 Route::get('/{categorySlug}/{brandSlug}/{modelSlug}', [CatalogController::class, 'model'])->name('catalog.model');
-Route::get('/{categorySlug}/{brandSlug}', [CatalogController::class, 'brand'])->name('catalog.brand');
+
+// 2. Универсальный обработчик второго сегмента: Бренд, Услуга или Поломка
+Route::get('/{categorySlug}/{slug}', [CatalogController::class, 'resolveSecondSegment'])->name('catalog.resolve');
+
+// 3. Страница категории
 Route::get('/{categorySlug}', [CatalogController::class, 'category'])->name('catalog.category');

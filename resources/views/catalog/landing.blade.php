@@ -18,7 +18,7 @@
 @section('content')
     <x-breadcrumbs :links="[
         route('catalog.category', [$category->slug]) => $categoryLabel,
-        route('catalog.brand', [$category->slug, $brand->slug]) => $brand->name,
+        route('catalog.resolve', ['categorySlug' => $category->slug, 'slug' => $brand->slug]) => $brand->name,
         route('catalog.model', [$category->slug, $brand->slug, $model->slug]) => $model->name,
         '' => $service->name
     ]" />

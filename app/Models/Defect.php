@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Brand;
 use App\Models\DeviceModel;
-use App\Models\LandingPage;
-use App\Models\ServiceScope;
 
 class Defect extends Model
 {
@@ -42,37 +40,20 @@ class Defect extends Model
     }
 
     /**
-     * Формирует URL для поломки в зависимости от контекста (категория, бренд, модель).
-     * Если специфическая страница (landing или service-scope) не существует, 
-     * возвращает ссылку на общую страницу поломки (catalog.defect).
+     * Плоский URL поломки: /{categorySlug}/{defectSlug}
+     * (используется в resolveDefects() контроллера через $defect->resolved_url напрямую,
+     *  но метод оставлен для обратной совместимости)
      */
     public function getUrl(?Brand $brand = null, ?DeviceModel $model = null): string
     {
-        return route('catalog.defect', [$this->category->slug, $this->slug]);
+        return url('/' . $this->category->slug . '/' . $this->slug);
     }
 
     /**
-     * Формирует ссылку для перехода из общей поломки конкретно на бренд.
-     * Если у поломки есть привязанная услуга и существует ServiceScope для бренда - ведем туда.
-     * Иначе ведем на основную страницу бренда.
+     * Ссылка на бренд из страницы поломки: теперь ведёт на /{category}/{brand} (плоский URL).
      */
     public function getBrandUrl(Brand $brand): string
     {
-        if ($this->service_id && $this->service) {
-            $exists = ServiceScope::forBrand($brand->id)
-                ->where('service_id', $this->service_id)
-                ->where('status', 'active')
-                ->exists();
-                
-            if ($exists) {
-                return route('catalog.service-scope-brand', [
-                    'categorySlug' => $this->category->slug,
-                    'brandSlug' => $brand->slug,
-                    'serviceSlug' => $this->service->slug
-                ]);
-            }
-        }
-
-        return route('catalog.brand', [$this->category->slug, $brand->slug]);
+        return url('/' . $this->category->slug . '/' . $brand->slug);
     }
 }

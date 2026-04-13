@@ -35,9 +35,9 @@ class Category extends Model
         return $this->hasMany(DeviceModel::class);
     }
 
-    public function brands()
+    public function brands(): BelongsToMany
     {
-        // Пока пусто
+        return $this->belongsToMany(Brand::class, 'brand_category');
     }
 
     public function landingPages(): HasMany

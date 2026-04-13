@@ -5,10 +5,10 @@
 @section('og_title', isset($seo) && $seo['title'] ? $seo['title'] : $service->name . ' ' . $brand->name)
 @section('og_description', isset($seo) && $seo['description'] ? $seo['description'] : $service->name . ' для ' . $brand->name . ' с гарантией')
 @section('og_image', asset('images/logo.png'))
-@section('og_url', route('catalog.service-scope-brand', ['categorySlug' => $brand->models->first()?->category?->slug ?? 'remont-telefonov', 'brandSlug' => $brand->slug, 'serviceSlug' => $service->slug]))
+@section('og_url', url('/' . $category->slug . '/' . $service->slug))
 
 @section('content')
-    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $brand->models->first()?->category?->slug ?? 'remont-telefonov']) => $categoryLabel, route('catalog.brand', ['categorySlug' => $brand->models->first()?->category?->slug ?? 'remont-telefonov', 'brandSlug' => $brand->slug]) => $brand->name, '' => $service->name]" />
+    <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => $categoryLabel, route('catalog.resolve', ['categorySlug' => $category->slug, 'slug' => $brand->slug]) => $brand->name, '' => $service->name]" />
 
     <x-hero-banner 
         :title="$h1"

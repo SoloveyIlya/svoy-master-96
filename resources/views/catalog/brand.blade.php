@@ -5,7 +5,7 @@
 @section('og_title', $brand->seo_title ?? 'Ремонт ' . $brand->name)
 @section('og_description', $brand->seo_description ?? 'Ремонт ' . $brand->name . ' с гарантией и честными ценами')
 @section('og_image', asset('images/logo.png'))
-@section('og_url', route('catalog.brand', ['categorySlug' => $category->slug, 'brandSlug' => $brand->slug]))
+@section('og_url', route('catalog.resolve', ['categorySlug' => $category->slug, 'slug' => $brand->slug]))
 
 @section('content')
     <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => $categoryLabel, '' => $brand->name]" />

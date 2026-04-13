@@ -5,7 +5,7 @@
 @section('og_title', $seo['title'] ?? $service->name . ' в ' . $category->name)
 @section('og_description', $seo['description'] ?? $service->name . ' с честными ценами и гарантией')
 @section('og_image', asset('images/logo.png'))
-@section('og_url', route('catalog.service-scope-category', ['categorySlug' => $category->slug, 'serviceSlug' => $service->slug]))
+@section('og_url', url('/' . $category->slug . '/' . $service->slug))
 
 @section('content')
     <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => $categoryLabel, '' => $service->name]" />

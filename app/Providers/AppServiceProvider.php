@@ -38,28 +38,42 @@ class AppServiceProvider extends ServiceProvider
                     })->values();
                     
                 foreach ($mainCategories as $category) {
-                    $category->navBrands = \App\Models\Brand::whereHas('models', function($q) use ($category) {
-                        $q->where('category_id', $category->id)->where('status', 'active');
+                    $allBrands = \App\Models\Brand::where(function($q) use ($category) {
+                        $q->whereHas('models', function($q2) use ($category) {
+                            $q2->where('category_id', $category->id)->where('status', 'active');
+                        })->orWhereHas('categories', function($q2) use ($category) {
+                            $q2->where('categories.id', $category->id);
+                        });
                     })->where('status', 'active')->orderBy('name')->get();
+
+                    $popularBrands = [];
+                    $otherBrands = [];
                     
-                    foreach ($category->navBrands as $brand) {
+                    foreach ($allBrands as $brand) {
                         $models = \App\Models\DeviceModel::where('category_id', $category->id)
                             ->where('brand_id', $brand->id)
                             ->where('status', 'active')
                             ->get();
 
-                        // Сортировка актуальных моделей по числу в названии (например, 15 > 14 > 13)
-                        $brand->navModels = $models
-                            ->sortByDesc(function ($model) {
-                                if (preg_match('/(\d+)/', $model->name, $m)) {
-                                    return (int) $m[1];
-                                }
-                                // Модели без числа отправляем в конец, сохраняя ид-шник как вторичный критерий
-                                return -INF;
-                            })
-                            ->values()
-                            ->take(6);
+                        if ($models->count() > 0) {
+                            // Сортировка актуальных моделей по числу в названии (например, 15 > 14 > 13)
+                            $brand->navModels = $models
+                                ->sortByDesc(function ($model) {
+                                    if (preg_match('/(\d+)/', $model->name, $m)) {
+                                        return (int) $m[1];
+                                    }
+                                    return -INF;
+                                })
+                                ->values()
+                                ->take(6);
+                            $popularBrands[] = $brand;
+                        } else {
+                            $otherBrands[] = $brand;
+                        }
                     }
+
+                    $category->popularBrands = collect($popularBrands);
+                    $category->otherBrands = collect($otherBrands);
                 }
                 
                 $otherCategories = \App\Models\Category::whereNotIn('slug', $mainSlugs)
