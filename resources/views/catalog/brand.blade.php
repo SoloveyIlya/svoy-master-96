@@ -68,7 +68,11 @@
                         transition-all duration-500
                     "
                 >
-                    {!! $seoBottomText !!}
+                    @php
+                        $seo = str_replace(['<бренд>', '&lt;бренд&gt;'], $brand->name, $seoBottomText);
+                        $seo = preg_replace('/\b(\p{L}+)\s+\1\b/ui', '$1', $seo);
+                    @endphp
+                    {!! $seo !!}
                 </div>
 
                 <div
