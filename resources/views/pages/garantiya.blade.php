@@ -12,11 +12,6 @@
 
     {{-- Условия гарантии --}}
     <section class="max-w-[87.5rem] mx-auto px-4 py-12">
-        <div class="text-center mb-10">
-            <h2 class="text-2xl sm:text-3xl font-bold text-[#1A1A1A] mb-4">Условия гарантии</h2>
-            <p class="text-gray-500 max-w-xl mx-auto">Мы работаем честно и открыто. Все гарантийные обязательства фиксируются в договоре.</p>
-        </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <div class="space-y-6">
                 <div class="flex items-start gap-4">

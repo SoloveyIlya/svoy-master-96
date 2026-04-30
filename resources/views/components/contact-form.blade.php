@@ -15,7 +15,7 @@
         </div>
         
         <div class="relative z-10 bg-white p-5 sm:p-8 rounded-[1rem] shadow-2xl text-[#1A1A1A]">
-            <h3 class="text-xl sm:text-2xl font-bold mb-6 text-center">Оставьте заявку</h3>
+            <div class="text-xl sm:text-2xl font-bold mb-6 text-center">Оставьте заявку</div>
             
             <!-- Success Message -->
             <div id="success-message" class="hidden mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200">

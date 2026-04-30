@@ -19,7 +19,7 @@
 
         {{-- Колонка 2: Услуги --}}
         <div>
-            <h4 class="font-bold text-[#1A1A1A] mb-4">Услуги</h4>
+            <div class="font-bold text-[#1A1A1A] mb-4">Услуги</div>
             <ul class="space-y-2 text-sm text-gray-600">
                 <li><a href="{{ route('catalog.category', ['categorySlug' => 'remont-telefonov']) }}" class="hover:text-[#2AC0D5] transition">Ремонт телефонов</a></li>
                 <li><a href="{{ route('catalog.category', ['categorySlug' => 'remont-noutbukov']) }}" class="hover:text-[#2AC0D5] transition">Ремонт ноутбуков</a></li>
@@ -30,7 +30,7 @@
 
         {{-- Колонка 3: Информация --}}
         <div>
-            <h4 class="font-bold text-[#1A1A1A] mb-4">Информация</h4>
+            <div class="font-bold text-[#1A1A1A] mb-4">Информация</div>
             <ul class="space-y-2 text-sm text-gray-600">
                 <li><a href="{{ route('about') }}" class="hover:text-[#2AC0D5] transition">О компании</a></li>
                 <li><a href="{{ route('reviews') }}" class="hover:text-[#2AC0D5] transition">Отзывы</a></li>
@@ -44,7 +44,7 @@
 
         {{-- Колонка 4: Адрес, рейтинг, оплата --}}
         <div>
-            <h4 class="font-bold text-[#1A1A1A] mb-4">Ждем вас</h4>
+            <div class="font-bold text-[#1A1A1A] mb-4">Ждем вас</div>
             <div class="space-y-4">
                 <div>
                     <p class="text-[13px] font-bold text-[#0678A8]">Центр</p>

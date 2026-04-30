@@ -13,8 +13,6 @@
     {{-- FAQ аккордеон --}}
     <section class="max-w-[87.5rem] mx-auto px-4 py-12">
         <div class="max-w-3xl mx-auto">
-            <h2 class="text-2xl sm:text-3xl font-bold text-[#1A1A1A] mb-8 text-center">Часто задаваемые вопросы</h2>
-
             <div class="space-y-3" x-data="{ open: null }">
 
                 @php

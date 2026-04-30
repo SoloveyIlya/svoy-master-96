@@ -23,7 +23,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center relative z-10 px-4 sm:px-0">
             <div class="group">
                 <div class="w-20 h-20 mx-auto bg-[#2AC0D5] text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4 shadow-md relative z-10 transition-transform group-hover:scale-110 duration-300">1</div>
-                <h3 class="font-bold text-lg mb-2">Заявка</h3>
+                <div class="font-bold text-lg mb-2">Заявка</div>
                 <p class="text-sm text-gray-500 font-light">Вы оставляете заявку на сайте или приносите технику к нам</p>
             </div>
             {{-- Стрелка для мобилок --}}
@@ -32,7 +32,7 @@
             </div>
             <div class="group">
                 <div class="w-20 h-20 mx-auto bg-white border-4 border-[#2AC0D5] text-[#2AC0D5] rounded-full flex items-center justify-center text-2xl font-bold mb-4 shadow-md relative z-10 transition-transform group-hover:scale-110 duration-300">2</div>
-                <h3 class="font-bold text-lg mb-2">Диагностика</h3>
+                <div class="font-bold text-lg mb-2">Диагностика</div>
                 <p class="text-sm text-gray-500 font-light">Бесплатно выявляем точную причину неисправности</p>
             </div>
             {{-- Стрелка для мобилок --}}
@@ -41,7 +41,7 @@
             </div>
             <div class="group">
                 <div class="w-20 h-20 mx-auto bg-white border-4 border-[#2AC0D5] text-[#2AC0D5] rounded-full flex items-center justify-center text-2xl font-bold mb-4 shadow-md relative z-10 transition-transform group-hover:scale-110 duration-300">3</div>
-                <h3 class="font-bold text-lg mb-2">Ремонт</h3>
+                <div class="font-bold text-lg mb-2">Ремонт</div>
                 <p class="text-sm text-gray-500 font-light">Согласовываем цену и производим ремонт устройства</p>
             </div>
             {{-- Стрелка для мобилок --}}
@@ -50,7 +50,7 @@
             </div>
             <div class="group">
                 <div class="w-20 h-20 mx-auto bg-white border-4 border-[#2AC0D5] text-[#2AC0D5] rounded-full flex items-center justify-center text-2xl font-bold mb-4 shadow-md relative z-10 transition-transform group-hover:scale-110 duration-300">4</div>
-                <h3 class="font-bold text-lg mb-2">Выдача</h3>
+                <div class="font-bold text-lg mb-2">Выдача</div>
                 <p class="text-sm text-gray-500 font-light">Возвращаем рабочее устройство вместе с гарантией</p>
             </div>
         </div>

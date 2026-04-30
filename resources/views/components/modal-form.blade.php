@@ -25,7 +25,7 @@
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                     </svg>
                 </div>
-                <h3 class="text-2xl font-bold text-[#1A1A1A] mb-2">Заявка отправлена!</h3>
+                <div class="text-2xl font-bold text-[#1A1A1A] mb-2">Заявка отправлена!</div>
                 <p class="text-gray-600 mb-6">Спасибо за обращение. Наш менеджер свяжется с вами в ближайшее время по указанному номеру телефона.</p>
                 <button
                     type="button"
@@ -38,7 +38,7 @@
 
             <!-- Form Content -->
             <div id="modal-form-content">
-                <h2 id="modal-title" class="text-2xl sm:text-3xl font-bold text-[#1A1A1A] mb-6">Оставить заявку</h2>
+                <div id="modal-title" class="text-2xl sm:text-3xl font-bold text-[#1A1A1A] mb-6">Оставить заявку</div>
 
                 <form id="modal-form" action="{{ route('leads.store') }}" method="POST" class="space-y-6" x-data="{ isSubmitting: false }" @submit="isSubmitting = true">
                     @csrf

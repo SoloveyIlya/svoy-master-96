@@ -87,22 +87,54 @@ class CatalogController extends Controller
     /**
      * Формирует $priceRows для категории: ссылки на /{category}/{service} (плоский URL).
      */
-    private function buildCategoryPriceRows(Category $category): array
+    private function buildCategoryPriceRows(Category $category, ?Brand $brand = null, ?DeviceModel $model = null): array
     {
         $services = $category->services()->where('status', 'active')->get();
 
-        return $services->map(function ($s) use ($category) {
-            $scope = ServiceScope::forCategory($category->id)
-                ->where('service_id', $s->id)
-                ->where('status', 'active')
-                ->first();
+        return $services->map(function ($s) use ($category, $brand, $model) {
+            $price = null;
+            $duration = null;
 
-            $price = $scope && $scope->price_from ? $scope->price_from : $s->price_from;
+            if ($model) {
+                $landing = \App\Models\LandingPage::where('model_id', $model->id)
+                    ->where('service_id', $s->id)
+                    ->where('status', 'active')
+                    ->first();
+                if ($landing && $landing->price_from) {
+                    $price = $landing->price_from;
+                    $duration = $landing->duration_text;
+                }
+            }
+
+            if (!$price && $brand) {
+                $scopeBrand = ServiceScope::forBrand($brand->id)
+                    ->where('service_id', $s->id)
+                    ->where('status', 'active')
+                    ->first();
+                if ($scopeBrand && $scopeBrand->price_from) {
+                    $price = $scopeBrand->price_from;
+                    $duration = $duration ?: $scopeBrand->duration_text;
+                }
+            }
+
+            if (!$price) {
+                $scope = ServiceScope::forCategory($category->id)
+                    ->where('service_id', $s->id)
+                    ->where('status', 'active')
+                    ->first();
+                if ($scope && $scope->price_from) {
+                    $price = $scope->price_from;
+                    $duration = $duration ?: $scope->duration_text;
+                }
+            }
+
+            $price = $price ?: $s->price_from;
+            $duration = $duration ?: $s->duration_text;
 
             return [
                 'name'     => $s->name,
                 'price'    => $price,
-                'duration' => $s->duration_text,
+                'duration' => $duration,
                 'slug'     => $s->slug,
                 'url'      => url('/' . $category->slug . '/' . $s->slug),
             ];
@@ -145,7 +177,7 @@ class CatalogController extends Controller
         extract($this->getGlobals());
 
         // Прайс: все услуги категории со ссылками на /{category}/{service}
-        $priceRows = $this->buildCategoryPriceRows($category);
+        $priceRows = $this->buildCategoryPriceRows($category, $brand, $model);
 
         $defects = $this->resolveDefects($category, $brand, $model);
         $categoryLabel = $this->categoryLabel($category);
@@ -200,7 +232,7 @@ class CatalogController extends Controller
         extract($this->getGlobals());
 
         // Прайс: все услуги категории → ссылки на /{category}/{service}
-        $priceRows = $this->buildCategoryPriceRows($category);
+        $priceRows = $this->buildCategoryPriceRows($category, $brand);
 
         $defects = $this->resolveDefects($category, $brand);
 

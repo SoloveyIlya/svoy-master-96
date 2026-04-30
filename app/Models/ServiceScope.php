@@ -13,6 +13,8 @@ class ServiceScope extends Model
 
     protected $fillable = [
         'seo_bottom_text',
+        'price_from',
+        'duration_text',
     ];
 
     protected $guarded = [];

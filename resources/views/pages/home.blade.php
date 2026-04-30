@@ -56,21 +56,21 @@
                         <path d="M31.25 17.25C35.7 17.25 37.35 19.375 37.5 22.5H43.025C42.85 18.2 40.225 14.25 35 12.975V7.5H27.5V12.9C26.525 13.1 25.625 13.425 24.75 13.8L28.525 17.575C29.325 17.375 30.25 17.25 31.25 17.25ZM13.675 9.8L10.15 13.325L18.75 21.925C18.75 27.125 22.65 29.975 28.525 31.7L37.3 40.475C36.45 41.7 34.675 42.75 31.25 42.75C26.1 42.75 24.075 40.45 23.8 37.5H18.3C18.6 42.975 22.7 46.05 27.5 47.075V52.5H35V47.125C37.4 46.675 39.575 45.75 41.15 44.325L46.7 49.875L50.225 46.35L13.675 9.8Z"/>
                     </svg>
                     <div>
-                        <h3 class="font-bold text-lg mb-1">Бесплатная</h3>
+                        <div class="font-bold text-lg mb-1">Бесплатная</div>
                         <p class="text-gray-500 text-sm">Диагностика устройства</p>
                     </div>
                 </div>
                 <div class="flex items-start gap-4">
                     <svg class="w-8 h-8 text-[#0678A8] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                     <div>
-                        <h3 class="font-bold text-lg mb-1">До 2-х лет</h3>
+                        <div class="font-bold text-lg mb-1">До 2-х лет</div>
                         <p class="text-gray-500 text-sm">Гарантия на работы</p>
                     </div>
                 </div>
                 <div class="flex items-start gap-4">
                     <svg class="w-8 h-8 text-[#0678A8] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <div>
-                        <h3 class="font-bold text-lg mb-1">Не более 30 минут</h3>
+                        <div class="font-bold text-lg mb-1">Не более 30 минут</div>
                         <p class="text-gray-500 text-sm">Среднее время ремонта</p>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                         <path d="M20 36.6666C21.8333 36.6666 23.3333 35.1666 23.3333 33.3333H16.6666C16.6666 35.1666 18.1666 36.6666 20 36.6666ZM20 10.8333C24.15 10.8333 26.6666 14.2 26.6666 18.3333V18.5L30 21.8333V18.3333C30 13.2166 27.2833 8.93329 22.5 7.79996V6.66663C22.5 5.28329 21.3833 4.16663 20 4.16663C18.6166 4.16663 17.5 5.28329 17.5 6.66663V7.79996C17.1 7.89996 16.7166 8.04996 16.35 8.18329L19.0833 10.9166C19.3833 10.8833 19.6833 10.8333 20 10.8333ZM9.01663 5.58329L6.66663 7.93329L11.35 12.6166C10.4833 14.2833 9.99996 16.2333 9.99996 18.3333V26.6666L6.66663 30V31.6666H30.4L33.3 34.5666L35.65 32.2166L9.01663 5.58329ZM26.6666 28.3333H13.3333V18.3333C13.3333 17.2 13.5333 16.1333 13.9 15.1666L26.6666 27.9333V28.3333Z"/>
                     </svg>
                     <div>
-                        <h3 class="font-bold text-lg mb-1">Конфиденциально</h3>
+                        <div class="font-bold text-lg mb-1">Конфиденциально</div>
                         <p class="text-gray-500 text-sm">Ваши данные в сохранности</p>
                     </div>
                 </div>
@@ -243,12 +243,12 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div class="bg-white p-4 rounded-[1rem] shadow-sm text-center">
                             <img src="{{ asset('images/oleg.jpg') }}" alt="Мастер Иван" loading="lazy" class="w-24 h-24 rounded-full mx-auto mb-3 object-cover bg-gray-200">
-                            <h4 class="font-bold text-[#1A1A1A]">Олег Валерьевич Егоров</h4>
+                            <div class="font-bold text-[#1A1A1A]">Олег Валерьевич Егоров</div>
                             <p class="text-xs text-gray-500">Мастер по ремонту телефонов и планшетов, сметчик</p>
                         </div>
                         <div class="bg-white p-4 rounded-[1rem] shadow-sm text-center">
                             <img src="{{ asset('images/kate.jpg') }}" alt="Мастер Алексей" loading="lazy" class="w-24 h-24 rounded-full mx-auto mb-3 object-cover bg-gray-200">
-                            <h4 class="font-bold text-[#1A1A1A]">Екатерина Сергеевна Сыропятова</h4>
+                            <div class="font-bold text-[#1A1A1A]">Екатерина Сергеевна Сыропятова</div>
                             <p class="text-xs text-gray-500">Администратор, мастер по ремонту телефонов и планшетов, системный администратор</p>
                         </div>
                     </div>

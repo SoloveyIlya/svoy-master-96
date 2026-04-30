@@ -48,7 +48,7 @@
     <x-defects-block :defects="$defects" :active-slug="$activeSlug ?? null" />
 
     @if(!empty($defect->seo_bottom_text))
-        <div class="max-w-4xl mx-auto px-4 py-12 bg-white">
+        <div class="max-w-[87.5rem] mx-auto px-4 py-12 bg-white">
             <div
                 x-data="seoSpoiler()"
                 x-init="init()"

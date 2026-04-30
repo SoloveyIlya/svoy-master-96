@@ -57,7 +57,7 @@
     <x-reviews-block :reviews="$reviews" />
     {{-- SEO-текст с спойлером (модель) --}}
     @if(!empty($model->seo_bottom_text))
-        <div class="max-w-4xl mx-auto px-4 py-12">
+        <div class="max-w-[87.5rem] mx-auto px-4 py-12">
             <div
                 x-data="seoSpoiler()"
                 x-init="init()"
@@ -67,7 +67,7 @@
                     x-ref="content"
                     :class="expanded ? '' : 'max-h-[520px] overflow-hidden'"
                     class="
-                        prose prose-lg
+                        prose prose-lg max-w-none
                         prose-headings:text-[#0678A8] prose-headings:font-bold
                         prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-3
                         prose-p:text-gray-600 prose-p:leading-relaxed

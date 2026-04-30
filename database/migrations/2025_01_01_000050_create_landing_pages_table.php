@@ -22,6 +22,7 @@ return new class extends Migration
             $table->json('custom_faq_json')->nullable();
 
             $table->string('price_from')->nullable();
+            $table->string('duration_text')->nullable();
 
             $table->string('seo_title')->nullable();
             $table->string('seo_description')->nullable();

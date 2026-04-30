@@ -24,7 +24,7 @@
                                 {{ mb_substr($review->client_name, 0, 1) }}
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-800">{{ $review->client_name }}</h4>
+                                <div class="font-bold text-gray-800">{{ $review->client_name }}</div>
                                 <p class="text-xs text-gray-500">{{ optional($review->published_at)->format('d.m.Y') ?? $review->created_at->format('d.m.Y') }}</p>
                             </div>
                         </div>

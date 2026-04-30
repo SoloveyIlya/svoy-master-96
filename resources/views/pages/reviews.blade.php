@@ -11,7 +11,7 @@
         subtitle="Честные мнения о ремонте от тех, кто уже доверил нам свою технику" 
     />
 
-    <x-reviews-block :reviews="$reviews" :title="null" :isWhite="true" />
+    <x-reviews-block :reviews="$reviews" title="" :isWhite="true" />
 
     <div class="pb-12">
         <x-contact-form />
