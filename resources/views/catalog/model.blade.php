@@ -82,7 +82,7 @@
                         // Убираем дублирующиеся подряд слова (например "iPad iPad Air" -> "iPad Air")
                         $seo = preg_replace('/\b(\p{L}+)\s+\1\b/ui', '$1', $seo);
                     @endphp
-                    {!! $seo !!}
+                    @include('components.seo-text', ['text' => $seo])
                 </div>
 
                 <div

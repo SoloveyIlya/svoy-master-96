@@ -241,10 +241,12 @@ class CatalogController extends Controller
             ->value('seo_bottom_text');
 
         $categoryLabel = $this->categoryLabel($category);
+        // Формируем H1 из двух последних элементов хлебных крошек: метка категории и название бренда
+        $h1 = trim($categoryLabel . ' ' . $brand->name);
 
         return view('catalog.brand', compact(
             'category', 'brand', 'models', 'defects', 'reviews', 'cases',
-            'banners', 'priceRows', 'seoBottomText', 'categoryLabel'
+            'banners', 'priceRows', 'seoBottomText', 'categoryLabel', 'h1'
         ));
     }
 
@@ -265,7 +267,8 @@ class CatalogController extends Controller
 
         $defects   = $this->resolveDefects($category);
         $activeSlug = $serviceSlug;
-        $h1 = $service->name . ' на ' . ($category->name_prepositional ?? $category->name);
+        // H1 должен быть просто названием услуги (или seo_h1 если задан)
+        $h1 = $service->seo_h1 ?: $service->name;
         $categoryLabel = $this->categoryLabel($category);
 
         return view('catalog.category-service', compact(

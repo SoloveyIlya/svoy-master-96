@@ -1,4 +1,4 @@
-@props(['title', 'subtitle', 'image' => null, 'price' => null, 'duration' => null])
+@props(['title', 'subtitle', 'image' => null, 'price' => null, 'duration' => null, 'titleTag' => 'h1'])
 
 <section class="relative bg-gradient-to-r from-[#2AC0D5] to-[#0678A8] text-white overflow-hidden py-16 sm:py-20 px-4 sm:px-6 lg:px-8 rounded-[2rem] mx-4 my-6 shadow-xl">
     <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay pointer-events-none z-0"></div>
@@ -8,9 +8,15 @@
     @endif
     
     <div class="relative z-10 max-w-4xl mx-auto text-center">
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-tight">
-            {{ $title }}
-        </h1>
+        @if(($titleTag ?? 'h1') === 'h1')
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-tight">
+                {{ $title }}
+            </h1>
+        @else
+            <div class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-tight">
+                {{ $title }}
+            </div>
+        @endif
         <p class="text-lg sm:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
             {{ $subtitle }}
         </p>
@@ -35,7 +41,11 @@
                             <div class="text-[10px] sm:text-xs text-gray-500 font-semibold uppercase tracking-wider mb-0.5 sm:mb-1">Цена</div>
                             <div class="text-[#0678A8] font-bold text-base sm:text-xl leading-tight">
                                 @if(is_numeric($price))
-                                    от {{ number_format((int)$price, 0, '', ' ') }} ₽
+                                    @if((int)$price === 0)
+                                        Бесплатно
+                                    @else
+                                        от {{ number_format((int)$price, 0, '', ' ') }} ₽
+                                    @endif
                                 @else
                                     {{ $price }}
                                 @endif

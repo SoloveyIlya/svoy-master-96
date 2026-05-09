@@ -521,10 +521,16 @@ class DatabaseSeeder extends Seeder
             ]);
 
             foreach ($catData['services'] as $svcSlug => $svcName) {
+                // Normalize generic diagnostics service name to avoid category-specific suffixes
+                if ($svcSlug === 'diagnostika') {
+                    $svcName = 'Диагностика';
+                }
+
                 $price = $priceMap[$catSlug][$svcSlug] ?? 1000;
 
-                $uniqueSlug = str_starts_with($svcSlug, $catSlug) ? $svcSlug : $catSlug . '-' . $svcSlug;
-                // Услуга может уже существовать из базового списка или другой категории
+                // Используем плоский slug услуги (без префикса категории).
+                // Если такая услуга уже есть — переиспользуем её, иначе создаём.
+                $uniqueSlug = $svcSlug;
                 $service = Service::firstOrCreate(
                     ['slug' => $uniqueSlug],
                     [

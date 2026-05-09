@@ -30,12 +30,12 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div class="bg-white p-4 rounded-[1rem] shadow-sm text-center">
                             <img src="{{ asset('images/oleg.jpg') }}" alt="Мастер Иван" loading="lazy" class="w-24 h-24 rounded-full mx-auto mb-3 object-cover bg-gray-200">
-                            <h4 class="font-bold text-[#1A1A1A]">Олег Валерьевич Егоров</h4>
+                            <div class="font-bold text-[#1A1A1A]">Олег Валерьевич Егоров</div>
                             <p class="text-xs text-gray-500">Мастер по ремонту телефонов и планшетов, сметчик</p>
                         </div>
                         <div class="bg-white p-4 rounded-[1rem] shadow-sm text-center">
                             <img src="{{ asset('images/kate.jpg') }}" alt="Мастер Алексей" loading="lazy" class="w-24 h-24 rounded-full mx-auto mb-3 object-cover bg-gray-200">
-                            <h4 class="font-bold text-[#1A1A1A]">Екатерина Сергеевна Сыропятова</h4>
+                            <div class="font-bold text-[#1A1A1A]">Екатерина Сергеевна Сыропятова</div>
                             <p class="text-xs text-gray-500">Администратор, мастер по ремонту телефонов и планшетов, системный администратор</p>
                         </div>
                     </div>

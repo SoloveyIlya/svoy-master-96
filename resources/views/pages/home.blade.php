@@ -285,7 +285,7 @@
                                     {{ mb_substr($review->client_name, 0, 1) }}
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-gray-800">{{ $review->client_name }}</h4>
+                                    <div class="font-bold text-gray-800">{{ $review->client_name }}</div>
                                     <p class="text-xs text-gray-500">{{ optional($review->published_at)->format('d.m.Y') ?? $review->created_at->format('d.m.Y') }}</p>
                                 </div>
                             </div>
@@ -304,7 +304,7 @@
                             <div class="flex items-center gap-4 mb-4">
                                 <div class="w-12 h-12 bg-[#0678A8] rounded-full flex justify-center items-center text-white font-bold text-lg">О</div>
                                 <div>
-                                    <h4 class="font-bold text-gray-800">Ольга Г.</h4>
+                                    <div class="font-bold text-gray-800">Ольга Г.</div>
                                     <p class="text-xs text-gray-500">16 декабря 2023</p>
                                 </div>
                             </div>

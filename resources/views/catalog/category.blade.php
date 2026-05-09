@@ -77,7 +77,7 @@
                         transition-all duration-500
                     "
                 >
-                    {!! $category->seo_bottom_text !!}
+                    @include('components.seo-text', ['text' => $category->seo_bottom_text])
                 </div>
 
                 {{-- Градиент и кнопка "Показать ещё" --}}

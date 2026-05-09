@@ -20,7 +20,7 @@
                                 {{ $row['name'] }}
                             </a>
                         @else
-                            <h4 class="text-lg font-bold text-gray-900 mb-1 {{ $isActive ? 'text-[#0678A8]' : 'group-hover:text-[#0678A8] transition-colors' }}">{{ $row['name'] }}</h4>
+                            <div class="text-lg font-bold text-gray-900 mb-1 {{ $isActive ? 'text-[#0678A8]' : 'group-hover:text-[#0678A8] transition-colors' }}">{{ $row['name'] }}</div>
                         @endif
                         <div class="flex items-center text-sm text-gray-500">
                             <svg class="w-4 h-4 mr-1.5 text-[#2AC0D5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -32,7 +32,16 @@
                         <div class="text-left md:text-right">
                             <div class="text-xs text-gray-500 mb-0.5">Стоимость</div>
                             <div class="text-xl sm:text-2xl font-black text-gray-900 whitespace-nowrap">
-                                {{ $row['price'] && (int)$row['price'] > 0 ? 'от ' . number_format((int)$row['price'], 0, '', ' ') . ' ₽' : 'от 500 ₽' }}
+                                @php $priceVal = $row['price'] ?? null; @endphp
+                                @if(is_numeric($priceVal))
+                                    @if((int)$priceVal === 0)
+                                        Бесплатно
+                                    @else
+                                        от {{ number_format((int)$priceVal, 0, '', ' ') }} ₽
+                                    @endif
+                                @else
+                                    Уточните цену
+                                @endif
                             </div>
                         </div>
                         <button type="button" class="js-open-modal shrink-0 bg-[#0678A8]/10 hover:bg-[#0678A8] text-[#0678A8] hover:text-white font-bold py-2.5 px-6 rounded-xl transition-all hover:shadow-md cursor-pointer" data-cta-title="Заказать: {{ $row['name'] }}">

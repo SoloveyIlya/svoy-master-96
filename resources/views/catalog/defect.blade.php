@@ -68,7 +68,7 @@
                         transition-all duration-500
                     "
                 >
-                    {!! $defect->seo_bottom_text !!}
+                    @include('components.seo-text', ['text' => $defect->seo_bottom_text])
                 </div>
 
                 <div

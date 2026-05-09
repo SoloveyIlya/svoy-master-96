@@ -18,15 +18,7 @@
     />
 
     <div class="max-w-7xl mx-auto px-4 mb-4">
-        @php
-            $hasModels = \App\Models\DeviceModel::where('category_id', $category->id)->where('status', 'active')->exists();
-            $serviceName = mb_strtolower($service->name);
-            $serviceName = str_replace('замена ', 'замену ', $serviceName);
-            $serviceName = str_replace('установка ', 'установку ', $serviceName);
-            $serviceName = str_replace('чистка ', 'чистку ', $serviceName);
-            $serviceName = str_replace('перепрошивка', 'перепрошивку', $serviceName);
-        @endphp
-        <h2 class="text-3xl font-bold mt-10 text-center">Цена на {{ $serviceName }}{{ $hasModels ? ' по моделям' : '' }}</h2>
+        <h2 class="text-3xl font-bold mt-10 text-center">Стоимость услуг</h2>
     </div>
 
     <x-price-table :rows="$priceRows" :active-slug="$activeSlug ?? null" />
@@ -64,7 +56,7 @@
                         transition-all duration-500
                     "
                 >
-                    {!! $scope->seo_bottom_text !!}
+                    @include('components.seo-text', ['text' => $scope->seo_bottom_text])
                 </div>
 
                 <div
