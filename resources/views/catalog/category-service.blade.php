@@ -11,7 +11,7 @@
     <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => $categoryLabel, '' => $service->name]" />
 
     <x-hero-banner 
-        :title="$h1"
+        :title="$seoH1 ?? $h1"
         :subtitle="isset($seo) && $seo['description'] ? $seo['description'] : 'Гарантия качества и честные цены'"
         :price="$scope->resolvedPriceFrom()"
         :duration="$scope->resolvedDurationText()"

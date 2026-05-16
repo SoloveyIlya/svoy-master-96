@@ -43,11 +43,15 @@
     <section class="max-w-[87.5rem] mx-auto px-4 pt-8 sm:pt-10 pb-12 sm:pb-16 lg:pb-24 relative overflow-hidden">
         <div class="relative z-10 lg:max-w-[55%]">
             <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-[2.875rem] font-bold leading-[1.2] mb-8 sm:mb-10 text-[#1A1A1A]">
-                <div class="flex flex-wrap items-center gap-x-2">
-                    <span id="animated-word-container" class="text-[#2AC0D5] inline-block relative whitespace-nowrap overflow-visible perspective-[1000px] transition-[width] duration-300 ease-in-out"></span>
-                    <span class="text-[#1A1A1A]">ремонт</span>
-                </div>
-                <div class="mt-2">техники - в Екатеринбурге от 450 рублей</div>
+                @if(isset($seoH1))
+                    {{ $seoH1 }}
+                @else
+                    <div class="flex flex-wrap items-center gap-x-2">
+                        <span id="animated-word-container" class="text-[#2AC0D5] inline-block relative whitespace-nowrap overflow-visible perspective-[1000px] transition-[width] duration-300 ease-in-out"></span>
+                        <span class="text-[#1A1A1A]">ремонт</span>
+                    </div>
+                    <div class="mt-2">техники - в Екатеринбурге от 450 рублей</div>
+                @endif
             </h1>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-6 sm:gap-y-8 gap-x-4 mb-10 sm:mb-12">

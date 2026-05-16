@@ -11,7 +11,7 @@
 
     <section class="page-container catalog-page">
         <div class="catalog-card space-y-6">
-            <h1 class="text-2xl sm:text-3xl font-bold text-[#1A1A1A]">Политика конфиденциальности</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold text-[#1A1A1A]">{{ $seoH1 ?? 'Политика конфиденциальности' }}</h1>
             
             <p class="text-gray-600 leading-relaxed text-sm text-gray-500">
                 Дата последнего обновления: {{ now()->format('d.m.Y') }}

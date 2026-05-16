@@ -24,7 +24,7 @@
     ]" />
 
     <x-hero-banner 
-        :title="$seo['h1'] ?? ($service->name . ' на ' . $model->name)"
+        :title="$seoH1 ?? ($seo['h1'] ?? ($service->name . ' на ' . $model->name))"
         subtitle="Профессиональный ремонт в Екатеринбурге с гарантией до 1 года. Используем оригинальные запчасти."
         :price="$landing->resolvedPriceFrom()"
         :duration="$landing->resolvedDurationText()"

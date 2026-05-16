@@ -6,12 +6,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&display=swap" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>@yield('title', 'Свой Мастер - Ремонт цифровой техники')</title>
-    <meta name="description" content="@yield('seo_description', 'Профессиональный ремонт телефонов, ноутбуков и планшетов в Екатеринбурге. Оригинальные запчасти, гарантия до 2 лет.')">
+    <title>@yield('title', $seoTitle ?? 'Свой Мастер - Ремонт цифровой техники')</title>
+    <meta name="description" content="@yield('seo_description', $seoDescription ?? 'Профессиональный ремонт телефонов, ноутбуков и планшетов в Екатеринбурге. Оригинальные запчасти, гарантия до 2 лет.')">
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="@yield('og_title', 'Свой Мастер - Ремонт цифровой техники')">
-    <meta property="og:description" content="@yield('og_description', 'Профессиональный ремонт телефонов, ноутбуков и планшетов в Екатеринбурге. Оригинальные запчасти, гарантия до 2 лет.')">
+    <meta property="og:title" content="@yield('og_title', $seoTitle ?? 'Свой Мастер - Ремонт цифровой техники')">
+    <meta property="og:description" content="@yield('og_description', $seoDescription ?? 'Профессиональный ремонт телефонов, ноутбуков и планшетов в Екатеринбурге. Оригинальные запчасти, гарантия до 2 лет.')">
     <meta property="og:image" content="@yield('og_image', asset('images/logo.png'))">
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:url" content="@yield('og_url', request()->url())">
@@ -19,8 +19,8 @@
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('og_title', 'Свой Мастер - Ремонт цифровой техники')">
-    <meta name="twitter:description" content="@yield('og_description', 'Профессиональный ремонт телефонов, ноутбуков и планшетов в Екатеринбурге. Оригинальные запчасти, гарантия до 2 лет.')">
+    <meta name="twitter:title" content="@yield('og_title', $seoTitle ?? 'Свой Мастер - Ремонт цифровой техники')">
+    <meta name="twitter:description" content="@yield('og_description', $seoDescription ?? 'Профессиональный ремонт телефонов, ноутбуков и планшетов в Екатеринбурге. Оригинальные запчасти, гарантия до 2 лет.')">
     <meta name="twitter:image" content="@yield('og_image', asset('images/logo.png'))">
     
     <!-- VK Meta Tags -->

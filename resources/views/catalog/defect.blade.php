@@ -7,7 +7,7 @@
     <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => $categoryLabel, '' => $defect->name]" />
 
     <x-hero-banner 
-        :title="$defect->name"
+        :title="$seoH1 ?? $defect->name"
         :subtitle="$defect->description ?? 'Диагностика и устранение неисправности с использованием оригинальных запчастей и гарантией качества.'"
         :price="isset($defect->service) ? $defect->service->price_from : null"
         :duration="isset($defect->service) ? $defect->service->duration_text : null"

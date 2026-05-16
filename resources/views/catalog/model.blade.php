@@ -11,7 +11,7 @@
     <x-breadcrumbs :links="[route('catalog.category', ['categorySlug' => $category->slug]) => $categoryLabel, route('catalog.resolve', ['categorySlug' => $category->slug, 'slug' => $brand->slug]) => $brand->name, '' => $model->name]" />
 
     <x-hero-banner 
-        :title="$model->seo_h1 ?: 'Ремонт ' . $model->name"
+        :title="$seoH1 ?? ($model->seo_h1 ?: 'Ремонт ' . $model->name)"
         :subtitle="'Закажите ремонт ' . $model->name . ' с бесплатной диагностикой'"
     />
 

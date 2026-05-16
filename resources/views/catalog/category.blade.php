@@ -11,7 +11,7 @@
     <x-breadcrumbs :links="['' => $categoryLabel]" />
 
     <x-hero-banner 
-        :title="$category->seo_h1 ?: $categoryLabel"
+        :title="$seoH1 ?? ($category->seo_h1 ?: $categoryLabel)"
         :subtitle="'Профессиональный ' . mb_strtolower($categoryLabel) . ' в Екатеринбурге с гарантией'"
     />
 
