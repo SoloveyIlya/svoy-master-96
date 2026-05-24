@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\View\Composers\SeoComposer;
 use App\Models\DeviceModel;
 use App\Models\Brand;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -26,24 +27,7 @@ class AppServiceProvider extends ServiceProvider
             return Limit::perMinutes(10, 3)->by($request->ip());
         });
 
-        View::composer('*', function ($view) {
-            $path = request()->path();
-            
-            // Ensure path is consistent with how we stored it
-            if ($path === '' || $path === '/') {
-                $path = '/';
-            }
-
-            $seo = \App\Models\SeoMetadata::where('url_path', $path)->first();
-
-            if ($seo) {
-                $view->with([
-                    'seoTitle' => $seo->title,
-                    'seoDescription' => $seo->description,
-                    'seoH1' => $seo->h1,
-                ]);
-            }
-        });
+        View::composer('*', SeoComposer::class);
 
         View::composer(['layouts.app', 'components.header'], function ($view) {
             $navData = \Illuminate\Support\Facades\Cache::remember('nav_data', 3600, function () {

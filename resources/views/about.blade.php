@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'О компании')
-@section('seo_description', 'Снайте этo о сервисном центре Svoy Master. Опыт работы 7+ лет, оценка 4.9 звезд, гарантия до 2 лет')
-@section('og_title', 'О компании - Svoy Master')
-@section('og_description', 'Снайте о нас: 7 лет опыта, гарантия до 2 лет, оригинальные запчасти. Оценка 4.9 звезд на Яндекс.Картах')
 @section('og_image', asset('images/logo.png'))
 
 @section('content')
-    <x-breadcrumbs :links="['' => 'О компании']" />
+    <x-breadcrumbs :links="['' => $seoH1 ?? 'О компании']" />
+
+    <section class="max-w-[87.5rem] mx-auto px-4 pt-8 pb-4">
+        <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1A1A1A]">{{ $seoH1 ?? 'О компании' }}</h1>
+    </section>
 
     {{-- О КОМПАНИИ И СОТРУДНИКИ (Новые блоки) --}}
     <section class="bg-gray-50 py-16">
