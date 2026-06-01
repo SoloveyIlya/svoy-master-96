@@ -6,6 +6,8 @@ use App\Events\LeadCreated;
 use App\Http\Requests\StoreLeadRequest;
 use App\Models\Lead;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class LeadController extends Controller
 {
@@ -30,6 +32,21 @@ class LeadController extends Controller
         ]);
 
         event(new LeadCreated($lead));
+
+        $text = "🔔 <b>Новая заявка на сайте!</b>\n\n"
+              . "👤 <b>Имя:</b> {$request->name}\n"
+              . "📞 <b>Телефон:</b> {$request->phone}\n"
+              . "💬 <b>Комментарий:</b> " . ($request->comment ?? 'Нет комментария');
+
+        try {
+            Http::post("https://api.telegram.org/bot" . config('services.telegram.bot_token') . "/sendMessage", [
+                'chat_id' => config('services.telegram.chat_id'),
+                'parse_mode' => 'HTML',
+                'text' => $text
+            ]);
+        } catch (\Exception $e) {
+            Log::error("Ошибка отправки в Telegram: " . $e->getMessage());
+        }
 
         if ($request->expectsJson()) {
             return response()->json(['success' => true, 'message' => 'Заявка отправлена!'], 201);

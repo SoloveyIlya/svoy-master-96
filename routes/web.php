@@ -4,6 +4,7 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\DefectController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 // ==========================================
@@ -70,6 +71,7 @@ Route::get('/ceny', [App\Http\Controllers\PriceController::class, 'index'])->nam
 Route::get('/akcii', [PageController::class, 'akcii'])->name('akcii');
 Route::get('/garantiya', [PageController::class, 'garantiya'])->name('garantiya');
 Route::get('/voprosy', [PageController::class, 'faq'])->name('faq');
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 // 1. Страница модели (Категория / Бренд / Модель)
 Route::get('/{categorySlug}/{brandSlug}/{modelSlug}', [CatalogController::class, 'model'])->name('catalog.model');
