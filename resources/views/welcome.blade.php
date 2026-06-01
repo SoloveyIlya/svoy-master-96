@@ -41,12 +41,8 @@
     <section class="max-w-[87.5rem] mx-auto px-4 pt-8 sm:pt-16 pb-12 sm:pb-20 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative overflow-hidden">
         <div class="relative z-10">
             <h1 class="text-3xl sm:text-4xl lg:text-[2.875rem] font-bold leading-[1.2] mb-8 sm:mb-10 text-[#1A1A1A]">
-                @if(isset($seoH1))
-                    {{ $seoH1 }}
-                @else
-                    <span class="text-[#2AC0D5]">Профессиональный ремонт</span><br>
-                    техники - в Екатеринбурге от 450 рублей
-                @endif
+                <span class="text-[#2AC0D5]">Профессиональный ремонт</span><br>
+                техники - в Екатеринбурге от 450 рублей
             </h1>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-8 gap-x-4 mb-12">
